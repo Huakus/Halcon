@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Manager.Models.Insectos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCientifico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreVulgar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ancho)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Largo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estados.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Generos.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCientifico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreVulgar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ancho)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Largo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observaciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estados.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Generos.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdInsecto }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdInsecto }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdInsecto })
+        </td>
+    </tr>
+}
+
+</table>
