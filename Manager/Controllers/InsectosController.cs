@@ -14,7 +14,7 @@ namespace Manager.Controllers
         // GET: Insectos
         public ActionResult Index()
         {
-            return View(db.Estados.ToList());
+            return View(db.Insectos.ToList());
         }
 
         // GET: Insectos/Details/5
@@ -26,6 +26,8 @@ namespace Manager.Controllers
         // GET: Insectos/Create
         public ActionResult Create()
         {
+            ViewData["Generos"] = new SelectList(db.Generos.ToList(), "IdGenero", "Nombre");
+            ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
             return View();
         }
 
@@ -36,6 +38,17 @@ namespace Manager.Controllers
             try
             {
                 // TODO: Add insert logic here
+                Insectos objInsecto = new Insectos();
+                objInsecto.Ancho = int.Parse(collection["Ancho"]);
+                objInsecto.IdEstado = int.Parse(collection["IdEstado"]);
+                objInsecto.IdGenero = int.Parse(collection["IdGenero"]);
+                objInsecto.Largo = int.Parse(collection["Largo"]);
+                objInsecto.NombreCientifico = collection["NombreCientifico"];
+                objInsecto.NombreVulgar = collection["NombreVulgar"];
+                objInsecto.Observaciones = collection["Observaciones"];
+
+                db.Insectos.Add(objInsecto);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -48,7 +61,10 @@ namespace Manager.Controllers
         // GET: Insectos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewData["Generos"] = new SelectList(db.Generos.ToList(), "IdGenero", "Nombre");
+            ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
+            var objInsecto = (from obj in db.Insectos where obj.IdInsecto == id select obj).First();
+            return View(objInsecto);
         }
 
         // POST: Insectos/Edit/5
@@ -58,7 +74,15 @@ namespace Manager.Controllers
             try
             {
                 // TODO: Add update logic here
-
+                var objInsecto = (from obj in db.Insectos where obj.IdInsecto == id select obj).First();
+                objInsecto.Ancho = int.Parse(collection["Ancho"]);
+                objInsecto.IdEstado = int.Parse(collection["IdEstado"]);
+                objInsecto.IdGenero = int.Parse(collection["IdGenero"]);
+                objInsecto.Largo = int.Parse(collection["Largo"]);
+                objInsecto.NombreCientifico = collection["NombreCientifico"];
+                objInsecto.NombreVulgar = collection["NombreVulgar"];
+                objInsecto.Observaciones = collection["Observaciones"];
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -70,7 +94,8 @@ namespace Manager.Controllers
         // GET: Insectos/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var objInsecto = (from obj in db.Insectos where obj.IdInsecto == id select obj).First();
+            return View(objInsecto);
         }
 
         // POST: Insectos/Delete/5
@@ -80,7 +105,9 @@ namespace Manager.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                var objInsecto = (from obj in db.Insectos where obj.IdInsecto == id select obj).First();
+                db.Insectos.Remove(objInsecto);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

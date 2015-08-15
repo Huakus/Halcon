@@ -284,6 +284,9 @@
     <Content Include="Views\Estados\Create.cshtml" />
     <Content Include="Views\Estados\Edit.cshtml" />
     <Content Include="Views\Insectos\Index.cshtml" />
+    <Content Include="Views\Insectos\Create.cshtml" />
+    <Content Include="Views\Insectos\Edit.cshtml" />
+    <Content Include="Views\Insectos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
