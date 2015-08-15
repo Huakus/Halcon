@@ -36,6 +36,12 @@ namespace Manager.Controllers
             try
             {
                 // TODO: Add insert logic here
+                Estados objEstado = new Estados();
+                objEstado.Nombre = collection["Nombre"];
+                objEstado.Descripcion = collection["Descripcion"];
+
+                db.Estados.Add(objEstado);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -48,7 +54,8 @@ namespace Manager.Controllers
         // GET: Estados/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var objEstado = (from obj in db.Estados where obj.IdEstado == id select obj).First();
+            return View(objEstado);
         }
 
         // POST: Estados/Edit/5
@@ -58,7 +65,10 @@ namespace Manager.Controllers
             try
             {
                 // TODO: Add update logic here
-
+                var objEstado = (from obj in db.Estados where obj.IdEstado == id select obj).First();
+                objEstado.Descripcion = collection["Descripcion"].ToString();
+                objEstado.Nombre = collection["Nombre"].ToString();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
