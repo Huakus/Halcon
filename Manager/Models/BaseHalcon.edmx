@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HalconDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Generos">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Insectos">
+          <Key>
+            <PropertyRef Name="IdInsecto" />
+          </Key>
+          <Property Name="IdInsecto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCientifico" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreVulgar" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdGenero" Type="int" Nullable="false" />
+          <Property Name="Ancho" Type="int" />
+          <Property Name="Largo" Type="int" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_Insectos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insectos_Generos">
+          <End Role="Generos" Type="Self.Generos" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generos">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HalconDBModelStoreContainer">
+          <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Generos" EntityType="Self.Generos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insectos" EntityType="Self.Insectos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Insectos_Estados" Association="Self.FK_Insectos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insectos_Generos" Association="Self.FK_Insectos_Generos">
+            <End Role="Generos" EntitySet="Generos" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HalconDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Insectos" Relationship="Self.FK_Insectos_Estados" FromRole="Estados" ToRole="Insectos" />
+        </EntityType>
+        <EntityType Name="Generos">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Insectos" Relationship="Self.FK_Insectos_Generos" FromRole="Generos" ToRole="Insectos" />
+        </EntityType>
+        <EntityType Name="Insectos">
+          <Key>
+            <PropertyRef Name="IdInsecto" />
+          </Key>
+          <Property Name="IdInsecto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCientifico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreVulgar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdGenero" Type="Int32" Nullable="false" />
+          <Property Name="Ancho" Type="Int32" />
+          <Property Name="Largo" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Insectos_Estados" FromRole="Insectos" ToRole="Estados" />
+          <NavigationProperty Name="Generos" Relationship="Self.FK_Insectos_Generos" FromRole="Insectos" ToRole="Generos" />
+        </EntityType>
+        <Association Name="FK_Insectos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insectos_Generos">
+          <End Role="Generos" Type="Self.Generos" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generos">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HalconDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
+          <EntitySet Name="Generos" EntityType="Self.Generos" />
+          <EntitySet Name="Insectos" EntityType="Self.Insectos" />
+          <AssociationSet Name="FK_Insectos_Estados" Association="Self.FK_Insectos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insectos_Generos" Association="Self.FK_Insectos_Generos">
+            <End Role="Generos" EntitySet="Generos" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HalconDBModelStoreContainer" CdmEntityContainer="HalconDBEntities">
+          <EntitySetMapping Name="Estados">
+            <EntityTypeMapping TypeName="HalconDBModel.Estados">
+              <MappingFragment StoreEntitySet="Estados">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Generos">
+            <EntityTypeMapping TypeName="HalconDBModel.Generos">
+              <MappingFragment StoreEntitySet="Generos">
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insectos">
+            <EntityTypeMapping TypeName="HalconDBModel.Insectos">
+              <MappingFragment StoreEntitySet="Insectos">
+                <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
+                <ScalarProperty Name="NombreCientifico" ColumnName="NombreCientifico" />
+                <ScalarProperty Name="NombreVulgar" ColumnName="NombreVulgar" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Ancho" ColumnName="Ancho" />
+                <ScalarProperty Name="Largo" ColumnName="Largo" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
