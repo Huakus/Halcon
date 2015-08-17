@@ -32,5 +32,6 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lecturas> Lecturas { get; set; }
         public virtual Relevamientos Relevamientos { get; set; }
+        public virtual Estados Estados { get; set; }
     }
 }

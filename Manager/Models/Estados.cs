@@ -20,6 +20,9 @@ namespace Manager.Models
             this.Insectos = new HashSet<Insectos>();
             this.Personas = new HashSet<Personas>();
             this.Relevamientos = new HashSet<Relevamientos>();
+            this.Lecturas = new HashSet<Lecturas>();
+            this.Monitoreos = new HashSet<Monitoreos>();
+            this.Trampas = new HashSet<Trampas>();
         }
     
         public int IdEstado { get; set; }
@@ -32,5 +35,11 @@ namespace Manager.Models
         public virtual ICollection<Personas> Personas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Relevamientos> Relevamientos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lecturas> Lecturas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Monitoreos> Monitoreos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Trampas> Trampas { get; set; }
     }
 }

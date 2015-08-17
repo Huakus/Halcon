@@ -24,5 +24,6 @@ namespace Manager.Models
     
         public virtual Insectos Insectos { get; set; }
         public virtual Monitoreos Monitoreos { get; set; }
+        public virtual Estados Estados { get; set; }
     }
 }
