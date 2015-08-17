@@ -5,11 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4a9082013bba4f41a079d1f06128583e" Name="Diagram1">
-        <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Generos" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Insectos" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Generos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Insectos" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="HalconDBModel.FK_Insectos_Estados" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Insectos_Generos" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HalconDBModel.Clientes" Width="1.5" PointX="5.75" PointY="0.875" />
+        <EntityTypeShape EntityType="HalconDBModel.Lecturas" Width="1.5" PointX="9.75" PointY="4.25" />
+        <EntityTypeShape EntityType="HalconDBModel.Monitoreos" Width="1.5" PointX="7.5" PointY="5.25" />
+        <EntityTypeShape EntityType="HalconDBModel.Personas" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="HalconDBModel.Relevamientos" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="HalconDBModel.Trampas" Width="1.5" PointX="3" PointY="10.875" />
+        <AssociationConnector Association="HalconDBModel.FK_Personas_Estados" />
+        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Estados" />
+        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Insectos" />
+        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Monitoreos" />
+        <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Relevamientos" />
+        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Personas" />
+        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Trampas" />
+        <EntityTypeShape EntityType="HalconDBModel.Usuarios" Width="1.5" PointX="7.75" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

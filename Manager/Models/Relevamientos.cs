@@ -12,25 +12,23 @@ namespace Manager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Estados
+    public partial class Relevamientos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Estados()
+        public Relevamientos()
         {
-            this.Insectos = new HashSet<Insectos>();
-            this.Personas = new HashSet<Personas>();
-            this.Relevamientos = new HashSet<Relevamientos>();
+            this.Monitoreos = new HashSet<Monitoreos>();
         }
     
+        public int IdRelevamiento { get; set; }
+        public int IdPersona { get; set; }
         public int IdEstado { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public int IdTrampa { get; set; }
     
+        public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Insectos> Insectos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Personas> Personas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
+        public virtual ICollection<Monitoreos> Monitoreos { get; set; }
+        public virtual Personas Personas { get; set; }
+        public virtual Trampas Trampas { get; set; }
     }
 }

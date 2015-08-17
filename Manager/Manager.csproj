@@ -193,6 +193,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BaseHalcon.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Clientes.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Estados.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
@@ -203,7 +206,25 @@
     <Compile Include="Models\Insectos.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Lecturas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Monitoreos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Personas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Relevamientos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Trampas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuarios.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

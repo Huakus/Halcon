@@ -12,25 +12,25 @@ namespace Manager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Estados
+    public partial class Monitoreos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Estados()
+        public Monitoreos()
         {
-            this.Insectos = new HashSet<Insectos>();
-            this.Personas = new HashSet<Personas>();
-            this.Relevamientos = new HashSet<Relevamientos>();
+            this.Lecturas = new HashSet<Lecturas>();
         }
     
+        public int IdMonitoreo { get; set; }
+        public int IdRelevamiento { get; set; }
+        public int Hora { get; set; }
+        public int Temperatura { get; set; }
+        public int Luz { get; set; }
+        public int Humedad { get; set; }
         public int IdEstado { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string Observaciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Insectos> Insectos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Personas> Personas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
+        public virtual ICollection<Lecturas> Lecturas { get; set; }
+        public virtual Relevamientos Relevamientos { get; set; }
     }
 }

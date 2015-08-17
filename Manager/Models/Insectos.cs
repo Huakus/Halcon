@@ -14,6 +14,12 @@ namespace Manager.Models
     
     public partial class Insectos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Insectos()
+        {
+            this.Lecturas = new HashSet<Lecturas>();
+        }
+    
         public int IdInsecto { get; set; }
         public string NombreCientifico { get; set; }
         public string NombreVulgar { get; set; }
@@ -25,5 +31,7 @@ namespace Manager.Models
     
         public virtual Estados Estados { get; set; }
         public virtual Generos Generos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lecturas> Lecturas { get; set; }
     }
 }
