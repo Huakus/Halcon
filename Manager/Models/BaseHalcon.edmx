@@ -76,7 +76,6 @@
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DNI" Type="bigint" Nullable="false" />
-          <Property Name="Telefono" Type="varchar" MaxLength="50" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Relevamientos">
@@ -87,6 +86,17 @@
           <Property Name="IdPersona" Type="int" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="IdTrampa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefonos">
+          <Key>
+            <PropertyRef Name="IdTelefono" />
+          </Key>
+          <Property Name="IdTelefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoTelefono" Type="int" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Trampas">
           <Key>
@@ -236,6 +246,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Telefonos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Telefonos" Type="Self.Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefonos_Personas">
+          <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+          <End Role="Telefonos" Type="Self.Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Trampas_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
           <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
@@ -257,6 +291,7 @@
           <EntitySet Name="Monitoreos" EntityType="Self.Monitoreos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Relevamientos" EntityType="Self.Relevamientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trampas" EntityType="Self.Trampas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Insectos_Estados" Association="Self.FK_Insectos_Estados">
@@ -303,6 +338,14 @@
             <End Role="Trampas" EntitySet="Trampas" />
             <End Role="Relevamientos" EntitySet="Relevamientos" />
           </AssociationSet>
+          <AssociationSet Name="FK_Telefonos_Estados" Association="Self.FK_Telefonos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefonos_Personas" Association="Self.FK_Telefonos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
           <AssociationSet Name="FK_Trampas_Estados" Association="Self.FK_Trampas_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Trampas" EntitySet="Trampas" />
@@ -325,6 +368,7 @@
           <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Estados" FromRole="Estados" ToRole="Lecturas" />
           <NavigationProperty Name="Monitoreos" Relationship="HalconDBModel.FK_Monitoreos_Estados" FromRole="Estados" ToRole="Monitoreos" />
           <NavigationProperty Name="Trampas" Relationship="HalconDBModel.FK_Trampas_Estados" FromRole="Estados" ToRole="Trampas" />
+          <NavigationProperty Name="Telefonos" Relationship="HalconDBModel.FK_Telefonos_Estados" FromRole="Estados" ToRole="Telefonos" />
         </EntityType>
         <EntityType Name="Generos">
           <Key>
@@ -434,6 +478,15 @@
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Trampas" EntitySet="Trampas" />
           </AssociationSet>
+          <EntitySet Name="Telefonos" EntityType="HalconDBModel.Telefonos" />
+          <AssociationSet Name="FK_Telefonos_Estados" Association="HalconDBModel.FK_Telefonos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefonos_Personas" Association="HalconDBModel.FK_Telefonos_Personas">
+            <End Role="Personas" EntitySet="Personas" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Clientes">
           <Key>
@@ -483,10 +536,10 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DNI" Type="Int64" Nullable="false" />
-          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Personas_Estados" FromRole="Personas" ToRole="Estados" />
           <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Relevamientos_Personas" FromRole="Personas" ToRole="Relevamientos" />
+          <NavigationProperty Name="Telefonos" Relationship="HalconDBModel.FK_Telefonos_Personas" FromRole="Personas" ToRole="Telefonos" />
         </EntityType>
         <EntityType Name="Relevamientos">
           <Key>
@@ -639,6 +692,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Telefonos">
+          <Key>
+            <PropertyRef Name="IdTelefono" />
+          </Key>
+          <Property Name="IdTelefono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoTelefono" Type="Int32" Nullable="false" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Telefonos_Estados" FromRole="Telefonos" ToRole="Estados" />
+          <NavigationProperty Name="Personas" Relationship="HalconDBModel.FK_Telefonos_Personas" FromRole="Telefonos" ToRole="Personas" />
+        </EntityType>
+        <Association Name="FK_Telefonos_Estados">
+          <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
+          <End Type="HalconDBModel.Telefonos" Role="Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefonos_Personas">
+          <End Type="HalconDBModel.Personas" Role="Personas" Multiplicity="1" />
+          <End Type="HalconDBModel.Telefonos" Role="Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personas">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -718,7 +808,6 @@
             <EntityTypeMapping TypeName="HalconDBModel.Personas">
               <MappingFragment StoreEntitySet="Personas">
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="DNI" ColumnName="DNI" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -751,6 +840,18 @@
                 <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefonos">
+            <EntityTypeMapping TypeName="HalconDBModel.Telefonos">
+              <MappingFragment StoreEntitySet="Telefonos">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="IdTipoTelefono" ColumnName="IdTipoTelefono" />
+                <ScalarProperty Name="IdTelefono" ColumnName="IdTelefono" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -23,6 +23,7 @@ namespace Manager.Models
             this.Lecturas = new HashSet<Lecturas>();
             this.Monitoreos = new HashSet<Monitoreos>();
             this.Trampas = new HashSet<Trampas>();
+            this.Telefonos = new HashSet<Telefonos>();
         }
     
         public int IdEstado { get; set; }
@@ -41,5 +42,7 @@ namespace Manager.Models
         public virtual ICollection<Monitoreos> Monitoreos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Trampas> Trampas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Telefonos> Telefonos { get; set; }
     }
 }

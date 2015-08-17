@@ -219,6 +219,9 @@
     <Compile Include="Models\Relevamientos.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Telefonos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Trampas.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
