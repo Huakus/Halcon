@@ -22,6 +22,5 @@ namespace Manager.Models
         public string Observaciones { get; set; }
     
         public virtual Estados Estados { get; set; }
-        public virtual Personas Personas { get; set; }
     }
 }

@@ -18,7 +18,6 @@ namespace Manager.Models
         public Localidades()
         {
             this.Campos = new HashSet<Campos>();
-            this.Personas = new HashSet<Personas>();
         }
     
         public int IdLocalidad { get; set; }
@@ -28,7 +27,5 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Campos> Campos { get; set; }
         public virtual Provincias Provincias { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Personas> Personas { get; set; }
     }
 }

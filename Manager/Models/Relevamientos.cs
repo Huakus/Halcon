@@ -28,7 +28,6 @@ namespace Manager.Models
         public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Monitoreos> Monitoreos { get; set; }
-        public virtual Personas Personas { get; set; }
         public virtual Trampas Trampas { get; set; }
     }
 }

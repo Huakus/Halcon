@@ -30,7 +30,6 @@ namespace Manager.Models
         public virtual DbSet<Insectos> Insectos { get; set; }
         public virtual DbSet<Lecturas> Lecturas { get; set; }
         public virtual DbSet<Monitoreos> Monitoreos { get; set; }
-        public virtual DbSet<Personas> Personas { get; set; }
         public virtual DbSet<Relevamientos> Relevamientos { get; set; }
         public virtual DbSet<Trampas> Trampas { get; set; }
         public virtual DbSet<Telefonos> Telefonos { get; set; }
@@ -38,7 +37,5 @@ namespace Manager.Models
         public virtual DbSet<Localidades> Localidades { get; set; }
         public virtual DbSet<Paises> Paises { get; set; }
         public virtual DbSet<Provincias> Provincias { get; set; }
-        public virtual DbSet<Clientes> Clientes { get; set; }
-        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

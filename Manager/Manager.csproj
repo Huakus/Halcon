@@ -196,9 +196,6 @@
     <Compile Include="Models\Campos.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Clientes.cs">
-      <DependentUpon>BaseHalcon.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Estados.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
@@ -222,9 +219,6 @@
     <Compile Include="Models\Paises.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Personas.cs">
-      <DependentUpon>BaseHalcon.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Provincias.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
@@ -235,9 +229,6 @@
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trampas.cs">
-      <DependentUpon>BaseHalcon.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Usuarios.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

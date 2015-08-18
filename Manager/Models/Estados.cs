@@ -18,7 +18,6 @@ namespace Manager.Models
         public Estados()
         {
             this.Insectos = new HashSet<Insectos>();
-            this.Personas = new HashSet<Personas>();
             this.Relevamientos = new HashSet<Relevamientos>();
             this.Lecturas = new HashSet<Lecturas>();
             this.Monitoreos = new HashSet<Monitoreos>();
@@ -33,8 +32,6 @@ namespace Manager.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Insectos> Insectos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Personas> Personas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Relevamientos> Relevamientos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
