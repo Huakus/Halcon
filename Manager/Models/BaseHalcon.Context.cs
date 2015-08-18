@@ -37,5 +37,7 @@ namespace Manager.Models
         public virtual DbSet<Localidades> Localidades { get; set; }
         public virtual DbSet<Paises> Paises { get; set; }
         public virtual DbSet<Provincias> Provincias { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }
