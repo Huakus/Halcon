@@ -18,9 +18,13 @@
           <Property Name="IdCliente" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar" MaxLength="500" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'HalconDB.dbo.Clientes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="RazonSocial" />
+            <PropertyRef Name="CUIL" />
           </Key>
           <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RazonSocial" Type="varchar" MaxLength="300" Nullable="false" />
@@ -145,9 +149,14 @@
           <Property Name="IdTrampa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'HalconDB.dbo.Usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="NombreUsuario" />
+            <PropertyRef Name="Contraseña" />
+            <PropertyRef Name="IdPerfil" />
           </Key>
           <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
@@ -384,7 +393,6 @@
         </Association>
         <EntityContainer Name="HalconDBModelStoreContainer">
           <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Generos" EntityType="Self.Generos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Insectos" EntityType="Self.Insectos" Schema="dbo" store:Type="Tables" />
@@ -397,7 +405,22 @@
           <EntitySet Name="Relevamientos" EntityType="Self.Relevamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trampas" EntityType="Self.Trampas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Clientes].[IdCliente] AS [IdCliente], 
+    [Clientes].[RazonSocial] AS [RazonSocial], 
+    [Clientes].[CUIL] AS [CUIL], 
+    [Clientes].[DatosComerciales] AS [DatosComerciales]
+    FROM [dbo].[Clientes] AS [Clientes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Usuarios].[IdUsuario] AS [IdUsuario], 
+    [Usuarios].[NombreUsuario] AS [NombreUsuario], 
+    [Usuarios].[Contraseña] AS [Contraseña], 
+    [Usuarios].[IdPerfil] AS [IdPerfil]
+    FROM [dbo].[Usuarios] AS [Usuarios]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Campos_Estados" Association="Self.FK_Campos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Campos" EntitySet="Campos" />
@@ -556,7 +579,6 @@
             <End Role="Generos" EntitySet="Generos" />
             <End Role="Insectos" EntitySet="Insectos" />
           </AssociationSet>
-          <EntitySet Name="Clientes" EntityType="HalconDBModel.Clientes" />
           <EntitySet Name="Lecturas" EntityType="HalconDBModel.Lecturas" />
           <EntitySet Name="Monitoreos" EntityType="HalconDBModel.Monitoreos" />
           <EntitySet Name="Personas" EntityType="HalconDBModel.Personas" />
@@ -590,7 +612,6 @@
             <End Role="Trampas" EntitySet="Trampas" />
             <End Role="Relevamientos" EntitySet="Relevamientos" />
           </AssociationSet>
-          <EntitySet Name="Usuarios" EntityType="HalconDBModel.Usuarios" />
           <AssociationSet Name="FK_Lecturas_Estados" Association="HalconDBModel.FK_Lecturas_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Lecturas" EntitySet="Lecturas" />
@@ -636,16 +657,9 @@
             <End Role="Localidades" EntitySet="Localidades" />
             <End Role="Personas" EntitySet="Personas" />
           </AssociationSet>
+          <EntitySet Name="Clientes" EntityType="HalconDBModel.Clientes" />
+          <EntitySet Name="Usuarios" EntityType="HalconDBModel.Usuarios" />
         </EntityContainer>
-        <EntityType Name="Clientes">
-          <Key>
-            <PropertyRef Name="IdCliente" />
-          </Key>
-          <Property Name="IdCliente" Type="Int32" Nullable="false" />
-          <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CUIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DatosComerciales" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Lecturas">
           <Key>
             <PropertyRef Name="IdLectura" />
@@ -801,15 +815,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Usuarios">
-          <Key>
-            <PropertyRef Name="IdUsuario" />
-          </Key>
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
-        </EntityType>
         <Association Name="FK_Lecturas_Estados">
           <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
           <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
@@ -987,6 +992,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+            <PropertyRef Name="RazonSocial" />
+            <PropertyRef Name="CUIL" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CUIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DatosComerciales" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="NombreUsuario" />
+            <PropertyRef Name="Contraseña" />
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1022,16 +1050,6 @@
                 <ScalarProperty Name="Largo" ColumnName="Largo" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="HalconDBModel.Clientes">
-              <MappingFragment StoreEntitySet="Clientes">
-                <ScalarProperty Name="DatosComerciales" ColumnName="DatosComerciales" />
-                <ScalarProperty Name="CUIL" ColumnName="CUIL" />
-                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1095,16 +1113,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="HalconDBModel.Usuarios">
-              <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
-                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
-                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
-                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Telefonos">
             <EntityTypeMapping TypeName="HalconDBModel.Telefonos">
               <MappingFragment StoreEntitySet="Telefonos">
@@ -1154,6 +1162,26 @@
                 <ScalarProperty Name="IdPais" ColumnName="IdPais" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="HalconDBModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="DatosComerciales" ColumnName="DatosComerciales" />
+                <ScalarProperty Name="CUIL" ColumnName="CUIL" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="HalconDBModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

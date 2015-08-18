@@ -170,7 +170,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CamposController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsectosController.cs" />
@@ -324,8 +323,6 @@
     <Content Include="Views\Insectos\Create.cshtml" />
     <Content Include="Views\Insectos\Edit.cshtml" />
     <Content Include="Views\Insectos\Delete.cshtml" />
-    <Content Include="Views\Campos\Index.cshtml" />
-    <Content Include="Views\Campos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
