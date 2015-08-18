@@ -23,7 +23,6 @@ namespace Manager.Models
         public int IdCliente { get; set; }
         public string Observaciones { get; set; }
     
-        public virtual Clientes Clientes { get; set; }
         public virtual Estados Estados { get; set; }
         public virtual Localidades Localidades { get; set; }
     }

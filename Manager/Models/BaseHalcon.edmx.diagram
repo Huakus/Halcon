@@ -34,7 +34,6 @@
         <EntityTypeShape EntityType="HalconDBModel.Localidades" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HalconDBModel.Paises" Width="1.5" PointX="4.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HalconDBModel.Provincias" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="HalconDBModel.FK_Campos_Clientes" />
         <AssociationConnector Association="HalconDBModel.FK_Campos_Estados" />
         <AssociationConnector Association="HalconDBModel.FK_Campos_Localidades" />
         <AssociationConnector Association="HalconDBModel.FK_Localidades_Provincias" />

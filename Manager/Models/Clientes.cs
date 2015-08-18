@@ -14,18 +14,9 @@ namespace Manager.Models
     
     public partial class Clientes
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clientes()
-        {
-            this.Campos = new HashSet<Campos>();
-        }
-    
         public int IdCliente { get; set; }
         public string RazonSocial { get; set; }
         public string CUIL { get; set; }
         public string DatosComerciales { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Campos> Campos { get; set; }
     }
 }

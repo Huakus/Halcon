@@ -149,23 +149,11 @@
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Contraseña" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdPerfil" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Campos_Clientes">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="IdCliente" />
-            </Principal>
-            <Dependent Role="Campos">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Campos_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
           <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
@@ -410,10 +398,6 @@
           <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trampas" EntityType="Self.Trampas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Campos_Clientes" Association="Self.FK_Campos_Clientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Campos" EntitySet="Campos" />
-          </AssociationSet>
           <AssociationSet Name="FK_Campos_Estados" Association="Self.FK_Campos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Campos" EntitySet="Campos" />
@@ -632,10 +616,6 @@
           <EntitySet Name="Localidades" EntityType="HalconDBModel.Localidades" />
           <EntitySet Name="Paises" EntityType="HalconDBModel.Paises" />
           <EntitySet Name="Provincias" EntityType="HalconDBModel.Provincias" />
-          <AssociationSet Name="FK_Campos_Clientes" Association="HalconDBModel.FK_Campos_Clientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Campos" EntitySet="Campos" />
-          </AssociationSet>
           <AssociationSet Name="FK_Campos_Estados" Association="HalconDBModel.FK_Campos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Campos" EntitySet="Campos" />
@@ -665,7 +645,6 @@
           <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="CUIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DatosComerciales" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Campos" Relationship="HalconDBModel.FK_Campos_Clientes" FromRole="Clientes" ToRole="Campos" />
         </EntityType>
         <EntityType Name="Lecturas">
           <Key>
@@ -916,7 +895,6 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <Property Name="IdCliente" Type="Int32" Nullable="false" />
           <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Clientes" Relationship="HalconDBModel.FK_Campos_Clientes" FromRole="Campos" ToRole="Clientes" />
           <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Campos_Estados" FromRole="Campos" ToRole="Estados" />
           <NavigationProperty Name="Localidades" Relationship="HalconDBModel.FK_Campos_Localidades" FromRole="Campos" ToRole="Localidades" />
         </EntityType>
@@ -949,18 +927,6 @@
           <NavigationProperty Name="Localidades" Relationship="HalconDBModel.FK_Localidades_Provincias" FromRole="Provincias" ToRole="Localidades" />
           <NavigationProperty Name="Paises" Relationship="HalconDBModel.FK_Provincias_Paises" FromRole="Provincias" ToRole="Paises" />
         </EntityType>
-        <Association Name="FK_Campos_Clientes">
-          <End Type="HalconDBModel.Clientes" Role="Clientes" Multiplicity="1" />
-          <End Type="HalconDBModel.Campos" Role="Campos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="IdCliente" />
-            </Principal>
-            <Dependent Role="Campos">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Campos_Estados">
           <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
           <End Type="HalconDBModel.Campos" Role="Campos" Multiplicity="*" />
