@@ -12,20 +12,20 @@ namespace Manager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Clientes
+    public partial class Provincias
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clientes()
+        public Provincias()
         {
-            this.Campos = new HashSet<Campos>();
+            this.Localidades = new HashSet<Localidades>();
         }
     
-        public int IdCliente { get; set; }
-        public string RazonSocial { get; set; }
-        public string CUIL { get; set; }
-        public string DatosComerciales { get; set; }
+        public int IdProvincia { get; set; }
+        public string Nombre { get; set; }
+        public int IdPais { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Campos> Campos { get; set; }
+        public virtual ICollection<Localidades> Localidades { get; set; }
+        public virtual Paises Paises { get; set; }
     }
 }

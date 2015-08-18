@@ -36,5 +36,9 @@ namespace Manager.Models
         public virtual DbSet<Trampas> Trampas { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Telefonos> Telefonos { get; set; }
+        public virtual DbSet<Campos> Campos { get; set; }
+        public virtual DbSet<Localidades> Localidades { get; set; }
+        public virtual DbSet<Paises> Paises { get; set; }
+        public virtual DbSet<Provincias> Provincias { get; set; }
     }
 }

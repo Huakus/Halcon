@@ -12,30 +12,23 @@ namespace Manager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Personas
+    public partial class Localidades
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Personas()
+        public Localidades()
         {
-            this.Relevamientos = new HashSet<Relevamientos>();
-            this.Telefonos = new HashSet<Telefonos>();
+            this.Campos = new HashSet<Campos>();
+            this.Personas = new HashSet<Personas>();
         }
     
-        public int IdPersona { get; set; }
+        public int IdLocalidad { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public long DNI { get; set; }
-        public int IdEstado { get; set; }
-        public string Calle { get; set; }
-        public Nullable<int> Numero { get; set; }
-        public Nullable<int> IdLocalidad { get; set; }
-        public string Observaciones { get; set; }
+        public int IdProvincia { get; set; }
     
-        public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
+        public virtual ICollection<Campos> Campos { get; set; }
+        public virtual Provincias Provincias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Telefonos> Telefonos { get; set; }
-        public virtual Localidades Localidades { get; set; }
+        public virtual ICollection<Personas> Personas { get; set; }
     }
 }

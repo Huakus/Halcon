@@ -12,20 +12,19 @@ namespace Manager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Clientes
+    public partial class Campos
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clientes()
-        {
-            this.Campos = new HashSet<Campos>();
-        }
-    
+        public int IdCampo { get; set; }
+        public string Calle { get; set; }
+        public Nullable<int> Numero { get; set; }
+        public Nullable<int> IdLocalidad { get; set; }
+        public System.Data.Entity.Spatial.DbGeography LatLong { get; set; }
+        public int IdEstado { get; set; }
         public int IdCliente { get; set; }
-        public string RazonSocial { get; set; }
-        public string CUIL { get; set; }
-        public string DatosComerciales { get; set; }
+        public string Observaciones { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Campos> Campos { get; set; }
+        public virtual Clientes Clientes { get; set; }
+        public virtual Estados Estados { get; set; }
+        public virtual Localidades Localidades { get; set; }
     }
 }
