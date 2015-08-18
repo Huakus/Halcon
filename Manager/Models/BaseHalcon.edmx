@@ -18,13 +18,9 @@
           <Property Name="IdCliente" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar" MaxLength="500" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'HalconDB.dbo.Clientes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="IdCliente" />
-            <PropertyRef Name="RazonSocial" />
-            <PropertyRef Name="CUIL" />
           </Key>
           <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RazonSocial" Type="varchar" MaxLength="300" Nullable="false" />
@@ -149,14 +145,9 @@ advertencia 6002: La tabla o vista 'HalconDB.dbo.Clientes' no tiene definida nin
           <Property Name="IdTrampa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'HalconDB.dbo.Usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="IdUsuario" />
-            <PropertyRef Name="NombreUsuario" />
-            <PropertyRef Name="Contraseña" />
-            <PropertyRef Name="IdPerfil" />
           </Key>
           <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
@@ -393,6 +384,7 @@ advertencia 6002: La tabla o vista 'HalconDB.dbo.Usuarios' no tiene definida nin
         </Association>
         <EntityContainer Name="HalconDBModelStoreContainer">
           <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Generos" EntityType="Self.Generos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Insectos" EntityType="Self.Insectos" Schema="dbo" store:Type="Tables" />
@@ -405,22 +397,7 @@ advertencia 6002: La tabla o vista 'HalconDB.dbo.Usuarios' no tiene definida nin
           <EntitySet Name="Relevamientos" EntityType="Self.Relevamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trampas" EntityType="Self.Trampas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Clientes" EntityType="Self.Clientes" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Clientes].[IdCliente] AS [IdCliente], 
-    [Clientes].[RazonSocial] AS [RazonSocial], 
-    [Clientes].[CUIL] AS [CUIL], 
-    [Clientes].[DatosComerciales] AS [DatosComerciales]
-    FROM [dbo].[Clientes] AS [Clientes]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Usuarios].[IdUsuario] AS [IdUsuario], 
-    [Usuarios].[NombreUsuario] AS [NombreUsuario], 
-    [Usuarios].[Contraseña] AS [Contraseña], 
-    [Usuarios].[IdPerfil] AS [IdPerfil]
-    FROM [dbo].[Usuarios] AS [Usuarios]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Campos_Estados" Association="Self.FK_Campos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Campos" EntitySet="Campos" />
@@ -995,8 +972,6 @@ advertencia 6002: La tabla o vista 'HalconDB.dbo.Usuarios' no tiene definida nin
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="IdCliente" />
-            <PropertyRef Name="RazonSocial" />
-            <PropertyRef Name="CUIL" />
           </Key>
           <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -1006,9 +981,6 @@ advertencia 6002: La tabla o vista 'HalconDB.dbo.Usuarios' no tiene definida nin
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="IdUsuario" />
-            <PropertyRef Name="NombreUsuario" />
-            <PropertyRef Name="Contraseña" />
-            <PropertyRef Name="IdPerfil" />
           </Key>
           <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
