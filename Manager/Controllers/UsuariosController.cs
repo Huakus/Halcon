@@ -106,6 +106,7 @@ namespace Manager.Controllers
                 // TODO: Add delete logic here
                 var objUsuario = (from obj in db.Usuarios where obj.IdUsuario == id select obj).First();
                 db.Usuarios.Remove(objUsuario);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
