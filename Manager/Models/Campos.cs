@@ -25,5 +25,6 @@ namespace Manager.Models
     
         public virtual Estados Estados { get; set; }
         public virtual Localidades Localidades { get; set; }
+        public virtual Clientes Clientes { get; set; }
     }
 }

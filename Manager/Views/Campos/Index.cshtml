@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Manager.Models.Campos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Calle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Numero)
+        </th>
+        <th>
+            Latitud        
+            @*@Html.DisplayNameFor(model => model.LatLong)*@
+        </th>
+        <th>
+            Longitud
+            @*@Html.DisplayNameFor(model => model.LatLong)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estados.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Localidades.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LatLong.Latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LatLong.Longitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observaciones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estados.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Localidades.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdCampo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdCampo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCampo })
+        </td>
+    </tr>
+}
+
+</table>

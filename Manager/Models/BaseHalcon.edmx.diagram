@@ -36,6 +36,7 @@
         <EntityTypeShape EntityType="HalconDBModel.Usuarios" Width="1.5" PointX="3" PointY="27.375" />
         <AssociationConnector Association="HalconDBModel.FK_Clientes_Estados" />
         <AssociationConnector Association="HalconDBModel.FK_Usuarios_Estados" />
+        <AssociationConnector Association="HalconDBModel.FK_Campos_Clientes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

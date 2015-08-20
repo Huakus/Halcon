@@ -14,6 +14,12 @@ namespace Manager.Models
     
     public partial class Clientes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Clientes()
+        {
+            this.Campos = new HashSet<Campos>();
+        }
+    
         public int IdCliente { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -23,5 +29,7 @@ namespace Manager.Models
         public string Observaciones { get; set; }
     
         public virtual Estados Estados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Campos> Campos { get; set; }
     }
 }
