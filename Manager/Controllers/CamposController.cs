@@ -11,9 +11,14 @@ namespace Manager.Controllers
     public class CamposController : Controller
     {
         HalconDBEntities db = new HalconDBEntities();
+        double Latitud = 0;
+        double Longitud = 0;
+
         // GET: Campos
         public ActionResult Index()
         {
+            Latitud = 0;
+            Longitud = 0;
             return View(db.Campos.ToList());
         }
 
@@ -62,6 +67,11 @@ namespace Manager.Controllers
         // GET: Campos/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewData["Clientes"] = new SelectList(db.Clientes.ToList(), "IdCliente", "Nombre");
+            ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
+            ViewData["Localidades"] = new SelectList(db.Localidades.ToList(), "IdLocalidad", "Nombre");
+            ViewBag.Latitud = Latitud;
+            ViewBag.Longitud = Longitud;
             var objCampo = (from obj in db.Campos where obj.IdCampo == id select obj).First();
             return View(objCampo);
         }

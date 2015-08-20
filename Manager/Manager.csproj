@@ -334,6 +334,7 @@
     <Content Include="Views\Campos\Index.cshtml" />
     <Content Include="Views\Campos\Create.cshtml" />
     <Content Include="Views\Campos\Details.cshtml" />
+    <Content Include="Views\Campos\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
