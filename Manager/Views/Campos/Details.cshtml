@@ -15,21 +15,16 @@
         $(document).ready(function(){
             map = new GMaps({
                 div: '#mapa',
-                lat: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
-                lng: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
-                click: function(e) {
-                    map.addMarker({
-                        lat: e.latLng.lat(),
-                        lng: e.latLng.lng()
-                    }),
-                    @Model.LatLong.Latitude = e.latLng.lat(),
-                    @Model.LatLong.Longitude = e.latLng.lng(),
-                    alert(@Model.LatLong)
-                }
+                lat: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
+                lng: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
+
+            });
+
+            map.addMarker({
+                lat: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
+                lng: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
             });
         });
-
-
     </script>
 
 </head>
@@ -58,22 +53,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Numero)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LatLong.Latitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LatLong.Latitude)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LatLong.Longitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LatLong.Longitude)
         </dd>
 
         <dt>
