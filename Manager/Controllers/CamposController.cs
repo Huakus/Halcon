@@ -88,7 +88,7 @@ namespace Manager.Controllers
                 objCampo.IdCliente = int.Parse(collection["IdCliente"]);
                 objCampo.IdEstado = int.Parse(collection["IdEstado"]);
                 objCampo.IdLocalidad = int.Parse(collection["IdLocalidad"]);
-                objCampo.LatLong = DbGeography.FromText(string.Format("POINT({0} {1})", collection["Longitud"], collection["Latitud"]));
+                objCampo.LatLong = DbGeography.FromText(string.Format("POINT({0} {1})", collection["LatLong.Longitude"], collection["LatLong.Latitude"]));
                 objCampo.Numero = int.Parse(collection["Numero"]);
                 objCampo.Observaciones = collection["Observaciones"];
                 db.SaveChanges();
@@ -110,6 +110,21 @@ namespace Manager.Controllers
         // POST: Campos/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                var objCampo = (from obj in db.Campos where obj.IdCampo == id select obj).First();
+                db.Campos.Remove(objCampo);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult ActualizarMapa(int id, FormCollection collection)
         {
             try
             {

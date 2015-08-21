@@ -16,22 +16,32 @@
         $(document).ready(function(){
             map = new GMaps({
                 div: '#mapa',
-                lat: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
-                lng: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
-                click: function(e) {
-                    map.addMarker({
-                        @ViewBag.Latitud = e.latLng.lat(),
-                        @ViewBag.Longitud = e.latLng.lng(),
-                        @Html.Action("Edit"),
-                        //lat: e.latLng.lat(),
-                        //lng: e.latLng.lng()
-                    })
-                }
+                lat: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
+                lng: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
+
             });
+
             map.addMarker({
-                lat: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
-                lng: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
-            })
+                lat: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
+                lng: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
+            });
+
+            GMaps.on('click', map.map, function(event) {
+                var index = map.markers.length;
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+
+                map.removeMarkers(map.markers);
+
+                map.addMarker({
+                    lat: lat,
+                    lng: lng,
+                    title: 'Marker #' + index
+                });
+
+                $("#LatLong_Latitude").val(lat);
+                $("#LatLong_Longitude").val(lng);
+            });
         });
 
 
@@ -77,7 +87,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group hidden">
             @Html.LabelFor(model => model.LatLong.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LatLong.Latitude, new { htmlAttributes = new { @class = "form-control" } })
@@ -85,7 +95,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group hidden">
             @Html.LabelFor(model => model.LatLong.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LatLong.Longitude, new { htmlAttributes = new { @class = "form-control" } })
@@ -119,7 +129,7 @@
 
         <div class="form-group">
             @Html.Label("Mapa", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div id="mapa" style="height:500px;width:500px" class="col-md-10">
+            <div id="mapa" style="height:500px;width:100%" class="col-md-10">
             </div>
         </div>
 
