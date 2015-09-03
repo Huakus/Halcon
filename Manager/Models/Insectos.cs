@@ -28,6 +28,8 @@ namespace Manager.Models
         public Nullable<int> Largo { get; set; }
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
+        public Nullable<double> FrecuenciaMin { get; set; }
+        public Nullable<double> FrecuenciaMax { get; set; }
     
         public virtual Estados Estados { get; set; }
         public virtual Generos Generos { get; set; }

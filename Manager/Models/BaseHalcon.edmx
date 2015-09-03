@@ -56,6 +56,8 @@
           <Property Name="IdGenero" Type="int" Nullable="false" />
           <Property Name="Ancho" Type="int" />
           <Property Name="Largo" Type="int" />
+          <Property Name="FrecuenciaMin" Type="float" />
+          <Property Name="FrecuenciaMax" Type="float" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar" MaxLength="500" />
         </EntityType>
@@ -498,6 +500,8 @@
           <NavigationProperty Name="Estados" Relationship="Self.FK_Insectos_Estados" FromRole="Insectos" ToRole="Estados" />
           <NavigationProperty Name="Generos" Relationship="Self.FK_Insectos_Generos" FromRole="Insectos" ToRole="Generos" />
           <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Insectos" FromRole="Insectos" ToRole="Lecturas" />
+          <Property Name="FrecuenciaMin" Type="Double" />
+          <Property Name="FrecuenciaMax" Type="Double" />
         </EntityType>
         <Association Name="FK_Insectos_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
@@ -968,6 +972,8 @@
           <EntitySetMapping Name="Insectos">
             <EntityTypeMapping TypeName="HalconDBModel.Insectos">
               <MappingFragment StoreEntitySet="Insectos">
+                <ScalarProperty Name="FrecuenciaMax" ColumnName="FrecuenciaMax" />
+                <ScalarProperty Name="FrecuenciaMin" ColumnName="FrecuenciaMin" />
                 <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
                 <ScalarProperty Name="NombreCientifico" ColumnName="NombreCientifico" />
                 <ScalarProperty Name="NombreVulgar" ColumnName="NombreVulgar" />
