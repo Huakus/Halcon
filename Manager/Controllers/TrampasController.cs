@@ -1,0 +1,107 @@
+﻿using Manager.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Manager.Controllers
+{
+    public class TrampasController : Controller
+    {
+        HalconDBEntities db = new HalconDBEntities();
+        // GET: Trampas
+        public ActionResult Index()
+        {
+            return View(db.Trampas.ToList());
+        }
+
+        // GET: Trampas/Details/5
+        public ActionResult Details(int id)
+        {
+            var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
+            return View(objTrampa);
+        }
+
+        // GET: Trampas/Create
+        public ActionResult Create()
+        {
+            ViewData["Campos"] = new SelectList(db.Campos.ToList(), "IdCampo", "Calle");
+            ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
+            return View();
+        }
+
+        // POST: Trampas/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                Trampas objTrampa = new Trampas();
+                objTrampa.IdCampo = int.Parse(collection["IdCampo"]);
+                objTrampa.IdEstado = int.Parse(collection["IdEstado"]);
+                db.Trampas.Add(objTrampa);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Trampas/Edit/5
+        public ActionResult Edit(int id)
+        {
+            ViewData["Campos"] = new SelectList(db.Campos.ToList(), "IdCampo", "Nombre");
+            ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
+            var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
+            return View(objTrampa);
+        }
+
+        // POST: Trampas/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+                var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
+                objTrampa.IdCampo = int.Parse(collection["IdCampo"]);
+                objTrampa.IdEstado = int.Parse(collection["IdEstado"]);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Trampas/Delete/5
+        public ActionResult Delete(int id)
+        {
+            var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
+            return View(objTrampa);
+        }
+
+        // POST: Trampas/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
+                db.Trampas.Remove(objTrampa);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}

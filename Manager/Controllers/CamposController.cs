@@ -116,21 +116,7 @@ namespace Manager.Controllers
                 // TODO: Add delete logic here
                 var objCampo = (from obj in db.Campos where obj.IdCampo == id select obj).First();
                 db.Campos.Remove(objCampo);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult ActualizarMapa(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                var objCampo = (from obj in db.Campos where obj.IdCampo == id select obj).First();
-                db.Campos.Remove(objCampo);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

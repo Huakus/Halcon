@@ -14,6 +14,12 @@ namespace Manager.Models
     
     public partial class Campos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Campos()
+        {
+            this.Trampas = new HashSet<Trampas>();
+        }
+    
         public int IdCampo { get; set; }
         public string Calle { get; set; }
         public Nullable<int> Numero { get; set; }
@@ -26,5 +32,7 @@ namespace Manager.Models
         public virtual Estados Estados { get; set; }
         public virtual Localidades Localidades { get; set; }
         public virtual Clientes Clientes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Trampas> Trampas { get; set; }
     }
 }

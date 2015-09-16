@@ -1,0 +1,35 @@
+﻿@model Manager.Models.Trampas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trampas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Estados.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estados.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Campos.Calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Campos.Calle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTrampa }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

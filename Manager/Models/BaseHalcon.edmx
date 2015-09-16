@@ -66,9 +66,10 @@
             <PropertyRef Name="IdLectura" />
           </Key>
           <Property Name="IdLectura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdMonitoreo" Type="int" Nullable="false" />
-          <Property Name="Frecuencia" Type="int" Nullable="false" />
-          <Property Name="Volumen" Type="int" Nullable="false" />
+          <Property Name="IdRelevamiento" Type="int" Nullable="false" />
+          <Property Name="FechaLectura" Type="datetime" Nullable="false" />
+          <Property Name="Frecuencia" Type="float" Nullable="false" />
+          <Property Name="Aleteos" Type="int" Nullable="false" />
           <Property Name="IdInsecto" Type="int" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar" MaxLength="500" />
@@ -87,10 +88,11 @@
           </Key>
           <Property Name="IdMonitoreo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdRelevamiento" Type="int" Nullable="false" />
-          <Property Name="Hora" Type="int" Nullable="false" />
-          <Property Name="Temperatura" Type="int" Nullable="false" />
-          <Property Name="Luz" Type="int" Nullable="false" />
-          <Property Name="Humedad" Type="int" Nullable="false" />
+          <Property Name="FechaMonitoreo" Type="datetime" Nullable="false" />
+          <Property Name="Temperatura" Type="float" Nullable="false" />
+          <Property Name="Luz" Type="float" Nullable="false" />
+          <Property Name="Humedad" Type="float" Nullable="false" />
+          <Property Name="Bateria" Type="float" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar" MaxLength="500" />
         </EntityType>
@@ -114,9 +116,11 @@
             <PropertyRef Name="IdRelevamiento" />
           </Key>
           <Property Name="IdRelevamiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdPersona" Type="int" Nullable="false" />
-          <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="IdTrampa" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="FechaFinal" Type="datetime" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar(max)" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Telefonos">
           <Key>
@@ -134,6 +138,7 @@
             <PropertyRef Name="IdTrampa" />
           </Key>
           <Property Name="IdTrampa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCampo" Type="int" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
@@ -247,15 +252,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lecturas_Monitoreos">
-          <End Role="Monitoreos" Type="Self.Monitoreos" Multiplicity="1" />
+        <Association Name="FK_Lecturas_Relevamientos">
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="1" />
           <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Monitoreos">
-              <PropertyRef Name="IdMonitoreo" />
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
             </Principal>
             <Dependent Role="Lecturas">
-              <PropertyRef Name="IdMonitoreo" />
+              <PropertyRef Name="IdRelevamiento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -343,6 +348,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Trampas_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="IdCampo" />
+            </Principal>
+            <Dependent Role="Trampas">
+              <PropertyRef Name="IdCampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Trampas_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
           <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
@@ -414,8 +431,8 @@
             <End Role="Insectos" EntitySet="Insectos" />
             <End Role="Lecturas" EntitySet="Lecturas" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lecturas_Monitoreos" Association="Self.FK_Lecturas_Monitoreos">
-            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          <AssociationSet Name="FK_Lecturas_Relevamientos" Association="Self.FK_Lecturas_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
             <End Role="Lecturas" EntitySet="Lecturas" />
           </AssociationSet>
           <AssociationSet Name="FK_Localidades_Provincias" Association="Self.FK_Localidades_Provincias">
@@ -446,6 +463,10 @@
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Telefonos" EntitySet="Telefonos" />
           </AssociationSet>
+          <AssociationSet Name="FK_Trampas_Campos" Association="Self.FK_Trampas_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Trampas" EntitySet="Trampas" />
+          </AssociationSet>
           <AssociationSet Name="FK_Trampas_Estados" Association="Self.FK_Trampas_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Trampas" EntitySet="Trampas" />
@@ -468,13 +489,13 @@
           <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Insectos" Relationship="Self.FK_Insectos_Estados" FromRole="Estados" ToRole="Insectos" />
           <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Relevamientos_Estados" FromRole="Estados" ToRole="Relevamientos" />
-          <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Estados" FromRole="Estados" ToRole="Lecturas" />
-          <NavigationProperty Name="Monitoreos" Relationship="HalconDBModel.FK_Monitoreos_Estados" FromRole="Estados" ToRole="Monitoreos" />
           <NavigationProperty Name="Trampas" Relationship="HalconDBModel.FK_Trampas_Estados" FromRole="Estados" ToRole="Trampas" />
           <NavigationProperty Name="Telefonos" Relationship="HalconDBModel.FK_Telefonos_Estados" FromRole="Estados" ToRole="Telefonos" />
           <NavigationProperty Name="Campos" Relationship="HalconDBModel.FK_Campos_Estados" FromRole="Estados" ToRole="Campos" />
           <NavigationProperty Name="Clientes" Relationship="HalconDBModel.FK_Clientes_Estados" FromRole="Estados" ToRole="Clientes" />
           <NavigationProperty Name="Usuarios" Relationship="HalconDBModel.FK_Usuarios_Estados" FromRole="Estados" ToRole="Usuarios" />
+          <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Estados" FromRole="Estados" ToRole="Lecturas" />
+          <NavigationProperty Name="Monitoreos" Relationship="HalconDBModel.FK_Monitoreos_Estados" FromRole="Estados" ToRole="Monitoreos" />
         </EntityType>
         <EntityType Name="Generos">
           <Key>
@@ -499,9 +520,9 @@
           <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Estados" Relationship="Self.FK_Insectos_Estados" FromRole="Insectos" ToRole="Estados" />
           <NavigationProperty Name="Generos" Relationship="Self.FK_Insectos_Generos" FromRole="Insectos" ToRole="Generos" />
-          <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Insectos" FromRole="Insectos" ToRole="Lecturas" />
           <Property Name="FrecuenciaMin" Type="Double" />
           <Property Name="FrecuenciaMax" Type="Double" />
+          <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Insectos" FromRole="Insectos" ToRole="Lecturas" />
         </EntityType>
         <Association Name="FK_Insectos_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
@@ -539,37 +560,15 @@
             <End Role="Generos" EntitySet="Generos" />
             <End Role="Insectos" EntitySet="Insectos" />
           </AssociationSet>
-          <EntitySet Name="Lecturas" EntityType="HalconDBModel.Lecturas" />
-          <EntitySet Name="Monitoreos" EntityType="HalconDBModel.Monitoreos" />
           <EntitySet Name="Relevamientos" EntityType="HalconDBModel.Relevamientos" />
           <EntitySet Name="Trampas" EntityType="HalconDBModel.Trampas" />
           <AssociationSet Name="FK_Relevamientos_Estados" Association="HalconDBModel.FK_Relevamientos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Relevamientos" EntitySet="Relevamientos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Lecturas_Insectos" Association="HalconDBModel.FK_Lecturas_Insectos">
-            <End Role="Insectos" EntitySet="Insectos" />
-            <End Role="Lecturas" EntitySet="Lecturas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lecturas_Monitoreos" Association="HalconDBModel.FK_Lecturas_Monitoreos">
-            <End Role="Monitoreos" EntitySet="Monitoreos" />
-            <End Role="Lecturas" EntitySet="Lecturas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Monitoreos_Relevamientos" Association="HalconDBModel.FK_Monitoreos_Relevamientos">
-            <End Role="Relevamientos" EntitySet="Relevamientos" />
-            <End Role="Monitoreos" EntitySet="Monitoreos" />
-          </AssociationSet>
           <AssociationSet Name="FK_Relevamientos_Trampas" Association="HalconDBModel.FK_Relevamientos_Trampas">
             <End Role="Trampas" EntitySet="Trampas" />
             <End Role="Relevamientos" EntitySet="Relevamientos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lecturas_Estados" Association="HalconDBModel.FK_Lecturas_Estados">
-            <End Role="Estados" EntitySet="Estados" />
-            <End Role="Lecturas" EntitySet="Lecturas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Monitoreos_Estados" Association="HalconDBModel.FK_Monitoreos_Estados">
-            <End Role="Estados" EntitySet="Estados" />
-            <End Role="Monitoreos" EntitySet="Monitoreos" />
           </AssociationSet>
           <AssociationSet Name="FK_Trampas_Estados" Association="HalconDBModel.FK_Trampas_Estados">
             <End Role="Estados" EntitySet="Estados" />
@@ -614,49 +613,47 @@
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Campos" EntitySet="Campos" />
           </AssociationSet>
+          <AssociationSet Name="FK_Trampas_Campos" Association="HalconDBModel.FK_Trampas_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Trampas" EntitySet="Trampas" />
+          </AssociationSet>
+          <EntitySet Name="Lecturas" EntityType="HalconDBModel.Lecturas" />
+          <AssociationSet Name="FK_Lecturas_Estados" Association="HalconDBModel.FK_Lecturas_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Insectos" Association="HalconDBModel.FK_Lecturas_Insectos">
+            <End Role="Insectos" EntitySet="Insectos" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Relevamientos" Association="HalconDBModel.FK_Lecturas_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <EntitySet Name="Monitoreos" EntityType="HalconDBModel.Monitoreos" />
+          <AssociationSet Name="FK_Monitoreos_Estados" Association="HalconDBModel.FK_Monitoreos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitoreos_Relevamientos" Association="HalconDBModel.FK_Monitoreos_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Lecturas">
-          <Key>
-            <PropertyRef Name="IdLectura" />
-          </Key>
-          <Property Name="IdLectura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdMonitoreo" Type="Int32" Nullable="false" />
-          <Property Name="Frecuencia" Type="Int32" Nullable="false" />
-          <Property Name="Volumen" Type="Int32" Nullable="false" />
-          <Property Name="IdInsecto" Type="Int32" />
-          <Property Name="IdEstado" Type="Int32" Nullable="false" />
-          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Insectos" Relationship="HalconDBModel.FK_Lecturas_Insectos" FromRole="Lecturas" ToRole="Insectos" />
-          <NavigationProperty Name="Monitoreos" Relationship="HalconDBModel.FK_Lecturas_Monitoreos" FromRole="Lecturas" ToRole="Monitoreos" />
-          <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Lecturas_Estados" FromRole="Lecturas" ToRole="Estados" />
-        </EntityType>
-        <EntityType Name="Monitoreos">
-          <Key>
-            <PropertyRef Name="IdMonitoreo" />
-          </Key>
-          <Property Name="IdMonitoreo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdRelevamiento" Type="Int32" Nullable="false" />
-          <Property Name="Hora" Type="Int32" Nullable="false" />
-          <Property Name="Temperatura" Type="Int32" Nullable="false" />
-          <Property Name="Luz" Type="Int32" Nullable="false" />
-          <Property Name="Humedad" Type="Int32" Nullable="false" />
-          <Property Name="IdEstado" Type="Int32" Nullable="false" />
-          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Monitoreos" FromRole="Monitoreos" ToRole="Lecturas" />
-          <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Monitoreos_Relevamientos" FromRole="Monitoreos" ToRole="Relevamientos" />
-          <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Monitoreos_Estados" FromRole="Monitoreos" ToRole="Estados" />
-        </EntityType>
         <EntityType Name="Relevamientos">
           <Key>
             <PropertyRef Name="IdRelevamiento" />
           </Key>
           <Property Name="IdRelevamiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdPersona" Type="Int32" Nullable="false" />
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <Property Name="IdTrampa" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Relevamientos_Estados" FromRole="Relevamientos" ToRole="Estados" />
-          <NavigationProperty Name="Monitoreos" Relationship="HalconDBModel.FK_Monitoreos_Relevamientos" FromRole="Relevamientos" ToRole="Monitoreos" />
           <NavigationProperty Name="Trampas" Relationship="HalconDBModel.FK_Relevamientos_Trampas" FromRole="Relevamientos" ToRole="Trampas" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFinal" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Lecturas" Relationship="HalconDBModel.FK_Lecturas_Relevamientos" FromRole="Relevamientos" ToRole="Lecturas" />
+          <NavigationProperty Name="Monitoreos" Relationship="HalconDBModel.FK_Monitoreos_Relevamientos" FromRole="Relevamientos" ToRole="Monitoreos" />
         </EntityType>
         <EntityType Name="Trampas">
           <Key>
@@ -666,6 +663,8 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Relevamientos_Trampas" FromRole="Trampas" ToRole="Relevamientos" />
           <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Trampas_Estados" FromRole="Trampas" ToRole="Estados" />
+          <Property Name="IdCampo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="HalconDBModel.FK_Trampas_Campos" FromRole="Trampas" ToRole="Campos" />
         </EntityType>
         <Association Name="FK_Relevamientos_Estados">
           <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
@@ -679,42 +678,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Lecturas_Insectos">
-          <End Type="HalconDBModel.Insectos" Role="Insectos" Multiplicity="0..1" />
-          <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Insectos">
-              <PropertyRef Name="IdInsecto" />
-            </Principal>
-            <Dependent Role="Lecturas">
-              <PropertyRef Name="IdInsecto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lecturas_Monitoreos">
-          <End Type="HalconDBModel.Monitoreos" Role="Monitoreos" Multiplicity="1" />
-          <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Monitoreos">
-              <PropertyRef Name="IdMonitoreo" />
-            </Principal>
-            <Dependent Role="Lecturas">
-              <PropertyRef Name="IdMonitoreo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Monitoreos_Relevamientos">
-          <End Type="HalconDBModel.Relevamientos" Role="Relevamientos" Multiplicity="1" />
-          <End Type="HalconDBModel.Monitoreos" Role="Monitoreos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Relevamientos">
-              <PropertyRef Name="IdRelevamiento" />
-            </Principal>
-            <Dependent Role="Monitoreos">
-              <PropertyRef Name="IdRelevamiento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Relevamientos_Trampas">
           <End Type="HalconDBModel.Trampas" Role="Trampas" Multiplicity="1" />
           <End Type="HalconDBModel.Relevamientos" Role="Relevamientos" Multiplicity="*" />
@@ -724,30 +687,6 @@
             </Principal>
             <Dependent Role="Relevamientos">
               <PropertyRef Name="IdTrampa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lecturas_Estados">
-          <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
-          <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estados">
-              <PropertyRef Name="IdEstado" />
-            </Principal>
-            <Dependent Role="Lecturas">
-              <PropertyRef Name="IdEstado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Monitoreos_Estados">
-          <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
-          <End Type="HalconDBModel.Monitoreos" Role="Monitoreos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estados">
-              <PropertyRef Name="IdEstado" />
-            </Principal>
-            <Dependent Role="Monitoreos">
-              <PropertyRef Name="IdEstado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -802,6 +741,7 @@
           <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Campos_Estados" FromRole="Campos" ToRole="Estados" />
           <NavigationProperty Name="Localidades" Relationship="HalconDBModel.FK_Campos_Localidades" FromRole="Campos" ToRole="Localidades" />
           <NavigationProperty Name="Clientes" Relationship="HalconDBModel.FK_Campos_Clientes" FromRole="Campos" ToRole="Clientes" />
+          <NavigationProperty Name="Trampas" Relationship="HalconDBModel.FK_Trampas_Campos" FromRole="Campos" ToRole="Trampas" />
         </EntityType>
         <EntityType Name="Localidades">
           <Key>
@@ -945,6 +885,110 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Trampas_Campos">
+          <End Type="HalconDBModel.Campos" Role="Campos" Multiplicity="1" />
+          <End Type="HalconDBModel.Trampas" Role="Trampas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="IdCampo" />
+            </Principal>
+            <Dependent Role="Trampas">
+              <PropertyRef Name="IdCampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Lecturas">
+          <Key>
+            <PropertyRef Name="IdLectura" />
+          </Key>
+          <Property Name="IdLectura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRelevamiento" Type="Int32" Nullable="false" />
+          <Property Name="FechaLectura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Frecuencia" Type="Double" Nullable="false" />
+          <Property Name="Aleteos" Type="Int32" Nullable="false" />
+          <Property Name="IdInsecto" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Lecturas_Estados" FromRole="Lecturas" ToRole="Estados" />
+          <NavigationProperty Name="Insectos" Relationship="HalconDBModel.FK_Lecturas_Insectos" FromRole="Lecturas" ToRole="Insectos" />
+          <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Lecturas_Relevamientos" FromRole="Lecturas" ToRole="Relevamientos" />
+        </EntityType>
+        <Association Name="FK_Lecturas_Estados">
+          <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
+          <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Insectos">
+          <End Type="HalconDBModel.Insectos" Role="Insectos" Multiplicity="0..1" />
+          <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insectos">
+              <PropertyRef Name="IdInsecto" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdInsecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Relevamientos">
+          <End Type="HalconDBModel.Relevamientos" Role="Relevamientos" Multiplicity="1" />
+          <End Type="HalconDBModel.Lecturas" Role="Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdRelevamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Monitoreos">
+          <Key>
+            <PropertyRef Name="IdMonitoreo" />
+          </Key>
+          <Property Name="IdMonitoreo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRelevamiento" Type="Int32" Nullable="false" />
+          <Property Name="FechaMonitoreo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Temperatura" Type="Double" Nullable="false" />
+          <Property Name="Luz" Type="Double" Nullable="false" />
+          <Property Name="Humedad" Type="Double" Nullable="false" />
+          <Property Name="Bateria" Type="Double" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Monitoreos_Estados" FromRole="Monitoreos" ToRole="Estados" />
+          <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Monitoreos_Relevamientos" FromRole="Monitoreos" ToRole="Relevamientos" />
+        </EntityType>
+        <Association Name="FK_Monitoreos_Estados">
+          <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
+          <End Type="HalconDBModel.Monitoreos" Role="Monitoreos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Monitoreos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitoreos_Relevamientos">
+          <End Type="HalconDBModel.Relevamientos" Role="Relevamientos" Multiplicity="1" />
+          <End Type="HalconDBModel.Monitoreos" Role="Monitoreos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Principal>
+            <Dependent Role="Monitoreos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -985,39 +1029,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Lecturas">
-            <EntityTypeMapping TypeName="HalconDBModel.Lecturas">
-              <MappingFragment StoreEntitySet="Lecturas">
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
-                <ScalarProperty Name="Volumen" ColumnName="Volumen" />
-                <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
-                <ScalarProperty Name="IdMonitoreo" ColumnName="IdMonitoreo" />
-                <ScalarProperty Name="IdLectura" ColumnName="IdLectura" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Monitoreos">
-            <EntityTypeMapping TypeName="HalconDBModel.Monitoreos">
-              <MappingFragment StoreEntitySet="Monitoreos">
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="Humedad" ColumnName="Humedad" />
-                <ScalarProperty Name="Luz" ColumnName="Luz" />
-                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
-                <ScalarProperty Name="Hora" ColumnName="Hora" />
-                <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
-                <ScalarProperty Name="IdMonitoreo" ColumnName="IdMonitoreo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Relevamientos">
             <EntityTypeMapping TypeName="HalconDBModel.Relevamientos">
               <MappingFragment StoreEntitySet="Relevamientos">
+                <ScalarProperty Name="FechaFinal" ColumnName="FechaFinal" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
                 <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
                 <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1025,6 +1044,7 @@
           <EntitySetMapping Name="Trampas">
             <EntityTypeMapping TypeName="HalconDBModel.Trampas">
               <MappingFragment StoreEntitySet="Trampas">
+                <ScalarProperty Name="IdCampo" ColumnName="IdCampo" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
               </MappingFragment>
@@ -1108,6 +1128,35 @@
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturas">
+            <EntityTypeMapping TypeName="HalconDBModel.Lecturas">
+              <MappingFragment StoreEntitySet="Lecturas">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
+                <ScalarProperty Name="Aleteos" ColumnName="Aleteos" />
+                <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+                <ScalarProperty Name="FechaLectura" ColumnName="FechaLectura" />
+                <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
+                <ScalarProperty Name="IdLectura" ColumnName="IdLectura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitoreos">
+            <EntityTypeMapping TypeName="HalconDBModel.Monitoreos">
+              <MappingFragment StoreEntitySet="Monitoreos">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Bateria" ColumnName="Bateria" />
+                <ScalarProperty Name="Humedad" ColumnName="Humedad" />
+                <ScalarProperty Name="Luz" ColumnName="Luz" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="FechaMonitoreo" ColumnName="FechaMonitoreo" />
+                <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
+                <ScalarProperty Name="IdMonitoreo" ColumnName="IdMonitoreo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
