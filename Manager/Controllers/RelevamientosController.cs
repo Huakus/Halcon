@@ -57,6 +57,7 @@ namespace Manager.Controllers
 
 
                     Lecturas objLecturas = new Lecturas();
+                    
                     Monitoreos objMonitoreos = new Monitoreos();
                     var objRelevamiento2 = (from obj in db.Relevamientos select obj).OrderByDescending(i => i.IdRelevamiento).First();
                     foreach (string Linea in arrLineas)
@@ -81,11 +82,8 @@ namespace Manager.Controllers
                             objMonitoreos.FechaMonitoreo = DateTime.Parse(arrDatos[0]);
                             db.Monitoreos.Add(objMonitoreos);
                         }
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
-
-
-
 
                     return RedirectToAction("Index");
                 }

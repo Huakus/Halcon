@@ -13,42 +13,48 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            map = new GMaps({
-                div: '#mapa',
-                lat: -64,
-                lng: -33,
+        new GMaps({
+            div: '#mapa',
+            lat: -12.043333,
+            lng: -77.028333
+        });
 
-            });
 
-            GMaps.geolocate({
-                success: function (position) {
-                    map.setCenter(position.coords.latitude, position.coords.longitude);
-                },
-                error: function (error) {
-                },
-                not_supported: function () {
-                },
-                always: function () {
-                }
-            });
+        //$(document).ready(function(){
+        //    map = new GMaps({
+        //        div: '#mapa',
+        //        lat: -64,
+        //        lng: -33,
+        //    });
 
-            GMaps.on('click', map.map, function(event) {
-                var index = map.markers.length;
-                var lat = event.latLng.lat();
-                var lng = event.latLng.lng();
+            //GMaps.geolocate({
+            //    success: function (position) {
+            //        map.setCenter(position.coords.latitude, position.coords.longitude);
+            //    },
+            //    error: function (error) {
+            //    },
+            //    not_supported: function () {
+            //    },
+            //    always: function () {
+            //    }
+            //});
 
-                map.removeMarkers(map.markers);
+            //GMaps.on('click', map.map, function(event) {
+            //    var index = map.markers.length;
+            //    var lat = event.latLng.lat();
+            //    var lng = event.latLng.lng();
 
-                map.addMarker({
-                    lat: lat,
-                    lng: lng,
-                    title: 'Marker #' + index
-                });
+            //    map.removeMarkers(map.markers);
 
-                $("#LatLong_Latitude").val(lat);
-                $("#LatLong_Longitude").val(lng);
-            });
+            //    map.addMarker({
+            //        lat: lat,
+            //        lng: lng,
+            //        title: 'Marker #' + index
+            //    });
+
+            //    $("#LatLong_Latitude").val(lat);
+            //    $("#LatLong_Longitude").val(lng);
+            //});
         });
 
 
