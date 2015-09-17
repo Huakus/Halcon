@@ -176,6 +176,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsectosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RelevamientosController.cs" />
+    <Compile Include="Controllers\TrampasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -335,6 +337,14 @@
     <Content Include="Views\Campos\Create.cshtml" />
     <Content Include="Views\Campos\Details.cshtml" />
     <Content Include="Views\Campos\Edit.cshtml" />
+    <Content Include="Views\Trampas\Create.cshtml" />
+    <Content Include="Views\Trampas\Delete.cshtml" />
+    <Content Include="Views\Trampas\Details.cshtml" />
+    <Content Include="Views\Trampas\Edit.cshtml" />
+    <Content Include="Views\Trampas\Index.cshtml" />
+    <Content Include="Views\Relevamientos\Create.cshtml" />
+    <Content Include="Views\Relevamientos\Details.cshtml" />
+    <Content Include="Views\Relevamientos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

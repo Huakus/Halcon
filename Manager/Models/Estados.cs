@@ -17,14 +17,14 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Estados()
         {
-            this.Insectos = new HashSet<Insectos>();
-            this.Relevamientos = new HashSet<Relevamientos>();
-            this.Lecturas = new HashSet<Lecturas>();
-            this.Monitoreos = new HashSet<Monitoreos>();
-            this.Trampas = new HashSet<Trampas>();
-            this.Telefonos = new HashSet<Telefonos>();
             this.Campos = new HashSet<Campos>();
             this.Clientes = new HashSet<Clientes>();
+            this.Insectos = new HashSet<Insectos>();
+            this.Lecturas = new HashSet<Lecturas>();
+            this.Monitoreos = new HashSet<Monitoreos>();
+            this.Relevamientos = new HashSet<Relevamientos>();
+            this.Telefonos = new HashSet<Telefonos>();
+            this.Trampas = new HashSet<Trampas>();
             this.Usuarios = new HashSet<Usuarios>();
         }
     
@@ -33,21 +33,21 @@ namespace Manager.Models
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Insectos> Insectos { get; set; }
+        public virtual ICollection<Campos> Campos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
+        public virtual ICollection<Clientes> Clientes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Insectos> Insectos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lecturas> Lecturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Monitoreos> Monitoreos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trampas> Trampas { get; set; }
+        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Telefonos> Telefonos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Campos> Campos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Clientes> Clientes { get; set; }
+        public virtual ICollection<Trampas> Trampas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuarios> Usuarios { get; set; }
     }

@@ -14,24 +14,17 @@ namespace Manager.Models
     
     public partial class Monitoreos
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Monitoreos()
-        {
-            this.Lecturas = new HashSet<Lecturas>();
-        }
-    
         public int IdMonitoreo { get; set; }
         public int IdRelevamiento { get; set; }
-        public int Hora { get; set; }
-        public int Temperatura { get; set; }
-        public int Luz { get; set; }
-        public int Humedad { get; set; }
+        public System.DateTime FechaMonitoreo { get; set; }
+        public double Temperatura { get; set; }
+        public double Luz { get; set; }
+        public double Humedad { get; set; }
+        public Nullable<double> Bateria { get; set; }
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lecturas> Lecturas { get; set; }
-        public virtual Relevamientos Relevamientos { get; set; }
         public virtual Estados Estados { get; set; }
+        public virtual Relevamientos Relevamientos { get; set; }
     }
 }

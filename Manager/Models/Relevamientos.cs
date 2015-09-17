@@ -17,15 +17,20 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Relevamientos()
         {
+            this.Lecturas = new HashSet<Lecturas>();
             this.Monitoreos = new HashSet<Monitoreos>();
         }
     
         public int IdRelevamiento { get; set; }
-        public int IdPersona { get; set; }
-        public int IdEstado { get; set; }
         public int IdTrampa { get; set; }
+        public System.DateTime FechaInicio { get; set; }
+        public System.DateTime FechaFinal { get; set; }
+        public string Observaciones { get; set; }
+        public int IdEstado { get; set; }
     
         public virtual Estados Estados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lecturas> Lecturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Monitoreos> Monitoreos { get; set; }
         public virtual Trampas Trampas { get; set; }

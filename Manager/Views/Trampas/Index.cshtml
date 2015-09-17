@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Manager.Models.Trampas>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Estados.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Campos.Calle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estados.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Campos.Calle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdTrampa }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdTrampa }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdTrampa })
+        </td>
+    </tr>
+}
+
+</table>

@@ -15,15 +15,16 @@ namespace Manager.Models
     public partial class Lecturas
     {
         public int IdLectura { get; set; }
-        public int IdMonitoreo { get; set; }
-        public int Frecuencia { get; set; }
-        public int Volumen { get; set; }
+        public int IdRelevamiento { get; set; }
+        public System.DateTime FechaLectura { get; set; }
+        public double Frecuencia { get; set; }
+        public int Aleteos { get; set; }
         public Nullable<int> IdInsecto { get; set; }
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
     
-        public virtual Insectos Insectos { get; set; }
-        public virtual Monitoreos Monitoreos { get; set; }
         public virtual Estados Estados { get; set; }
+        public virtual Insectos Insectos { get; set; }
+        public virtual Relevamientos Relevamientos { get; set; }
     }
 }

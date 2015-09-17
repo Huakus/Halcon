@@ -28,8 +28,8 @@ namespace Manager.Models
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
     
-        public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Campos> Campos { get; set; }
+        public virtual Estados Estados { get; set; }
     }
 }
