@@ -188,8 +188,65 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseHalcon.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseHalcon.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaseHalcon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaseHalcon.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseHalcon.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Campos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clientes.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Estados.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Generos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Insectos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lecturas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Localidades.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Monitoreos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Paises.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Provincias.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Relevamientos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Telefonos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Trampas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuarios.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -200,8 +257,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\BaseHalcon.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BaseHalcon.edmx</DependentUpon>
+      <LastGenOutput>BaseHalcon.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BaseHalcon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BaseHalcon.edmx</DependentUpon>
+      <LastGenOutput>BaseHalcon.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\BaseHalcon.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BaseHalcon.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BaseHalcon.edmx.diagram">
+      <DependentUpon>BaseHalcon.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\halcon.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="78c0b7492f5d4c02a708b89bfa01a130" Name="Diagram1">
+        <EntityTypeShape EntityType="HalconDBModel.Campos" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Clientes" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Generos" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Insectos" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Lecturas" Width="1.5" PointX="12" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Localidades" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Monitoreos" Width="1.5" PointX="12" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Paises" Width="1.5" PointX="1.5" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Provincias" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Relevamientos" Width="1.5" PointX="9.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Telefonos" Width="1.5" PointX="3" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Trampas" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Usuarios" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
+        <AssociationConnector Association="HalconDBModel.FK_Campos_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Campos_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Campos_Localidades" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Trampas_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Clientes_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Insectos_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Telefonos_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Trampas_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Usuarios_Estados" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Insectos_Generos" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Insectos" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Relevamientos" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Localidades_Provincias" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Relevamientos" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Provincias_Paises" ManuallyRouted="false" />
+        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Trampas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

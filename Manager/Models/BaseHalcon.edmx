@@ -1,0 +1,1187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HalconDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Campos">
+          <Key>
+            <PropertyRef Name="IdCampo" />
+          </Key>
+          <Property Name="IdCampo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="200" />
+          <Property Name="Numero" Type="int" />
+          <Property Name="IdLocalidad" Type="int" />
+          <Property Name="LatLong" Type="geography" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DNI" Type="bigint" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Generos">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Insectos">
+          <Key>
+            <PropertyRef Name="IdInsecto" />
+          </Key>
+          <Property Name="IdInsecto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCientifico" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreVulgar" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdGenero" Type="int" Nullable="false" />
+          <Property Name="Ancho" Type="int" />
+          <Property Name="Largo" Type="int" />
+          <Property Name="FrecuenciaMin" Type="float" />
+          <Property Name="FrecuenciaMax" Type="float" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Lecturas">
+          <Key>
+            <PropertyRef Name="IdLectura" />
+          </Key>
+          <Property Name="IdLectura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRelevamiento" Type="int" Nullable="false" />
+          <Property Name="FechaLectura" Type="datetime" Nullable="false" />
+          <Property Name="Frecuencia" Type="float" Nullable="false" />
+          <Property Name="Aleteos" Type="int" Nullable="false" />
+          <Property Name="IdInsecto" Type="int" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Localidades">
+          <Key>
+            <PropertyRef Name="IdLocalidad" />
+          </Key>
+          <Property Name="IdLocalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdProvincia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Monitoreos">
+          <Key>
+            <PropertyRef Name="IdMonitoreo" />
+          </Key>
+          <Property Name="IdMonitoreo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRelevamiento" Type="int" Nullable="false" />
+          <Property Name="FechaMonitoreo" Type="datetime" Nullable="false" />
+          <Property Name="Temperatura" Type="float" Nullable="false" />
+          <Property Name="Luz" Type="float" Nullable="false" />
+          <Property Name="Humedad" Type="float" Nullable="false" />
+          <Property Name="Bateria" Type="float" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Paises">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdPais" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relevamientos">
+          <Key>
+            <PropertyRef Name="IdRelevamiento" />
+          </Key>
+          <Property Name="IdRelevamiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTrampa" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="FechaFinal" Type="datetime" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar(max)" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefonos">
+          <Key>
+            <PropertyRef Name="IdTelefono" />
+          </Key>
+          <Property Name="IdTelefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoTelefono" Type="int" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Trampas">
+          <Key>
+            <PropertyRef Name="IdTrampa" />
+          </Key>
+          <Property Name="IdTrampa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCampo" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DNI" Type="bigint" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdPerfil" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_Campos_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Localidades">
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="0..1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidades">
+              <PropertyRef Name="IdLocalidad" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="IdLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insectos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insectos_Generos">
+          <End Role="Generos" Type="Self.Generos" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generos">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Insectos">
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="0..1" />
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insectos">
+              <PropertyRef Name="IdInsecto" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdInsecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Relevamientos">
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="1" />
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdRelevamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidades_Provincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Localidades">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitoreos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Monitoreos" Type="Self.Monitoreos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Monitoreos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitoreos_Relevamientos">
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="1" />
+          <End Role="Monitoreos" Type="Self.Monitoreos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Principal>
+            <Dependent Role="Monitoreos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincias_Paises">
+          <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paises">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Provincias">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relevamientos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Relevamientos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relevamientos_Trampas">
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="1" />
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trampas">
+              <PropertyRef Name="IdTrampa" />
+            </Principal>
+            <Dependent Role="Relevamientos">
+              <PropertyRef Name="IdTrampa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefonos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Telefonos" Type="Self.Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trampas_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="IdCampo" />
+            </Principal>
+            <Dependent Role="Trampas">
+              <PropertyRef Name="IdCampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trampas_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Trampas">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HalconDBModelStoreContainer">
+          <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Generos" EntityType="Self.Generos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insectos" EntityType="Self.Insectos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lecturas" EntityType="Self.Lecturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monitoreos" EntityType="Self.Monitoreos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relevamientos" EntityType="Self.Relevamientos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trampas" EntityType="Self.Trampas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Campos_Clientes" Association="Self.FK_Campos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Estados" Association="Self.FK_Campos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Localidades" Association="Self.FK_Campos_Localidades">
+            <End Role="Localidades" EntitySet="Localidades" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Estados" Association="Self.FK_Clientes_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insectos_Estados" Association="Self.FK_Insectos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insectos_Generos" Association="Self.FK_Insectos_Generos">
+            <End Role="Generos" EntitySet="Generos" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Estados" Association="Self.FK_Lecturas_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Insectos" Association="Self.FK_Lecturas_Insectos">
+            <End Role="Insectos" EntitySet="Insectos" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Relevamientos" Association="Self.FK_Lecturas_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidades_Provincias" Association="Self.FK_Localidades_Provincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Localidades" EntitySet="Localidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitoreos_Estados" Association="Self.FK_Monitoreos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitoreos_Relevamientos" Association="Self.FK_Monitoreos_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincias_Paises" Association="Self.FK_Provincias_Paises">
+            <End Role="Paises" EntitySet="Paises" />
+            <End Role="Provincias" EntitySet="Provincias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relevamientos_Estados" Association="Self.FK_Relevamientos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relevamientos_Trampas" Association="Self.FK_Relevamientos_Trampas">
+            <End Role="Trampas" EntitySet="Trampas" />
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefonos_Estados" Association="Self.FK_Telefonos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trampas_Campos" Association="Self.FK_Trampas_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Trampas" EntitySet="Trampas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trampas_Estados" Association="Self.FK_Trampas_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Trampas" EntitySet="Trampas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Estados" Association="Self.FK_Usuarios_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HalconDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Campos">
+          <Key>
+            <PropertyRef Name="IdCampo" />
+          </Key>
+          <Property Name="IdCampo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="Int32" />
+          <Property Name="IdLocalidad" Type="Int32" />
+          <Property Name="LatLong" Type="Geography" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Campos_Clientes" FromRole="Campos" ToRole="Clientes" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Campos_Estados" FromRole="Campos" ToRole="Estados" />
+          <NavigationProperty Name="Localidades" Relationship="Self.FK_Campos_Localidades" FromRole="Campos" ToRole="Localidades" />
+          <NavigationProperty Name="Trampas" Relationship="Self.FK_Trampas_Campos" FromRole="Campos" ToRole="Trampas" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DNI" Type="Int64" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Clientes" FromRole="Clientes" ToRole="Campos" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Clientes_Estados" FromRole="Clientes" ToRole="Estados" />
+        </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Estados" FromRole="Estados" ToRole="Campos" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Estados" FromRole="Estados" ToRole="Clientes" />
+          <NavigationProperty Name="Insectos" Relationship="Self.FK_Insectos_Estados" FromRole="Estados" ToRole="Insectos" />
+          <NavigationProperty Name="Lecturas" Relationship="Self.FK_Lecturas_Estados" FromRole="Estados" ToRole="Lecturas" />
+          <NavigationProperty Name="Monitoreos" Relationship="Self.FK_Monitoreos_Estados" FromRole="Estados" ToRole="Monitoreos" />
+          <NavigationProperty Name="Relevamientos" Relationship="Self.FK_Relevamientos_Estados" FromRole="Estados" ToRole="Relevamientos" />
+          <NavigationProperty Name="Telefonos" Relationship="Self.FK_Telefonos_Estados" FromRole="Estados" ToRole="Telefonos" />
+          <NavigationProperty Name="Trampas" Relationship="Self.FK_Trampas_Estados" FromRole="Estados" ToRole="Trampas" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Estados" FromRole="Estados" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Generos">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Insectos" Relationship="Self.FK_Insectos_Generos" FromRole="Generos" ToRole="Insectos" />
+        </EntityType>
+        <EntityType Name="Insectos">
+          <Key>
+            <PropertyRef Name="IdInsecto" />
+          </Key>
+          <Property Name="IdInsecto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCientifico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreVulgar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdGenero" Type="Int32" Nullable="false" />
+          <Property Name="Ancho" Type="Int32" />
+          <Property Name="Largo" Type="Int32" />
+          <Property Name="FrecuenciaMin" Type="Double" />
+          <Property Name="FrecuenciaMax" Type="Double" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Insectos_Estados" FromRole="Insectos" ToRole="Estados" />
+          <NavigationProperty Name="Generos" Relationship="Self.FK_Insectos_Generos" FromRole="Insectos" ToRole="Generos" />
+          <NavigationProperty Name="Lecturas" Relationship="Self.FK_Lecturas_Insectos" FromRole="Insectos" ToRole="Lecturas" />
+        </EntityType>
+        <EntityType Name="Lecturas">
+          <Key>
+            <PropertyRef Name="IdLectura" />
+          </Key>
+          <Property Name="IdLectura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRelevamiento" Type="Int32" Nullable="false" />
+          <Property Name="FechaLectura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Frecuencia" Type="Double" Nullable="false" />
+          <Property Name="Aleteos" Type="Int32" Nullable="false" />
+          <Property Name="IdInsecto" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Lecturas_Estados" FromRole="Lecturas" ToRole="Estados" />
+          <NavigationProperty Name="Insectos" Relationship="Self.FK_Lecturas_Insectos" FromRole="Lecturas" ToRole="Insectos" />
+          <NavigationProperty Name="Relevamientos" Relationship="Self.FK_Lecturas_Relevamientos" FromRole="Lecturas" ToRole="Relevamientos" />
+        </EntityType>
+        <EntityType Name="Localidades">
+          <Key>
+            <PropertyRef Name="IdLocalidad" />
+          </Key>
+          <Property Name="IdLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Localidades" FromRole="Localidades" ToRole="Campos" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK_Localidades_Provincias" FromRole="Localidades" ToRole="Provincias" />
+        </EntityType>
+        <EntityType Name="Monitoreos">
+          <Key>
+            <PropertyRef Name="IdMonitoreo" />
+          </Key>
+          <Property Name="IdMonitoreo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRelevamiento" Type="Int32" Nullable="false" />
+          <Property Name="FechaMonitoreo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Temperatura" Type="Double" Nullable="false" />
+          <Property Name="Luz" Type="Double" Nullable="false" />
+          <Property Name="Humedad" Type="Double" Nullable="false" />
+          <Property Name="Bateria" Type="Double" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Monitoreos_Estados" FromRole="Monitoreos" ToRole="Estados" />
+          <NavigationProperty Name="Relevamientos" Relationship="Self.FK_Monitoreos_Relevamientos" FromRole="Monitoreos" ToRole="Relevamientos" />
+        </EntityType>
+        <EntityType Name="Paises">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK_Provincias_Paises" FromRole="Paises" ToRole="Provincias" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="IdProvincia" />
+          </Key>
+          <Property Name="IdProvincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPais" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Localidades" Relationship="Self.FK_Localidades_Provincias" FromRole="Provincias" ToRole="Localidades" />
+          <NavigationProperty Name="Paises" Relationship="Self.FK_Provincias_Paises" FromRole="Provincias" ToRole="Paises" />
+        </EntityType>
+        <EntityType Name="Relevamientos">
+          <Key>
+            <PropertyRef Name="IdRelevamiento" />
+          </Key>
+          <Property Name="IdRelevamiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTrampa" Type="Int32" Nullable="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFinal" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Relevamientos_Estados" FromRole="Relevamientos" ToRole="Estados" />
+          <NavigationProperty Name="Lecturas" Relationship="Self.FK_Lecturas_Relevamientos" FromRole="Relevamientos" ToRole="Lecturas" />
+          <NavigationProperty Name="Monitoreos" Relationship="Self.FK_Monitoreos_Relevamientos" FromRole="Relevamientos" ToRole="Monitoreos" />
+          <NavigationProperty Name="Trampas" Relationship="Self.FK_Relevamientos_Trampas" FromRole="Relevamientos" ToRole="Trampas" />
+        </EntityType>
+        <EntityType Name="Telefonos">
+          <Key>
+            <PropertyRef Name="IdTelefono" />
+          </Key>
+          <Property Name="IdTelefono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoTelefono" Type="Int32" Nullable="false" />
+          <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Telefonos_Estados" FromRole="Telefonos" ToRole="Estados" />
+        </EntityType>
+        <EntityType Name="Trampas">
+          <Key>
+            <PropertyRef Name="IdTrampa" />
+          </Key>
+          <Property Name="IdTrampa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCampo" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Trampas_Campos" FromRole="Trampas" ToRole="Campos" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Trampas_Estados" FromRole="Trampas" ToRole="Estados" />
+          <NavigationProperty Name="Relevamientos" Relationship="Self.FK_Relevamientos_Trampas" FromRole="Trampas" ToRole="Relevamientos" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DNI" Type="Int64" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK_Usuarios_Estados" FromRole="Usuarios" ToRole="Estados" />
+        </EntityType>
+        <Association Name="FK_Campos_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Localidades">
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="0..1" />
+          <End Role="Campos" Type="Self.Campos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidades">
+              <PropertyRef Name="IdLocalidad" />
+            </Principal>
+            <Dependent Role="Campos">
+              <PropertyRef Name="IdLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trampas_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="IdCampo" />
+            </Principal>
+            <Dependent Role="Trampas">
+              <PropertyRef Name="IdCampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insectos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitoreos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Monitoreos" Type="Self.Monitoreos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Monitoreos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relevamientos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Relevamientos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telefonos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Telefonos" Type="Self.Telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Telefonos">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trampas_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Trampas">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insectos_Generos">
+          <End Role="Generos" Type="Self.Generos" Multiplicity="1" />
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generos">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Insectos">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Insectos">
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="0..1" />
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insectos">
+              <PropertyRef Name="IdInsecto" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdInsecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lecturas_Relevamientos">
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="1" />
+          <End Role="Lecturas" Type="Self.Lecturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Principal>
+            <Dependent Role="Lecturas">
+              <PropertyRef Name="IdRelevamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidades_Provincias">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="1" />
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="IdProvincia" />
+            </Principal>
+            <Dependent Role="Localidades">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitoreos_Relevamientos">
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="1" />
+          <End Role="Monitoreos" Type="Self.Monitoreos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relevamientos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Principal>
+            <Dependent Role="Monitoreos">
+              <PropertyRef Name="IdRelevamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincias_Paises">
+          <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paises">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Provincias">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relevamientos_Trampas">
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="1" />
+          <End Role="Relevamientos" Type="Self.Relevamientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trampas">
+              <PropertyRef Name="IdTrampa" />
+            </Principal>
+            <Dependent Role="Relevamientos">
+              <PropertyRef Name="IdTrampa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HalconDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Campos" EntityType="Self.Campos" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
+          <EntitySet Name="Generos" EntityType="Self.Generos" />
+          <EntitySet Name="Insectos" EntityType="Self.Insectos" />
+          <EntitySet Name="Lecturas" EntityType="Self.Lecturas" />
+          <EntitySet Name="Localidades" EntityType="Self.Localidades" />
+          <EntitySet Name="Monitoreos" EntityType="Self.Monitoreos" />
+          <EntitySet Name="Paises" EntityType="Self.Paises" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" />
+          <EntitySet Name="Relevamientos" EntityType="Self.Relevamientos" />
+          <EntitySet Name="Telefonos" EntityType="Self.Telefonos" />
+          <EntitySet Name="Trampas" EntityType="Self.Trampas" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Campos_Clientes" Association="Self.FK_Campos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Estados" Association="Self.FK_Campos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Localidades" Association="Self.FK_Campos_Localidades">
+            <End Role="Localidades" EntitySet="Localidades" />
+            <End Role="Campos" EntitySet="Campos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trampas_Campos" Association="Self.FK_Trampas_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Trampas" EntitySet="Trampas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Estados" Association="Self.FK_Clientes_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insectos_Estados" Association="Self.FK_Insectos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Estados" Association="Self.FK_Lecturas_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitoreos_Estados" Association="Self.FK_Monitoreos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relevamientos_Estados" Association="Self.FK_Relevamientos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telefonos_Estados" Association="Self.FK_Telefonos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Telefonos" EntitySet="Telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trampas_Estados" Association="Self.FK_Trampas_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Trampas" EntitySet="Trampas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Estados" Association="Self.FK_Usuarios_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insectos_Generos" Association="Self.FK_Insectos_Generos">
+            <End Role="Generos" EntitySet="Generos" />
+            <End Role="Insectos" EntitySet="Insectos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Insectos" Association="Self.FK_Lecturas_Insectos">
+            <End Role="Insectos" EntitySet="Insectos" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lecturas_Relevamientos" Association="Self.FK_Lecturas_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+            <End Role="Lecturas" EntitySet="Lecturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidades_Provincias" Association="Self.FK_Localidades_Provincias">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Localidades" EntitySet="Localidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitoreos_Relevamientos" Association="Self.FK_Monitoreos_Relevamientos">
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+            <End Role="Monitoreos" EntitySet="Monitoreos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincias_Paises" Association="Self.FK_Provincias_Paises">
+            <End Role="Paises" EntitySet="Paises" />
+            <End Role="Provincias" EntitySet="Provincias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relevamientos_Trampas" Association="Self.FK_Relevamientos_Trampas">
+            <End Role="Trampas" EntitySet="Trampas" />
+            <End Role="Relevamientos" EntitySet="Relevamientos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HalconDBModelStoreContainer" CdmEntityContainer="HalconDBEntities">
+          <EntitySetMapping Name="Campos">
+            <EntityTypeMapping TypeName="HalconDBModel.Campos">
+              <MappingFragment StoreEntitySet="Campos">
+                <ScalarProperty Name="IdCampo" ColumnName="IdCampo" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
+                <ScalarProperty Name="LatLong" ColumnName="LatLong" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="HalconDBModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estados">
+            <EntityTypeMapping TypeName="HalconDBModel.Estados">
+              <MappingFragment StoreEntitySet="Estados">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Generos">
+            <EntityTypeMapping TypeName="HalconDBModel.Generos">
+              <MappingFragment StoreEntitySet="Generos">
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insectos">
+            <EntityTypeMapping TypeName="HalconDBModel.Insectos">
+              <MappingFragment StoreEntitySet="Insectos">
+                <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
+                <ScalarProperty Name="NombreCientifico" ColumnName="NombreCientifico" />
+                <ScalarProperty Name="NombreVulgar" ColumnName="NombreVulgar" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Ancho" ColumnName="Ancho" />
+                <ScalarProperty Name="Largo" ColumnName="Largo" />
+                <ScalarProperty Name="FrecuenciaMin" ColumnName="FrecuenciaMin" />
+                <ScalarProperty Name="FrecuenciaMax" ColumnName="FrecuenciaMax" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturas">
+            <EntityTypeMapping TypeName="HalconDBModel.Lecturas">
+              <MappingFragment StoreEntitySet="Lecturas">
+                <ScalarProperty Name="IdLectura" ColumnName="IdLectura" />
+                <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
+                <ScalarProperty Name="FechaLectura" ColumnName="FechaLectura" />
+                <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+                <ScalarProperty Name="Aleteos" ColumnName="Aleteos" />
+                <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidades">
+            <EntityTypeMapping TypeName="HalconDBModel.Localidades">
+              <MappingFragment StoreEntitySet="Localidades">
+                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitoreos">
+            <EntityTypeMapping TypeName="HalconDBModel.Monitoreos">
+              <MappingFragment StoreEntitySet="Monitoreos">
+                <ScalarProperty Name="IdMonitoreo" ColumnName="IdMonitoreo" />
+                <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
+                <ScalarProperty Name="FechaMonitoreo" ColumnName="FechaMonitoreo" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="Luz" ColumnName="Luz" />
+                <ScalarProperty Name="Humedad" ColumnName="Humedad" />
+                <ScalarProperty Name="Bateria" ColumnName="Bateria" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paises">
+            <EntityTypeMapping TypeName="HalconDBModel.Paises">
+              <MappingFragment StoreEntitySet="Paises">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincias">
+            <EntityTypeMapping TypeName="HalconDBModel.Provincias">
+              <MappingFragment StoreEntitySet="Provincias">
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relevamientos">
+            <EntityTypeMapping TypeName="HalconDBModel.Relevamientos">
+              <MappingFragment StoreEntitySet="Relevamientos">
+                <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
+                <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="FechaFinal" ColumnName="FechaFinal" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefonos">
+            <EntityTypeMapping TypeName="HalconDBModel.Telefonos">
+              <MappingFragment StoreEntitySet="Telefonos">
+                <ScalarProperty Name="IdTelefono" ColumnName="IdTelefono" />
+                <ScalarProperty Name="IdTipoTelefono" ColumnName="IdTipoTelefono" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trampas">
+            <EntityTypeMapping TypeName="HalconDBModel.Trampas">
+              <MappingFragment StoreEntitySet="Trampas">
+                <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
+                <ScalarProperty Name="IdCampo" ColumnName="IdCampo" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="HalconDBModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
