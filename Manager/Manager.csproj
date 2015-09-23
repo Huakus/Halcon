@@ -19,15 +19,9 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44300</IISExpressSSLPort>
-<<<<<<< HEAD
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
-=======
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
->>>>>>> FuncionanMapas
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -187,10 +181,7 @@
     <Compile Include="Controllers\InsectosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RelevamientosController.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Controllers\ReportesController.cs" />
->>>>>>> FuncionanMapas
     <Compile Include="Controllers\TrampasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -351,16 +342,6 @@
     <Content Include="Views\Campos\Create.cshtml" />
     <Content Include="Views\Campos\Details.cshtml" />
     <Content Include="Views\Campos\Edit.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Relevamientos\Details.cshtml" />
-    <Content Include="Views\Relevamientos\Create.cshtml" />
-    <Content Include="Views\Trampas\Index.cshtml" />
-    <Content Include="Views\Trampas\Details.cshtml" />
-    <Content Include="Views\Trampas\Create.cshtml" />
-    <Content Include="Views\Trampas\Edit.cshtml" />
-    <Content Include="Views\Trampas\Delete.cshtml" />
-    <Content Include="Views\Relevamientos\Index.cshtml" />
-=======
     <Content Include="Views\Trampas\Create.cshtml" />
     <Content Include="Views\Trampas\Delete.cshtml" />
     <Content Include="Views\Trampas\Details.cshtml" />
@@ -370,7 +351,6 @@
     <Content Include="Views\Relevamientos\Details.cshtml" />
     <Content Include="Views\Relevamientos\Index.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
->>>>>>> FuncionanMapas
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
