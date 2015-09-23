@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Google Drill Down Chart</h2>
+
+<div id="chart" style="width:80%; height:300px">
+
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+@section scripts{
+    <script>
+        var chartDataYear;
+        var chartDataMonth;
+        var chartDataDays;
+        var GlobalYear;
+        var CurrentReport;
+        google.load("visualization", "1", { packages: ["corechart"] });
+
+        //Load Year Wise Report On Load
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Reportes/InsectosDataAño',
+                type: 'get',
+                dataType: 'json',
+                data: {},
+                success: function (d) {
+                    chartDataYear = d;
+                },
+                error: function () {
+                }
+            }).done(function () {
+                CurrentReport = 'year';
+                generateChart(chartDataYear, "Sales Report Data", selectYear);
+            });
+        });
+
+        function generateChart(chartData, title, selectEvent) {
+            var data = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+                title: title,
+                pointSize: 5,
+                focusTarget: "category",
+                hAxis: {showTextEvery: 1}
+            }
+
+            var lineChart = new google.visualization.LineChart(document.getElementById('chart'));
+            if (selectEvent != null) {
+                google.visualization.events.addListener(lineChart, 'select', function () {
+                    selectEvent(lineChart, data);
+                });
+            }
+            GenerateBack(CurrentReport);
+            lineChart.draw(data, options);
+        }
+
+        function GenerateBack(currentReport) {
+            $('.backButtonContainer').remove();
+            //Create new Back Button
+            if (currentReport != 'year') { //back button except year
+                var $back = $('<button/>')
+                            .text('Back')
+                            .addClass('reportBack')
+                            .click(function () {
+                                switch (currentReport) {
+                                    case 'month':
+                                        CurrentReport = 'year';
+                                        generateChart(chartDataYear, "Sales Report Data", selectYear);
+                                        break;
+                                    case 'days':
+                                        CurrentReport = 'month';
+                                        generateChart(chartDataMonth, "Sales Report Data of year " + GlobalYear, selectMonth);
+                                        break;
+                                    default:
+
+                                }
+                                $(this).parent().remove();
+                            });
+                var $div = $('<div/>')
+                        .addClass('backButtonContainer')
+                        .css({ 'width': '70%', 'text-align': 'right', 'padding': '5px' })
+                        .append($back);
+                $('#chart').before($div);
+
+            }
+        }
+
+        function selectYear(chart, data) {
+            //Year Event (after select year data from chart)
+            var selectedItem = chart.getSelection()[0];
+            if (selectedItem) {
+                var rowLevel = parseInt(data.getValue(selectedItem.row, 0));
+                var chartData = null;
+                $.ajax({
+                    url: '/Reportes/InsectosDataMes',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {'Año': rowLevel},
+                    success: function (d) {
+                        chartDataMonth = d;
+                    },
+                    error: function () {
+                        alert("Error!");
+                    }
+                }).done(function () {
+                    CurrentReport = 'month';
+                    GlobalYear = rowLevel;
+                    generateChart(chartDataMonth, "Sales Report Data of year " + rowLevel, selectMonth);
+                });
+
+            }
+
+        }
+
+        function selectMonth(chart, data) {
+            //Month Event (after select month data from chart)
+            //Load Chart Day wise
+            var selectedItem = chart.getSelection()[0];
+            if (selectedItem) {
+                var rowLevel = data.getValue(selectedItem.row, 0);
+                $.ajax({
+                    url: '/Reportes/InsectosDataDia',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {'Año': GlobalYear, 'Mes': rowLevel},
+                    success: function (d) {
+                        chartDataDays = d;
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                }).done(function () {
+                    CurrentReport = 'days';
+                    generateChart(chartDataDays, "Sales report data of " + rowLevel + " '" + GlobalYear, null);
+                });
+            }
+        }
+    </script>
+}
