@@ -29,9 +29,13 @@ namespace Manager.Models
         public int IdCliente { get; set; }
         public string Observaciones { get; set; }
     
+        public virtual Clientes Clientes { get; set; }
         public virtual Estados Estados { get; set; }
         public virtual Localidades Localidades { get; set; }
+<<<<<<< HEAD
         public virtual Clientes Clientes { get; set; }
+=======
+>>>>>>> FuncionanMapas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Trampas> Trampas { get; set; }
     }

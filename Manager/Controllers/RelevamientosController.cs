@@ -63,7 +63,11 @@ namespace Manager.Controllers
                     foreach (string Linea in arrLineas)
                     {
                         string[] arrDatos = Linea.Split(';');
+<<<<<<< HEAD
                         if (arrDatos[1].ToString() == "LECTURA")
+=======
+                        if (arrDatos.Length > 1 && arrDatos[1].ToString() == "LECTURA")
+>>>>>>> FuncionanMapas
                         {
                             objLecturas.IdEstado = 1;
                             objLecturas.IdRelevamiento = objRelevamiento2.IdRelevamiento;
@@ -72,7 +76,11 @@ namespace Manager.Controllers
                             objLecturas.FechaLectura = DateTime.Parse(arrDatos[0]);
                             db.Lecturas.Add(objLecturas);
                         }
+<<<<<<< HEAD
                         else if(arrDatos[1].ToString() == "ESTADO")
+=======
+                        else if(arrDatos.Length > 1 && arrDatos[1].ToString() == "ESTADO")
+>>>>>>> FuncionanMapas
                         {
                             objMonitoreos.IdEstado = 1;
                             objMonitoreos.IdRelevamiento = objRelevamiento2.IdRelevamiento;

@@ -21,12 +21,18 @@ namespace Manager.Models
         }
     
         public int IdTrampa { get; set; }
+        public int IdCampo { get; set; }
         public int IdEstado { get; set; }
         public int IdCampo { get; set; }
     
+        public virtual Campos Campos { get; set; }
+        public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Relevamientos> Relevamientos { get; set; }
+<<<<<<< HEAD
         public virtual Estados Estados { get; set; }
         public virtual Campos Campos { get; set; }
+=======
+>>>>>>> FuncionanMapas
     }
 }

@@ -26,6 +26,8 @@ namespace Manager.Models
         public int IdGenero { get; set; }
         public Nullable<int> Ancho { get; set; }
         public Nullable<int> Largo { get; set; }
+        public Nullable<double> FrecuenciaMin { get; set; }
+        public Nullable<double> FrecuenciaMax { get; set; }
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
         public Nullable<double> FrecuenciaMin { get; set; }

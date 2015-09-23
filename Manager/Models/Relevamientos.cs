@@ -22,14 +22,24 @@ namespace Manager.Models
         }
     
         public int IdRelevamiento { get; set; }
+<<<<<<< HEAD
         public int IdEstado { get; set; }
         public int IdTrampa { get; set; }
         public string Observaciones { get; set; }
         public System.DateTime FechaInicio { get; set; }
         public System.DateTime FechaFinal { get; set; }
+=======
+        public int IdTrampa { get; set; }
+        public System.DateTime FechaInicio { get; set; }
+        public System.DateTime FechaFinal { get; set; }
+        public string Observaciones { get; set; }
+        public int IdEstado { get; set; }
+>>>>>>> FuncionanMapas
     
         public virtual Estados Estados { get; set; }
         public virtual Trampas Trampas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lecturas> Lecturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lecturas> Lecturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
