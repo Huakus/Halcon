@@ -151,17 +151,99 @@ namespace Manager.Controllers
                         "Dia",
                         "Cantidad"
                     };
-
                     for (int i = 1; i <= Dias; i++)
                     {
-                        var DiasData = v.Where(a => a.Dia.Equals(i)).FirstOrDefault();
-                        if (DiasData != null)
+                        var DiaData = v.Where(a => a.Dia.Equals(i)).FirstOrDefault();
+                        if (DiaData != null)
                         {
-                            chartData[i] = new object[] { i.ToString(), DiasData.Cantidad };
+                            chartData[i] = new object[] { i, DiaData.Cantidad };
                         }
                         else
                         {
-                            chartData[i] = new object[] { i.ToString(), 0 };
+                            chartData[i] = new object[] { i, 0 };
+                        }
+                    }
+                    return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
+        public JsonResult InsectosDataHora(int Año, string Mes, int Dia)
+        {
+            int NumeroMes = 0;
+            switch (Mes)
+            {
+                case "enero":
+                    NumeroMes = 1;
+                    break;
+                case "febrero":
+                    NumeroMes = 2;
+                    break;
+                case "marzo":
+                    NumeroMes = 3;
+                    break;
+                case "abril":
+                    NumeroMes = 4;
+                    break;
+                case "mayo":
+                    NumeroMes = 5;
+                    break;
+                case "junio":
+                    NumeroMes = 6;
+                    break;
+                case "julio":
+                    NumeroMes = 7;
+                    break;
+                case "agosto":
+                    NumeroMes = 8;
+                    break;
+                case "septiembre":
+                    NumeroMes = 9;
+                    break;
+                case "octubre":
+                    NumeroMes = 10;
+                    break;
+                case "noviembre":
+                    NumeroMes = 11;
+                    break;
+                case "diciembre":
+                    NumeroMes = 12;
+                    break;
+                default:
+                    NumeroMes = 1;
+                    break;
+            }
+            //int NumeroMes = DateTime.ParseExact(Mes, "MMMM", CultureInfo.CurrentCulture).Month;
+            using (HalconDBEntities dc = new HalconDBEntities())
+            {
+                var v = (from a in dc.Lecturas
+                         where a.FechaLectura.Year.Equals(Año) && a.FechaLectura.Month.Equals(NumeroMes) && a.FechaLectura.Day.Equals(Dia)
+                         group a by a.FechaLectura.Hour into g
+                         select new
+                         {
+                             Hora = g.Key,
+                             Cantidad = g.Count()
+                         });
+                if (v != null)
+                {
+                    var chartData = new object[24 + 1];
+                    chartData[0] = new object[]
+                    {
+                        "Dia",
+                        "Cantidad"
+                    };
+                    for (int i = 1; i <= 24; i++)
+                    {
+                        var DiaData = v.Where(a => a.Hora.Equals(i)).FirstOrDefault();
+                        if (DiaData != null)
+                        {
+                            chartData[i] = new object[] { i, DiaData.Cantidad };
+                        }
+                        else
+                        {
+                            chartData[i] = new object[] { i, 0 };
                         }
                     }
                     return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

@@ -15,9 +15,12 @@
     <script>
         var chartDataYear;
         var chartDataMonth;
-        var chartDataDays;
+        var chartDataDay;
+        var chartDataHour;
         var GlobalYear;
+        var GlobalMonth;
         var CurrentReport;
+        var rowLevel;
         google.load("visualization", "1", { packages: ["corechart"] });
 
         //Load Year Wise Report On Load
@@ -33,8 +36,8 @@
                 error: function () {
                 }
             }).done(function () {
-                CurrentReport = 'year';
-                generateChart(chartDataYear, "Sales Report Data", selectYear);
+                CurrentReport = 'Año';
+                generateChart(chartDataYear, "Insectos registrados por año", selectYear);
             });
         });
 
@@ -61,19 +64,23 @@
         function GenerateBack(currentReport) {
             $('.backButtonContainer').remove();
             //Create new Back Button
-            if (currentReport != 'year') { //back button except year
+            if (currentReport != 'Año') { //back button except year
                 var $back = $('<button/>')
-                            .text('Back')
-                            .addClass('reportBack')
+                            .text('Atras')
+                            .addClass('botonAtras')
                             .click(function () {
                                 switch (currentReport) {
-                                    case 'month':
-                                        CurrentReport = 'year';
-                                        generateChart(chartDataYear, "Sales Report Data", selectYear);
+                                    case 'Mes':
+                                        CurrentReport = 'Año';
+                                        generateChart(chartDataYear, "Insectos registrados por año", selectYear);
                                         break;
-                                    case 'days':
-                                        CurrentReport = 'month';
-                                        generateChart(chartDataMonth, "Sales Report Data of year " + GlobalYear, selectMonth);
+                                    case 'Dia':
+                                        CurrentReport = 'Mes';
+                                        generateChart(chartDataMonth, "Insectos registrados por mes en el año " + rowLevel, selectMonth);
+                                        break;
+                                    case 'Hora':
+                                        CurrentReport = 'Dia';
+                                        generateChart(chartDataDay, "Insectos registrados por día en el mes de " + rowLevel + " del año " + GlobalYear, SelectDay);
                                         break;
                                     default:
 
@@ -93,7 +100,7 @@
             //Year Event (after select year data from chart)
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                var rowLevel = parseInt(data.getValue(selectedItem.row, 0));
+                rowLevel = parseInt(data.getValue(selectedItem.row, 0));
                 var chartData = null;
                 $.ajax({
                     url: '/Reportes/InsectosDataMes',
@@ -107,9 +114,9 @@
                         alert("Error!");
                     }
                 }).done(function () {
-                    CurrentReport = 'month';
+                    CurrentReport = 'Mes';
                     GlobalYear = rowLevel;
-                    generateChart(chartDataMonth, "Sales Report Data of year " + rowLevel, selectMonth);
+                    generateChart(chartDataMonth, "Insectos registrados por mes en el año " + rowLevel, selectMonth);
                 });
 
             }
@@ -121,21 +128,46 @@
             //Load Chart Day wise
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                var rowLevel = data.getValue(selectedItem.row, 0);
+                rowLevel = data.getValue(selectedItem.row, 0);
                 $.ajax({
                     url: '/Reportes/InsectosDataDia',
                     type: 'get',
                     dataType: 'json',
                     data: {'Año': GlobalYear, 'Mes': rowLevel},
                     success: function (d) {
-                        chartDataDays = d;
+                        chartDataDay = d;
                     },
                     error: function () {
                         alert('Error!');
                     }
                 }).done(function () {
-                    CurrentReport = 'days';
-                    generateChart(chartDataDays, "Sales report data of " + rowLevel + " '" + GlobalYear, null);
+                    CurrentReport = 'Dia';
+                    GlobalMonth = rowLevel;
+                    generateChart(chartDataDay, "Insectos registrados por día en el mes de " + rowLevel + " del año " + GlobalYear, SelectDay);
+                });
+            }
+        }
+
+        function SelectDay(chart, data) {
+            //Month Event (after select month data from chart)
+            //Load Chart Day wise
+            var selectedItem = chart.getSelection()[0];
+            if (selectedItem) {
+                rowLevel = parseInt(data.getValue(selectedItem.row, 0));
+                $.ajax({
+                    url: '/Reportes/InsectosDataHora',
+                    type: 'get',
+                    dataType: 'json',
+                    data: { 'Año': GlobalYear, 'Mes': GlobalMonth, 'Dia': rowLevel },
+                    success: function (d) {
+                        chartDataHour = d;
+                    },
+                    error: function () {
+                        alert('Error!');
+                    }
+                }).done(function () {
+                    CurrentReport = 'Hora';
+                    generateChart(chartDataHour, "Insectos registrados por hora en el día " + rowLevel + " de " + GlobalMonth + " del año " + GlobalYear, null);
                 });
             }
         }
