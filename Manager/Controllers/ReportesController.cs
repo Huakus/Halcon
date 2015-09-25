@@ -10,6 +10,9 @@ namespace Manager.Controllers
 {
     public class ReportesController : Controller
     {
+        CultureInfo objCultura = new CultureInfo("es-AR");
+        DateTimeFormatInfo objDateTimeFormat = new DateTimeFormatInfo();
+        TextInfo objTextInfo = new CultureInfo("es-AR").TextInfo;
         // GET: Reportes
         public ActionResult Index()
         {
@@ -35,8 +38,9 @@ namespace Manager.Controllers
                         "Año",
                         "Cantidad"
                     };
+                    var AñoData = v.ToList();
                     int j = 0;
-                    foreach (var i in v)
+                    foreach (var i in AñoData)
                     {
                         j++;
                         chartData[j] = new object[] { i.Año.ToString(), i.Cantidad };
@@ -67,17 +71,20 @@ namespace Manager.Controllers
                         "Mes",
                         "Cantidad"
                     };
+                    var MesData = v.ToList();
                     for (int i = 1; i <= 12; i++)
                     {
-                        string MesName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i);
-                        var MesData = v.Where(a => a.Mes.Equals(i)).FirstOrDefault();
-                        if (MesData != null)
+                        string strMes = new DateTime(Año, i, 1).ToString("MMMM", objCultura);
+                        foreach (var objFila in MesData)
                         {
-                            chartData[i] = new object[] { MesName, MesData.Cantidad };
-                        }
-                        else
-                        {
-                            chartData[i] = new object[] { MesName, 0 };
+                            if (objFila.Mes == i)
+                            {
+                                chartData[i] = new object[] { objTextInfo.ToTitleCase(strMes), objFila.Cantidad };
+                            }
+                            else
+                            {
+                                chartData[i] = new object[] { objTextInfo.ToTitleCase(strMes), 0 };
+                            }
                         }
                     }
                     return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -88,50 +95,7 @@ namespace Manager.Controllers
 
         public JsonResult InsectosDataDia(int Año, string Mes)
         {
-            int NumeroMes = 0;
-            switch (Mes)
-            {
-                case "enero":
-                    NumeroMes = 1;
-                    break;
-                case "febrero":
-                    NumeroMes = 2;
-                    break;
-                case "marzo":
-                    NumeroMes = 3;
-                    break;
-                case "abril":
-                    NumeroMes = 4;
-                    break;
-                case "mayo":
-                    NumeroMes = 5;
-                    break;
-                case "junio":
-                    NumeroMes = 6;
-                    break;
-                case "julio":
-                    NumeroMes = 7;
-                    break;
-                case "agosto":
-                    NumeroMes = 8;
-                    break;
-                case "septiembre":
-                    NumeroMes = 9;
-                    break;
-                case "octubre":
-                    NumeroMes = 10;
-                    break;
-                case "noviembre":
-                    NumeroMes = 11;
-                    break;
-                case "diciembre":
-                    NumeroMes = 12;
-                    break;
-                default:
-                    NumeroMes = 1;
-                    break;
-            }
-            //int NumeroMes = DateTime.ParseExact(Mes, "MMMM", CultureInfo.CurrentCulture).Month;
+            int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
             int Dias = DateTime.DaysInMonth(Año, NumeroMes);
             using (HalconDBEntities dc = new HalconDBEntities())
             {
@@ -151,16 +115,19 @@ namespace Manager.Controllers
                         "Dia",
                         "Cantidad"
                     };
+                    var DiaData = v.ToList();
                     for (int i = 1; i <= Dias; i++)
                     {
-                        var DiaData = v.Where(a => a.Dia.Equals(i)).FirstOrDefault();
-                        if (DiaData != null)
+                        foreach (var objFila in DiaData)
                         {
-                            chartData[i] = new object[] { i, DiaData.Cantidad };
-                        }
-                        else
-                        {
-                            chartData[i] = new object[] { i, 0 };
+                            if (objFila.Dia == i)
+                            {
+                                chartData[i] = new object[] { i, objFila.Cantidad };
+                            }
+                            else
+                            {
+                                chartData[i] = new object[] { i, 0 };
+                            }
                         }
                     }
                     return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -172,60 +139,17 @@ namespace Manager.Controllers
 
         public JsonResult InsectosDataHora(int Año, string Mes, int Dia)
         {
-            int NumeroMes = 0;
-            switch (Mes)
-            {
-                case "enero":
-                    NumeroMes = 1;
-                    break;
-                case "febrero":
-                    NumeroMes = 2;
-                    break;
-                case "marzo":
-                    NumeroMes = 3;
-                    break;
-                case "abril":
-                    NumeroMes = 4;
-                    break;
-                case "mayo":
-                    NumeroMes = 5;
-                    break;
-                case "junio":
-                    NumeroMes = 6;
-                    break;
-                case "julio":
-                    NumeroMes = 7;
-                    break;
-                case "agosto":
-                    NumeroMes = 8;
-                    break;
-                case "septiembre":
-                    NumeroMes = 9;
-                    break;
-                case "octubre":
-                    NumeroMes = 10;
-                    break;
-                case "noviembre":
-                    NumeroMes = 11;
-                    break;
-                case "diciembre":
-                    NumeroMes = 12;
-                    break;
-                default:
-                    NumeroMes = 1;
-                    break;
-            }
-            //int NumeroMes = DateTime.ParseExact(Mes, "MMMM", CultureInfo.CurrentCulture).Month;
+            int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
             using (HalconDBEntities dc = new HalconDBEntities())
             {
-                var v = (from a in dc.Lecturas
-                         where a.FechaLectura.Year.Equals(Año) && a.FechaLectura.Month.Equals(NumeroMes) && a.FechaLectura.Day.Equals(Dia)
-                         group a by a.FechaLectura.Hour into g
-                         select new
-                         {
-                             Hora = g.Key,
-                             Cantidad = g.Count()
-                         });
+                var v = from a in dc.Lecturas
+                        where a.FechaLectura.Year.Equals(Año) && a.FechaLectura.Month.Equals(NumeroMes) && a.FechaLectura.Day.Equals(Dia)
+                        group a by a.FechaLectura.Hour into g
+                        select new
+                        {
+                            Hora = g.Key,
+                            Cantidad = g.Count()
+                        };
                 if (v != null)
                 {
                     var chartData = new object[24 + 1];
@@ -234,16 +158,19 @@ namespace Manager.Controllers
                         "Dia",
                         "Cantidad"
                     };
+                    var HoraData = v.ToList();
                     for (int i = 1; i <= 24; i++)
                     {
-                        var DiaData = v.Where(a => a.Hora.Equals(i)).FirstOrDefault();
-                        if (DiaData != null)
+                        foreach (var objFila in HoraData)
                         {
-                            chartData[i] = new object[] { i, DiaData.Cantidad };
-                        }
-                        else
-                        {
-                            chartData[i] = new object[] { i, 0 };
+                            if (objFila.Hora == i)
+                            {
+                                chartData[i] = new object[] { i, objFila.Cantidad };
+                            }
+                            else
+                            {
+                                chartData[i] = new object[] { i, 0 };
+                            }
                         }
                     }
                     return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

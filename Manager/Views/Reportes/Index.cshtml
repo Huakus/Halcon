@@ -37,7 +37,7 @@
                 }
             }).done(function () {
                 CurrentReport = 'Año';
-                generateChart(chartDataYear, "Insectos registrados por año", selectYear);
+                generateChart(chartDataYear, "Insectos registrados", selectYear);
             });
         });
 
@@ -72,15 +72,15 @@
                                 switch (currentReport) {
                                     case 'Mes':
                                         CurrentReport = 'Año';
-                                        generateChart(chartDataYear, "Insectos registrados por año", selectYear);
+                                        generateChart(chartDataYear, "Insectos registrados", selectYear);
                                         break;
                                     case 'Dia':
                                         CurrentReport = 'Mes';
-                                        generateChart(chartDataMonth, "Insectos registrados por mes en el año " + rowLevel, selectMonth);
+                                        generateChart(chartDataMonth, "Insectos registrados en el año " + GlobalYear, selectMonth);
                                         break;
                                     case 'Hora':
                                         CurrentReport = 'Dia';
-                                        generateChart(chartDataDay, "Insectos registrados por día en el mes de " + rowLevel + " del año " + GlobalYear, SelectDay);
+                                        generateChart(chartDataDay, "Insectos registrados en el mes de " + GlobalMonth + " del año " + GlobalYear, SelectDay);
                                         break;
                                     default:
 
@@ -116,7 +116,7 @@
                 }).done(function () {
                     CurrentReport = 'Mes';
                     GlobalYear = rowLevel;
-                    generateChart(chartDataMonth, "Insectos registrados por mes en el año " + rowLevel, selectMonth);
+                    generateChart(chartDataMonth, "Insectos registrados en el año " + rowLevel, selectMonth);
                 });
 
             }
@@ -143,7 +143,7 @@
                 }).done(function () {
                     CurrentReport = 'Dia';
                     GlobalMonth = rowLevel;
-                    generateChart(chartDataDay, "Insectos registrados por día en el mes de " + rowLevel + " del año " + GlobalYear, SelectDay);
+                    generateChart(chartDataDay, "Insectos registrados en el mes de " + rowLevel + " del año " + GlobalYear, SelectDay);
                 });
             }
         }
@@ -167,7 +167,7 @@
                     }
                 }).done(function () {
                     CurrentReport = 'Hora';
-                    generateChart(chartDataHour, "Insectos registrados por hora en el día " + rowLevel + " de " + GlobalMonth + " del año " + GlobalYear, null);
+                    generateChart(chartDataHour, "Insectos registrados el " + rowLevel + " de " + GlobalMonth + " del año " + GlobalYear, null);
                 });
             }
         }
