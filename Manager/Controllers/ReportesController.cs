@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
 
 namespace Manager.Controllers
 {
@@ -21,6 +22,39 @@ namespace Manager.Controllers
 
         public JsonResult InsectosDataAño()
         {
+
+            DataLayer objDL = new DataLayer();
+            DataTable objTabla = new DataTable();
+            objTabla = objDL.SP_GETLecturasInsectosByAño();
+
+            var sData = new object[objTabla.Rows.Count + 1];
+            string[] sCabeceras = new string[objTabla.Columns.Count];
+            for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+            {
+                sCabeceras[iColumnas] = objTabla.Columns[iColumnas].ToString();
+            }
+            sData[0] = sCabeceras;
+
+            for (int iFilas = 0; iFilas < objTabla.Rows.Count; iFilas++)
+            {
+                var sCeldas = new object[objTabla.Columns.Count];
+                for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+                {
+                    if (iColumnas == 0)
+                    {
+                        sCeldas[iColumnas] = objTabla.Rows[iFilas][iColumnas].ToString();
+                    }
+                    else
+                    {
+                        sCeldas[iColumnas] = int.Parse(objTabla.Rows[iFilas][iColumnas].ToString());
+                    }
+                }
+                sData[iFilas + 1] = sCeldas;
+            }
+
+            return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            /*
             using (HalconDBEntities dc = new HalconDBEntities())
             {
                 var v = (from a in dc.Lecturas
@@ -49,6 +83,7 @@ namespace Manager.Controllers
                 }
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            */
         }
 
         public JsonResult InsectosDataMes(int Año)
