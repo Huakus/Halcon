@@ -98,6 +98,7 @@
 
         function selectYear(chart, data) {
             //Year Event (after select year data from chart)
+            
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
                 rowLevel = parseInt(data.getValue(selectedItem.row, 0));

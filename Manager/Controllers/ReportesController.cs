@@ -53,83 +53,79 @@ namespace Manager.Controllers
             }
 
             return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-            /*
-            using (HalconDBEntities dc = new HalconDBEntities())
-            {
-                var v = (from a in dc.Lecturas
-                         group a by a.FechaLectura.Year into g
-                         select new
-                         {
-                             Año = g.Key,
-                             Cantidad = g.Count()
-                         });
-                if (v != null)
-                {
-                    var chartData = new object[v.Count() + 1];
-                    chartData[0] = new object[]
-                    {
-                        "Año",
-                        "Cantidad"
-                    };
-                    var AñoData = v.ToList();
-                    int j = 0;
-                    foreach (var i in AñoData)
-                    {
-                        j++;
-                        chartData[j] = new object[] { i.Año.ToString(), i.Cantidad };
-                    }
-                    return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-            }
-            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            */
         }
 
         public JsonResult InsectosDataMes(int Año)
         {
-            using (HalconDBEntities dc = new HalconDBEntities())
+            DataLayer objDL = new DataLayer();
+            DataTable objTabla = new DataTable();
+            objTabla = objDL.SP_GETLecturasInsectosByMes(Año);
+
+            var sData = new object[objTabla.Rows.Count + 1];
+            string[] sCabeceras = new string[objTabla.Columns.Count];
+            for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
             {
-                var v = (from a in dc.Lecturas
-                         where a.FechaLectura.Year.Equals(Año)
-                         group a by a.FechaLectura.Month into g
-                         select new
-                         {
-                             Mes = g.Key,
-                             Cantidad = g.Count()
-                         });
-                if (v != null)
-                {
-                    var chartData = new object[12 + 1];
-                    chartData[0] = new object[]
-                    {
-                        "Mes",
-                        "Cantidad"
-                    };
-                    var MesData = v.ToList();
-                    for (int i = 1; i <= 12; i++)
-                    {
-                        string strMes = new DateTime(Año, i, 1).ToString("MMMM", objCultura);
-                        foreach (var objFila in MesData)
-                        {
-                            if (objFila.Mes == i)
-                            {
-                                chartData[i] = new object[] { objTextInfo.ToTitleCase(strMes), objFila.Cantidad };
-                            }
-                            else
-                            {
-                                chartData[i] = new object[] { objTextInfo.ToTitleCase(strMes), 0 };
-                            }
-                        }
-                    }
-                    return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
+                sCabeceras[iColumnas] = objTabla.Columns[iColumnas].ToString();
             }
-            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            sData[0] = sCabeceras;
+
+            for (int iFilas = 0; iFilas < objTabla.Rows.Count; iFilas++)
+            {
+                var sCeldas = new object[objTabla.Columns.Count];
+                for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+                {
+                    if (iColumnas == 0)
+                    {
+                        string strMes = new DateTime(Año, int.Parse(objTabla.Rows[iFilas][iColumnas].ToString()), 1).ToString("MMMM", objCultura);
+                        sCeldas[iColumnas] = strMes; //objTabla.Rows[iFilas][iColumnas].ToString();
+                    }
+                    else
+                    {
+                        sCeldas[iColumnas] = int.Parse(objTabla.Rows[iFilas][iColumnas].ToString());
+                    }
+                }
+                sData[iFilas + 1] = sCeldas;
+            }
+
+            return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public JsonResult InsectosDataDia(int Año, string Mes)
         {
+            DataLayer objDL = new DataLayer();
+            DataTable objTabla = new DataTable();
+            int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
+            objTabla = objDL.SP_GETLecturasInsectosByDia(Año, NumeroMes);
+
+            var sData = new object[objTabla.Rows.Count + 1];
+            string[] sCabeceras = new string[objTabla.Columns.Count];
+            for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+            {
+                sCabeceras[iColumnas] = objTabla.Columns[iColumnas].ToString();
+            }
+            sData[0] = sCabeceras;
+
+            for (int iFilas = 0; iFilas < objTabla.Rows.Count; iFilas++)
+            {
+                var sCeldas = new object[objTabla.Columns.Count];
+                for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+                {
+                    if (iColumnas == 0)
+                    {
+                        string strDia = new DateTime(Año, NumeroMes, int.Parse(objTabla.Rows[iFilas][iColumnas].ToString())).ToString("dd", objCultura);
+                        sCeldas[iColumnas] = strDia; //objTabla.Rows[iFilas][iColumnas].ToString();
+                    }
+                    else
+                    {
+                        sCeldas[iColumnas] = int.Parse(objTabla.Rows[iFilas][iColumnas].ToString());
+                    }
+                }
+                sData[iFilas + 1] = sCeldas;
+            }
+
+            return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            /*
             int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
             int Dias = DateTime.DaysInMonth(Año, NumeroMes);
             using (HalconDBEntities dc = new HalconDBEntities())
@@ -169,11 +165,46 @@ namespace Manager.Controllers
                 }
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            */
         }
 
 
         public JsonResult InsectosDataHora(int Año, string Mes, int Dia)
         {
+            DataLayer objDL = new DataLayer();
+            DataTable objTabla = new DataTable();
+            int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
+            objTabla = objDL.SP_GETLecturasInsectosByHora(Año, NumeroMes, Dia);
+
+            var sData = new object[objTabla.Rows.Count + 1];
+            string[] sCabeceras = new string[objTabla.Columns.Count];
+            for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+            {
+                sCabeceras[iColumnas] = objTabla.Columns[iColumnas].ToString();
+            }
+            sData[0] = sCabeceras;
+
+            for (int iFilas = 0; iFilas < objTabla.Rows.Count; iFilas++)
+            {
+                var sCeldas = new object[objTabla.Columns.Count];
+                for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+                {
+                    if (iColumnas == 0)
+                    {
+                        string strHora = new DateTime(Año, NumeroMes, Dia, int.Parse(objTabla.Rows[iFilas][iColumnas].ToString()), 0, 0).ToString("hh", objCultura);
+                        sCeldas[iColumnas] = strHora; //objTabla.Rows[iFilas][iColumnas].ToString();
+                    }
+                    else
+                    {
+                        sCeldas[iColumnas] = int.Parse(objTabla.Rows[iFilas][iColumnas].ToString());
+                    }
+                }
+                sData[iFilas + 1] = sCeldas;
+            }
+
+            return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            /*
             int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
             using (HalconDBEntities dc = new HalconDBEntities())
             {
@@ -210,8 +241,10 @@ namespace Manager.Controllers
                     }
                     return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
+                
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            */
         }
     }
 }
