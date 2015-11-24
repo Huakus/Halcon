@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.76.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\ClosedXML.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>App_Data\Microsoft.ApplicationBlocks.Data.dll</HintPath>
@@ -256,6 +260,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ClosedXML.dll" />
+    <Content Include="App_Data\ClosedXML.XML" />
     <Content Include="App_Data\Microsoft.ApplicationBlocks.Data.dll" />
     <Content Include="App_Data\Microsoft.ApplicationBlocks.Data.pdb" />
     <Content Include="Content\bootstrap.css" />
@@ -296,7 +302,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -355,9 +363,11 @@
     <Content Include="Views\Trampas\Edit.cshtml" />
     <Content Include="Views\Trampas\Index.cshtml" />
     <Content Include="Views\Relevamientos\Create.cshtml" />
-    <Content Include="Views\Relevamientos\Details.cshtml" />
     <Content Include="Views\Relevamientos\Index.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Reportes\ExportarGrafico.cshtml" />
+    <Content Include="Views\Relevamientos\Editar.cshtml" />
+    <Content Include="Views\Relevamientos\Validar.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

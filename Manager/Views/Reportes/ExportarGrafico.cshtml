@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "ExportarGrafico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ExportarGrafico</h2>
+
+<div class="form-horizontal">
+    <h4>Exportación</h4>
+    <hr />
+    <div class="form-group">
+        <input id="txtName" type="text" />
+        @*@Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        @Html.Editor()
+    </div>
+</div>
+

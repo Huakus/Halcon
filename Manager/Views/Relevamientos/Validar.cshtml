@@ -1,0 +1,114 @@
+﻿@model Manager.Models.Relevamientos
+
+@{
+    ViewBag.Title = "Validar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Validar</h2>
+
+<div>
+    <h4>Relevamientos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinal)
+        </dt>
+        
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.Label("","Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estados.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trampas.IdTrampa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trampas.IdTrampa)
+        </dd>
+
+        <dt>
+            @Html.Display("Gráfico")
+        </dt>
+
+        <dd>
+            <div id="chart" style="width:80%; height:300px"/>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdRelevamiento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+@section scripts{
+    <script>
+        var chartData;
+        var chartDataHour;
+        var rowLevel;
+        var FechaInicio;
+        var FechaFinal;
+        google.load("visualization", "1", { packages: ["corechart"] });
+
+        //Load Year Wise Report On Load
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Relevamientos/InsectosDataHora',
+                type: 'get',
+                data: { 'idRelevamiento': @Model.IdRelevamiento },
+                dataType: 'json',
+                success: function (d) {
+                    chartDataHour = d;
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            }).done(function () {
+                CurrentReport = 'Hora';
+                generateChart(chartDataHour, "Insectos registrados");
+            });
+        });
+
+        function generateChart(chartData, title) {
+            var data = google.visualization.arrayToDataTable(chartData);
+
+            var options = {
+                title: title,
+                pointSize: 5,
+                focusTarget: "category",
+                hAxis: { showTextEvery: 1 }
+            }
+
+            var lineChart = new google.visualization.LineChart(document.getElementById('chart'));
+            lineChart.draw(data, options);
+        }
+
+
+    </script>
+}

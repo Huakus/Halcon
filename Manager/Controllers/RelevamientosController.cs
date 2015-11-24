@@ -19,13 +19,6 @@ namespace Manager.Controllers
             return View(db.Relevamientos);
         }
 
-        // GET: Relevamientos/Details/5
-        public ActionResult Details(int id)
-        {
-            var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
-            return View(objRelevamiento);
-        }
-
         // GET: Relevamientos/Create
         public ActionResult Create()
         {
@@ -99,7 +92,7 @@ namespace Manager.Controllers
         }
 
         // GET: Relevamientos/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Editar(int id)
         {
             ViewData["Trampas"] = new SelectList(db.Trampas.ToList(), "IdTrampa", "IdTrampa");
             ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
@@ -109,7 +102,7 @@ namespace Manager.Controllers
 
         // POST: Relevamientos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar(int id, FormCollection collection)
         {
             try
             {
@@ -129,28 +122,70 @@ namespace Manager.Controllers
             }
         }
 
-        // GET: Relevamientos/Delete/5
-        public ActionResult Delete(int id)
-        {
-            var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
-            return View(objRelevamiento);
-        }
-
-        // POST: Relevamientos/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Validar(int id)
         {
             try
             {
-                // TODO: Add delete logic here
                 var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
-                db.Relevamientos.Remove(objRelevamiento);
-                return RedirectToAction("Index");
+                return View(objRelevamiento);
             }
             catch
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult Validar(int id, FormCollection collection)
+        {
+            try
+            {
+                return View();
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public JsonResult InsectosDataHora(int idRelevamiento)
+        {
+            var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == idRelevamiento select obj).First();
+            System.Globalization.CultureInfo objCultura = new System.Globalization.CultureInfo("es-AR");
+            System.Globalization.DateTimeFormatInfo objDateTimeFormat = new System.Globalization.DateTimeFormatInfo();
+            System.Globalization.TextInfo objTextInfo = new System.Globalization.CultureInfo("es-AR").TextInfo;
+            DataLayer objDL = new DataLayer();
+            System.Data.DataTable objTabla = new System.Data.DataTable();
+            objTabla = objDL.SP_GETLecturasInsectosByRelevamiento(idRelevamiento);
+
+            var sData = new object[objTabla.Rows.Count + 1];
+            string[] sCabeceras = new string[objTabla.Columns.Count];
+            for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+            {
+                sCabeceras[iColumnas] = objTabla.Columns[iColumnas].ToString();
+            }
+            sData[0] = sCabeceras;
+
+            for (int iFilas = 0; iFilas < objTabla.Rows.Count; iFilas++)
+            {
+                var sCeldas = new object[objTabla.Columns.Count];
+                for (int iColumnas = 0; iColumnas < objTabla.Columns.Count; iColumnas++)
+                {
+                    if (iColumnas == 0)
+                    {
+                        string strHora = new DateTime(objRelevamiento.FechaInicio.Year, objRelevamiento.FechaInicio.Month, objRelevamiento.FechaInicio.Day, int.Parse(objTabla.Rows[iFilas][iColumnas].ToString()), 0, 0).ToString("hh", objCultura);
+                        sCeldas[iColumnas] = strHora; //objTabla.Rows[iFilas][iColumnas].ToString();
+                    }
+                    else
+                    {
+                        sCeldas[iColumnas] = int.Parse(objTabla.Rows[iFilas][iColumnas].ToString());
+                    }
+                }
+                sData[iFilas + 1] = sCeldas;
+            }
+
+            return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

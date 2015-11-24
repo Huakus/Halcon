@@ -14,6 +14,9 @@ namespace Manager.Controllers
         CultureInfo objCultura = new CultureInfo("es-AR");
         DateTimeFormatInfo objDateTimeFormat = new DateTimeFormatInfo();
         TextInfo objTextInfo = new CultureInfo("es-AR").TextInfo;
+        DataLayer objDL = new DataLayer();
+        DataTable objTabla = new DataTable();
+
         // GET: Reportes
         public ActionResult Index()
         {
@@ -22,9 +25,6 @@ namespace Manager.Controllers
 
         public JsonResult InsectosDataAño()
         {
-
-            DataLayer objDL = new DataLayer();
-            DataTable objTabla = new DataTable();
             objTabla = objDL.SP_GETLecturasInsectosByAño();
 
             var sData = new object[objTabla.Rows.Count + 1];
@@ -57,8 +57,6 @@ namespace Manager.Controllers
 
         public JsonResult InsectosDataMes(int Año)
         {
-            DataLayer objDL = new DataLayer();
-            DataTable objTabla = new DataTable();
             objTabla = objDL.SP_GETLecturasInsectosByMes(Año);
 
             var sData = new object[objTabla.Rows.Count + 1];
@@ -92,8 +90,6 @@ namespace Manager.Controllers
 
         public JsonResult InsectosDataDia(int Año, string Mes)
         {
-            DataLayer objDL = new DataLayer();
-            DataTable objTabla = new DataTable();
             int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
             objTabla = objDL.SP_GETLecturasInsectosByDia(Año, NumeroMes);
 
@@ -168,11 +164,8 @@ namespace Manager.Controllers
             */
         }
 
-
         public JsonResult InsectosDataHora(int Año, string Mes, int Dia)
         {
-            DataLayer objDL = new DataLayer();
-            DataTable objTabla = new DataTable();
             int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
             objTabla = objDL.SP_GETLecturasInsectosByHora(Año, NumeroMes, Dia);
 
@@ -245,6 +238,13 @@ namespace Manager.Controllers
             }
             return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             */
+        }
+
+        public ActionResult ExportarGrafico()
+        {
+            //    ClosedXML.Excel.XLWorkbook objLibro = new ClosedXML.Excel.XLWorkbook();
+            //    objLibro.Worksheets.Add(objTabla, "WorksheetName");
+            return View();
         }
     }
 }

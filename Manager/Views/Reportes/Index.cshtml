@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    ViewBag.
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,6 +14,7 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 @section scripts{
     <script>
+        var chartData;
         var chartDataYear;
         var chartDataMonth;
         var chartDataDay;
@@ -48,7 +50,7 @@
                 title: title,
                 pointSize: 5,
                 focusTarget: "category",
-                hAxis: {showTextEvery: 1}
+                hAxis: { showTextEvery: 1 }
             }
 
             var lineChart = new google.visualization.LineChart(document.getElementById('chart'));
@@ -98,7 +100,7 @@
 
         function selectYear(chart, data) {
             //Year Event (after select year data from chart)
-            
+
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
                 rowLevel = parseInt(data.getValue(selectedItem.row, 0));
@@ -107,7 +109,7 @@
                     url: '/Reportes/InsectosDataMes',
                     type: 'get',
                     dataType: 'json',
-                    data: {'Año': rowLevel},
+                    data: { 'Año': rowLevel },
                     success: function (d) {
                         chartDataMonth = d;
                     },
@@ -134,7 +136,7 @@
                     url: '/Reportes/InsectosDataDia',
                     type: 'get',
                     dataType: 'json',
-                    data: {'Año': GlobalYear, 'Mes': rowLevel},
+                    data: { 'Año': GlobalYear, 'Mes': rowLevel },
                     success: function (d) {
                         chartDataDay = d;
                     },
