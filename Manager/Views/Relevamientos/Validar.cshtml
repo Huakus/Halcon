@@ -1,4 +1,4 @@
-﻿@model Manager.Models.Relevamientos
+﻿@model Manager.Controllers.DatosParaValidar
 
 @{
     ViewBag.Title = "Validar";
@@ -12,27 +12,36 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FechaInicio)
+            @Html.Label("Validar")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FechaInicio)
+            @Html.ActionLink("Correcto", "Validar1", new { id = Model.Relevamiento.IdRelevamiento }) |
+            @Html.ActionLink("Incorrecto", "Validar2", new { id = Model.Relevamiento.IdRelevamiento })
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FechaFinal)
+            @Html.DisplayNameFor(model => model.Relevamiento.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Relevamiento.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Relevamiento.FechaFinal)
         </dt>
         
         <dd>
-            @Html.DisplayFor(model => model.FechaFinal)
+            @Html.DisplayFor(model => model.Relevamiento.FechaFinal)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Observaciones)
+            @Html.DisplayNameFor(model => model.Relevamiento.Observaciones)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Observaciones)
+            @Html.DisplayFor(model => model.Relevamiento.Observaciones)
         </dd>
 
         <dt>
@@ -40,15 +49,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Estados.Nombre)
+            @Html.DisplayFor(model => model.Relevamiento.Estados.Nombre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Trampas.IdTrampa)
+            @Html.DisplayNameFor(model => model.Relevamiento.Trampas.IdTrampa)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trampas.IdTrampa)
+            @Html.DisplayFor(model => model.Relevamiento.Trampas.IdTrampa)
         </dd>
 
         <dt>
@@ -61,8 +70,46 @@
 
     </dl>
 </div>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Label("Insecto")
+                @*@Html.DisplayNameFor(model => Model.Totales.*@
+            </th>
+            <th>
+                @Html.Label("Cantidad automática")
+            </th>
+            <th>
+                @Html.Label("Cantidad manual")
+            </th>
+            <th>
+                @Html.Label("Diferencia")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Totales)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Insecto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantidadAutomatica)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CantidadManual)
+                </td>
+                <td>
+                    @Html.Label((item.CantidadAutomatica - item.CantidadManual).ToString())
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdRelevamiento }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
@@ -81,7 +128,7 @@
             $.ajax({
                 url: '/Relevamientos/InsectosDataHora',
                 type: 'get',
-                data: { 'idRelevamiento': @Model.IdRelevamiento },
+                data: { 'idRelevamiento': @Model.Relevamiento.IdRelevamiento },
                 dataType: 'json',
                 success: function (d) {
                     chartDataHour = d;

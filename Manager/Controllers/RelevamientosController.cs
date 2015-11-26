@@ -50,7 +50,7 @@ namespace Manager.Controllers
 
 
                     Lecturas objLecturas = new Lecturas();
-                    
+
                     Monitoreos objMonitoreos = new Monitoreos();
                     var objRelevamiento2 = (from obj in db.Relevamientos select obj).OrderByDescending(i => i.IdRelevamiento).First();
                     foreach (string Linea in arrLineas)
@@ -65,7 +65,7 @@ namespace Manager.Controllers
                             objLecturas.FechaLectura = DateTime.Parse(arrDatos[0]);
                             db.Lecturas.Add(objLecturas);
                         }
-                        else if(arrDatos.Length > 1 && arrDatos[1].ToString() == "ESTADO")
+                        else if (arrDatos.Length > 1 && arrDatos[1].ToString() == "ESTADO")
                         {
                             objMonitoreos.IdEstado = 1;
                             objMonitoreos.IdRelevamiento = objRelevamiento2.IdRelevamiento;
@@ -96,7 +96,7 @@ namespace Manager.Controllers
         {
             ViewData["Trampas"] = new SelectList(db.Trampas.ToList(), "IdTrampa", "IdTrampa");
             ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
-            var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
+            Relevamientos objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
             return View(objRelevamiento);
         }
 
@@ -126,8 +126,21 @@ namespace Manager.Controllers
         {
             try
             {
-                var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
-                return View(objRelevamiento);
+                Relevamientos objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
+                var objTablaTotales = (from objLecturas in db.Lecturas
+                                       from objInsectos in db.Insectos
+                                       where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin
+                                       select new TablaTotales()
+                                       {
+                                           Insecto = objInsectos.NombreVulgar,
+                                           CantidadAutomatica = objLecturas.Frecuencia,
+                                           CantidadManual = objLecturas.Frecuencia
+                                       }).ToList<TablaTotales>();
+                DatosParaValidar objDatosParaValidar = new DatosParaValidar();
+                objDatosParaValidar.Relevamiento = objRelevamiento;
+                objDatosParaValidar.Totales = objTablaTotales;
+
+                return View(objDatosParaValidar);
             }
             catch
             {
@@ -135,18 +148,20 @@ namespace Manager.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Validar(int id, FormCollection collection)
+        public ActionResult Validar1(int id)
         {
-            try
-            {
-                return View();
+            var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
+            objRelevamiento.IdEstado = 1;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-            }
-            catch
-            {
-                return View();
-            }
+        public ActionResult Validar2(int id)
+        {
+            var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
+            objRelevamiento.IdEstado = 2;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public JsonResult InsectosDataHora(int idRelevamiento)
@@ -187,5 +202,23 @@ namespace Manager.Controllers
 
             return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+    }
+
+    public class DatosParaValidar : System.Collections.IEnumerable
+    {
+        public Relevamientos Relevamiento { get; set; }
+        public List<TablaTotales> Totales { get; set; }
+
+        public System.Collections.IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class TablaTotales
+    {
+        public string Insecto { get; set; }
+        public double CantidadAutomatica { get; set; }
+        public double CantidadManual { get; set; }
     }
 }
