@@ -14,6 +14,12 @@ namespace Manager.Models
     
     public partial class Usuarios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuarios()
+        {
+            this.Mantenimientos = new HashSet<Mantenimientos>();
+        }
+    
         public int IdUsuario { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -26,5 +32,7 @@ namespace Manager.Models
         public string Observaciones { get; set; }
     
         public virtual Estados Estados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mantenimientos> Mantenimientos { get; set; }
     }
 }

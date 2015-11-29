@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HalconDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HalconDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Campos">
           <Key>
             <PropertyRef Name="IdCampo" />
@@ -82,6 +82,17 @@
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IdProvincia" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Mantenimientos">
+          <Key>
+            <PropertyRef Name="IdMantenimiento" />
+          </Key>
+          <Property Name="IdMantenimiento" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTrampa" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdTipoMantenimiento" Type="int" Nullable="false" />
+          <Property Name="FechaMantenimiento" Type="datetime" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Monitoreos">
           <Key>
             <PropertyRef Name="IdMonitoreo" />
@@ -140,6 +151,15 @@
           <Property Name="IdTrampa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCampo" Type="int" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Umbrales">
+          <Key>
+            <PropertyRef Name="IdUmbral" />
+          </Key>
+          <Property Name="IdUmbral" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdInsecto" Type="int" Nullable="false" />
+          <Property Name="ValorMaximo" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -276,6 +296,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Mantenimientos_Trampas">
+          <End Role="Trampas" Type="Self.Trampas" Multiplicity="1" />
+          <End Role="Mantenimientos" Type="Self.Mantenimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trampas">
+              <PropertyRef Name="IdTrampa" />
+            </Principal>
+            <Dependent Role="Mantenimientos">
+              <PropertyRef Name="IdTrampa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mantenimientos_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Mantenimientos" Type="Self.Mantenimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Mantenimientos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Monitoreos_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
           <End Role="Monitoreos" Type="Self.Monitoreos" Multiplicity="*" />
@@ -372,6 +416,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Umbrales_Insectos">
+          <End Role="Insectos" Type="Self.Insectos" Multiplicity="1" />
+          <End Role="Umbrales" Type="Self.Umbrales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insectos">
+              <PropertyRef Name="IdInsecto" />
+            </Principal>
+            <Dependent Role="Umbrales">
+              <PropertyRef Name="IdInsecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Usuarios_Estados">
           <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
@@ -392,12 +448,14 @@
           <EntitySet Name="Insectos" EntityType="Self.Insectos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lecturas" EntityType="Self.Lecturas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mantenimientos" EntityType="Self.Mantenimientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Monitoreos" EntityType="Self.Monitoreos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Relevamientos" EntityType="Self.Relevamientos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Telefonos" EntityType="Self.Telefonos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trampas" EntityType="Self.Trampas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Umbrales" EntityType="Self.Umbrales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Campos_Clientes" Association="Self.FK_Campos_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
@@ -439,6 +497,14 @@
             <End Role="Provincias" EntitySet="Provincias" />
             <End Role="Localidades" EntitySet="Localidades" />
           </AssociationSet>
+          <AssociationSet Name="FK_Mantenimientos_Trampas" Association="Self.FK_Mantenimientos_Trampas">
+            <End Role="Trampas" EntitySet="Trampas" />
+            <End Role="Mantenimientos" EntitySet="Mantenimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mantenimientos_Usuarios" Association="Self.FK_Mantenimientos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Mantenimientos" EntitySet="Mantenimientos" />
+          </AssociationSet>
           <AssociationSet Name="FK_Monitoreos_Estados" Association="Self.FK_Monitoreos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Monitoreos" EntitySet="Monitoreos" />
@@ -471,13 +537,16 @@
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Trampas" EntitySet="Trampas" />
           </AssociationSet>
+          <AssociationSet Name="FK_Umbrales_Insectos" Association="Self.FK_Umbrales_Insectos">
+            <End Role="Insectos" EntitySet="Insectos" />
+            <End Role="Umbrales" EntitySet="Umbrales" />
+          </AssociationSet>
           <AssociationSet Name="FK_Usuarios_Estados" Association="Self.FK_Usuarios_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HalconDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -555,6 +624,7 @@
           <NavigationProperty Name="Estados" Relationship="Self.FK_Insectos_Estados" FromRole="Insectos" ToRole="Estados" />
           <NavigationProperty Name="Generos" Relationship="Self.FK_Insectos_Generos" FromRole="Insectos" ToRole="Generos" />
           <NavigationProperty Name="Lecturas" Relationship="Self.FK_Lecturas_Insectos" FromRole="Insectos" ToRole="Lecturas" />
+          <NavigationProperty Name="Umbrales" Relationship="HalconDBModel.FK_Umbrales_Insectos" FromRole="Insectos" ToRole="Umbrales" />
         </EntityType>
         <EntityType Name="Lecturas">
           <Key>
@@ -653,6 +723,8 @@
           <NavigationProperty Name="Campos" Relationship="Self.FK_Trampas_Campos" FromRole="Trampas" ToRole="Campos" />
           <NavigationProperty Name="Estados" Relationship="Self.FK_Trampas_Estados" FromRole="Trampas" ToRole="Estados" />
           <NavigationProperty Name="Relevamientos" Relationship="Self.FK_Relevamientos_Trampas" FromRole="Trampas" ToRole="Relevamientos" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mantenimientos" Relationship="HalconDBModel.FK_Mantenimientos_Trampas" FromRole="Trampas" ToRole="Mantenimientos" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -669,6 +741,7 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Estados" Relationship="Self.FK_Usuarios_Estados" FromRole="Usuarios" ToRole="Estados" />
+          <NavigationProperty Name="Mantenimientos" Relationship="HalconDBModel.FK_Mantenimientos_Usuarios" FromRole="Usuarios" ToRole="Mantenimientos" />
         </EntityType>
         <Association Name="FK_Campos_Clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
@@ -989,7 +1062,79 @@
             <End Role="Trampas" EntitySet="Trampas" />
             <End Role="Relevamientos" EntitySet="Relevamientos" />
           </AssociationSet>
+          <EntitySet Name="Umbrales" EntityType="HalconDBModel.Umbrales" />
+          <AssociationSet Name="FK_Umbrales_Insectos" Association="HalconDBModel.FK_Umbrales_Insectos">
+            <End Role="Insectos" EntitySet="Insectos" />
+            <End Role="Umbrales" EntitySet="Umbrales" />
+          </AssociationSet>
+          <EntitySet Name="Mantenimientos" EntityType="HalconDBModel.Mantenimientos" />
+          <AssociationSet Name="FK_Mantenimientos_Trampas" Association="HalconDBModel.FK_Mantenimientos_Trampas">
+            <End Role="Trampas" EntitySet="Trampas" />
+            <End Role="Mantenimientos" EntitySet="Mantenimientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mantenimientos_Usuarios" Association="HalconDBModel.FK_Mantenimientos_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Mantenimientos" EntitySet="Mantenimientos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Umbrales">
+          <Key>
+            <PropertyRef Name="IdUmbral" />
+          </Key>
+          <Property Name="IdUmbral" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdInsecto" Type="Int32" Nullable="false" />
+          <Property Name="ValorMaximo" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Insectos" Relationship="HalconDBModel.FK_Umbrales_Insectos" FromRole="Umbrales" ToRole="Insectos" />
+        </EntityType>
+        <Association Name="FK_Umbrales_Insectos">
+          <End Type="HalconDBModel.Insectos" Role="Insectos" Multiplicity="1" />
+          <End Type="HalconDBModel.Umbrales" Role="Umbrales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insectos">
+              <PropertyRef Name="IdInsecto" />
+            </Principal>
+            <Dependent Role="Umbrales">
+              <PropertyRef Name="IdInsecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Mantenimientos">
+          <Key>
+            <PropertyRef Name="IdMantenimiento" />
+          </Key>
+          <Property Name="IdMantenimiento" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTrampa" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoMantenimiento" Type="Int32" Nullable="false" />
+          <Property Name="FechaMantenimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Trampas" Relationship="HalconDBModel.FK_Mantenimientos_Trampas" FromRole="Mantenimientos" ToRole="Trampas" />
+          <NavigationProperty Name="Usuarios" Relationship="HalconDBModel.FK_Mantenimientos_Usuarios" FromRole="Mantenimientos" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK_Mantenimientos_Trampas">
+          <End Type="HalconDBModel.Trampas" Role="Trampas" Multiplicity="1" />
+          <End Type="HalconDBModel.Mantenimientos" Role="Mantenimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trampas">
+              <PropertyRef Name="IdTrampa" />
+            </Principal>
+            <Dependent Role="Mantenimientos">
+              <PropertyRef Name="IdTrampa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mantenimientos_Usuarios">
+          <End Type="HalconDBModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="HalconDBModel.Mantenimientos" Role="Mantenimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Mantenimientos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1139,6 +1284,7 @@
           <EntitySetMapping Name="Trampas">
             <EntityTypeMapping TypeName="HalconDBModel.Trampas">
               <MappingFragment StoreEntitySet="Trampas">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
                 <ScalarProperty Name="IdCampo" ColumnName="IdCampo" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
@@ -1158,6 +1304,27 @@
                 <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Umbrales">
+            <EntityTypeMapping TypeName="HalconDBModel.Umbrales">
+              <MappingFragment StoreEntitySet="Umbrales">
+                <ScalarProperty Name="ValorMaximo" ColumnName="ValorMaximo" />
+                <ScalarProperty Name="IdInsecto" ColumnName="IdInsecto" />
+                <ScalarProperty Name="IdUmbral" ColumnName="IdUmbral" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mantenimientos">
+            <EntityTypeMapping TypeName="HalconDBModel.Mantenimientos">
+              <MappingFragment StoreEntitySet="Mantenimientos">
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="FechaMantenimiento" ColumnName="FechaMantenimiento" />
+                <ScalarProperty Name="IdTipoMantenimiento" ColumnName="IdTipoMantenimiento" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
+                <ScalarProperty Name="IdMantenimiento" ColumnName="IdMantenimiento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

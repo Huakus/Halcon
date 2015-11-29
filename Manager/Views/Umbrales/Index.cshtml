@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Manager.Models.Umbrales>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorMaximo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Insectos.NombreCientifico)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorMaximo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Insectos.NombreCientifico)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdUmbral }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdUmbral }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdUmbral })
+        </td>
+    </tr>
+}
+
+</table>

@@ -181,6 +181,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\MantenimientosController.cs" />
+    <Compile Include="Controllers\UmbralesController.cs" />
     <Compile Include="DataLayer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CamposController.cs" />
@@ -235,6 +237,9 @@
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Mantenimientos.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Monitoreos.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
@@ -251,6 +256,9 @@
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trampas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Umbrales.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuarios.cs">
@@ -368,6 +376,16 @@
     <Content Include="Views\Reportes\ExportarGrafico.cshtml" />
     <Content Include="Views\Relevamientos\Editar.cshtml" />
     <Content Include="Views\Relevamientos\Validar.cshtml" />
+    <Content Include="Views\Umbrales\Create.cshtml" />
+    <Content Include="Views\Umbrales\Delete.cshtml" />
+    <Content Include="Views\Umbrales\Details.cshtml" />
+    <Content Include="Views\Umbrales\Edit.cshtml" />
+    <Content Include="Views\Umbrales\Index.cshtml" />
+    <Content Include="Views\Mantenimientos\Create.cshtml" />
+    <Content Include="Views\Mantenimientos\Delete.cshtml" />
+    <Content Include="Views\Mantenimientos\Details.cshtml" />
+    <Content Include="Views\Mantenimientos\Edit.cshtml" />
+    <Content Include="Views\Mantenimientos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -38,6 +38,11 @@
         <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Relevamientos" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Provincias_Paises" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Trampas" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HalconDBModel.Umbrales" Width="1.5" PointX="5.25" PointY="8" />
+        <AssociationConnector Association="HalconDBModel.FK_Umbrales_Insectos" />
+        <EntityTypeShape EntityType="HalconDBModel.Mantenimientos" Width="1.5" PointX="9.75" PointY="17.75" />
+        <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Trampas" />
+        <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

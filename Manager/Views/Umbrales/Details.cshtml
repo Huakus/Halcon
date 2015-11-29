@@ -1,0 +1,35 @@
+﻿@model Manager.Models.Umbrales
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Umbrales</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMaximo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMaximo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Insectos.NombreCientifico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Insectos.NombreCientifico)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdUmbral }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
