@@ -25,6 +25,8 @@ namespace Manager.Models
         public int IdCampo { get; set; }
         public int IdEstado { get; set; }
         public int IdUsuario { get; set; }
+        public Nullable<System.DateTime> BateriaFElab { get; set; }
+        public Nullable<System.DateTime> BateriaFVenc { get; set; }
     
         public virtual Campos Campos { get; set; }
         public virtual Estados Estados { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="78c0b7492f5d4c02a708b89bfa01a130" Name="Diagram1">
+      <Diagram DiagramId="78c0b7492f5d4c02a708b89bfa01a130" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="HalconDBModel.Campos" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HalconDBModel.Clientes" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />

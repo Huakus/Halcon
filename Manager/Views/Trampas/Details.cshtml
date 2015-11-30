@@ -12,11 +12,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Estados.Nombre)
+            @Html.DisplayNameFor(model => model.IdTrampa)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Estados.Nombre)
+            @Html.DisplayFor(model => model.IdTrampa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BateriaFElab)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BateriaFElab)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BateriaFVenc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BateriaFVenc)
         </dd>
 
         <dt>
@@ -27,9 +51,17 @@
             @Html.DisplayFor(model => model.Campos.Calle)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Estados.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estados.Nombre)
+        </dd>
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IdTrampa }) |
+    @Html.ActionLink("Export", "Export", new { id = Model.IdTrampa }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

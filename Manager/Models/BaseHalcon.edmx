@@ -152,6 +152,8 @@
           <Property Name="IdCampo" Type="int" Nullable="false" />
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="BateriaFElab" Type="datetime" />
+          <Property Name="BateriaFVenc" Type="datetime" />
         </EntityType>
         <EntityType Name="Umbrales">
           <Key>
@@ -725,6 +727,8 @@
           <NavigationProperty Name="Relevamientos" Relationship="Self.FK_Relevamientos_Trampas" FromRole="Trampas" ToRole="Relevamientos" />
           <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Mantenimientos" Relationship="HalconDBModel.FK_Mantenimientos_Trampas" FromRole="Trampas" ToRole="Mantenimientos" />
+          <Property Name="BateriaFElab" Type="DateTime" Precision="3" />
+          <Property Name="BateriaFVenc" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -1284,6 +1288,8 @@
           <EntitySetMapping Name="Trampas">
             <EntityTypeMapping TypeName="HalconDBModel.Trampas">
               <MappingFragment StoreEntitySet="Trampas">
+                <ScalarProperty Name="BateriaFVenc" ColumnName="BateriaFVenc" />
+                <ScalarProperty Name="BateriaFElab" ColumnName="BateriaFElab" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="IdTrampa" ColumnName="IdTrampa" />
                 <ScalarProperty Name="IdCampo" ColumnName="IdCampo" />

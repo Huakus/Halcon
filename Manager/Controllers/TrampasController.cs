@@ -41,6 +41,8 @@ namespace Manager.Controllers
                 Trampas objTrampa = new Trampas();
                 objTrampa.IdCampo = int.Parse(collection["IdCampo"]);
                 objTrampa.IdEstado = int.Parse(collection["IdEstado"]);
+                objTrampa.BateriaFElab = DateTime.Parse(collection["BateriaFElab"]);
+                objTrampa.BateriaFElab = DateTime.Parse(collection["BateriaFVenc"]);
                 db.Trampas.Add(objTrampa);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -54,8 +56,9 @@ namespace Manager.Controllers
         // GET: Trampas/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewData["Campos"] = new SelectList(db.Campos.ToList(), "IdCampo", "Nombre");
+            ViewData["Campos"] = new SelectList(db.Campos.ToList(), "IdCampo", "Calle");
             ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
+            ViewData["Usuarios"] = new SelectList(db.Usuarios.ToList(), "IdUsuario", "Nombre");
             var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
             return View(objTrampa);
         }
@@ -96,6 +99,20 @@ namespace Manager.Controllers
                 var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
                 db.Trampas.Remove(objTrampa);
                 db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Export(int id)
+        {
+            try
+            {
+                var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
+                //Exporta archivo de configuración de trampa
                 return RedirectToAction("Index");
             }
             catch

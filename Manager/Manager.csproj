@@ -365,10 +365,7 @@
     <Content Include="Views\Campos\Create.cshtml" />
     <Content Include="Views\Campos\Details.cshtml" />
     <Content Include="Views\Campos\Edit.cshtml" />
-    <Content Include="Views\Trampas\Create.cshtml" />
     <Content Include="Views\Trampas\Delete.cshtml" />
-    <Content Include="Views\Trampas\Details.cshtml" />
-    <Content Include="Views\Trampas\Edit.cshtml" />
     <Content Include="Views\Trampas\Index.cshtml" />
     <Content Include="Views\Relevamientos\Create.cshtml" />
     <Content Include="Views\Relevamientos\Index.cshtml" />
@@ -386,6 +383,9 @@
     <Content Include="Views\Mantenimientos\Details.cshtml" />
     <Content Include="Views\Mantenimientos\Edit.cshtml" />
     <Content Include="Views\Mantenimientos\Index.cshtml" />
+    <Content Include="Views\Trampas\Create.cshtml" />
+    <Content Include="Views\Trampas\Details.cshtml" />
+    <Content Include="Views\Trampas\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
