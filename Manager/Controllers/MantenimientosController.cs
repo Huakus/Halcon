@@ -21,6 +21,16 @@ namespace Manager.Controllers
             return View(mantenimientos.ToList());
         }
 
+        public ActionResult IndexById(long id)
+        {
+            var objMantenimientos = (from obj in db.Mantenimientos where obj.IdTrampa == id select obj).ToList<Mantenimientos>();
+            if(objMantenimientos == null)
+            {
+                return HttpNotFound();
+            }
+            return View(objMantenimientos);
+        }
+
         // GET: Mantenimientos/Details/5
         public ActionResult Details(long? id)
         {

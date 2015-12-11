@@ -386,6 +386,7 @@
     <Content Include="Views\Trampas\Create.cshtml" />
     <Content Include="Views\Trampas\Details.cshtml" />
     <Content Include="Views\Trampas\Edit.cshtml" />
+    <Content Include="Views\Mantenimientos\IndexById.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
