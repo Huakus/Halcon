@@ -19,6 +19,8 @@ namespace Manager.Models
         {
             this.Lecturas = new HashSet<Lecturas>();
             this.Monitoreos = new HashSet<Monitoreos>();
+            this.Alarmas = new HashSet<Alarmas>();
+            this.LecturasManuales = new HashSet<LecturasManuales>();
         }
     
         public int IdRelevamiento { get; set; }
@@ -34,5 +36,9 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Monitoreos> Monitoreos { get; set; }
         public virtual Trampas Trampas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alarmas> Alarmas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LecturasManuales> LecturasManuales { get; set; }
     }
 }

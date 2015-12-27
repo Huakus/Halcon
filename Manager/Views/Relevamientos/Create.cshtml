@@ -18,9 +18,16 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
         <div class="form-group">
-            @Html.Label("Avatar", new { @class = "control-label col-md-2" })
+            @Html.Label("Archivo automático", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" id="Avatar" name="Archivo" />
+                <input type="file" id="ArchAuto" name="ArchAuto" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Archivo manual", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="ArchManual" name="ArchManual" />
             </div>
         </div>
 

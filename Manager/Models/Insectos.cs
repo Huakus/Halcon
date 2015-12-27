@@ -19,6 +19,7 @@ namespace Manager.Models
         {
             this.Lecturas = new HashSet<Lecturas>();
             this.Umbrales = new HashSet<Umbrales>();
+            this.LecturasManuales = new HashSet<LecturasManuales>();
         }
     
         public int IdInsecto { get; set; }
@@ -38,5 +39,7 @@ namespace Manager.Models
         public virtual ICollection<Lecturas> Lecturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Umbrales> Umbrales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LecturasManuales> LecturasManuales { get; set; }
     }
 }

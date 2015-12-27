@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Text.RegularExpressions;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Data;
 
 namespace Manager.Controllers
 {
@@ -29,31 +31,143 @@ namespace Manager.Controllers
 
         // POST: Relevamientos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection, HttpPostedFileBase Archivo)
+        public ActionResult Create(FormCollection collection, HttpPostedFileBase ArchAuto, HttpPostedFileBase ArchManual)
         {
             try
             {
-                if (Archivo != null && Archivo.ContentLength > 0)
+                if (ArchAuto != null &&
+                    ArchAuto.ContentLength > 0 &&
+                    ArchAuto.FileName.EndsWith("txt") &&
+                    ArchManual != null &&
+                    ArchManual.ContentLength > 0 &&
+                    (ArchManual.FileName.EndsWith("xls") || ArchManual.FileName.EndsWith("xlsx"))
+                    )
                 {
-                    var reader = new BinaryReader(Archivo.InputStream);
-                    string result = System.Text.Encoding.UTF8.GetString(reader.ReadBytes(Archivo.ContentLength));
-                    string[] arrLineas = Regex.Split(result, "\r\n");
+                    string pathArchManual = "";
+
+                    if (!Directory.Exists(Server.MapPath("Excels"))) Directory.CreateDirectory(Server.MapPath("Excels"));
+
+                    var readerArchAuto = new BinaryReader(ArchAuto.InputStream);
+                    string resultArchAuto = System.Text.Encoding.UTF8.GetString(readerArchAuto.ReadBytes(ArchAuto.ContentLength));
+                    string[] lineasArchAuto = Regex.Split(resultArchAuto, "\r\n");
 
                     Relevamientos objRelevamiento = new Relevamientos();
                     objRelevamiento.Observaciones = collection["Observaciones"];
-                    objRelevamiento.FechaInicio = DateTime.Parse(arrLineas[0].Split(';')[0].ToString());
-                    objRelevamiento.FechaFinal = DateTime.Parse(arrLineas[arrLineas.Length - 1].Split(';')[0].ToString());
+                    objRelevamiento.FechaInicio = DateTime.Parse(lineasArchAuto[0].Split(';')[0].ToString());
+                    objRelevamiento.FechaFinal = DateTime.Parse(lineasArchAuto[lineasArchAuto.Length - 1].Split(';')[0].ToString());
                     objRelevamiento.IdEstado = 1;
-                    objRelevamiento.IdTrampa = int.Parse(arrLineas[0].Split(';')[2].ToString());
+                    objRelevamiento.IdTrampa = int.Parse(lineasArchAuto[0].Split(';')[2].ToString());
                     db.Relevamientos.Add(objRelevamiento);
-                    db.SaveChanges();
+                    //db.SaveChanges();
+
+                    pathArchManual = Server.MapPath("Excels") + @"\" + ArchManual.FileName;
+                    if (System.IO.File.Exists(pathArchManual)) System.IO.File.Delete(pathArchManual);
+
+                    ArchManual.SaveAs(pathArchManual);
+
+                    string cnnStr = "";
+                    if (pathArchManual.EndsWith(".xlsx"))
+                    {
+                        //Excel 2007
+                        cnnStr = "Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'";
+                        cnnStr += ";Data Source=" + pathArchManual + ";";
+                    }
+                    else
+                    {
+                        //Excel 97-2003
+                        //http://www.connectionstrings.com/excel (leer sobre la clave de registro TypeGuessRows)
+                        cnnStr = "Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties='Excel 8.0;HDR=Yes;IMEX=1'";
+                        cnnStr += ";Data Source=" + pathArchManual + ";";
+                    }
+
+                    System.Data.OleDb.OleDbConnection oCnn = new System.Data.OleDb.OleDbConnection(cnnStr);
+                    System.Data.OleDb.OleDbDataAdapter oDa = null;
+                    DataTable dtArchManual = new DataTable();
+
+                    try
+                    {
+                        oCnn.Open();
+                        //Obtenemos los nombres de las hojas del Excel.
+                        DataTable dtHojas = oCnn.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Tables, null);
+                        if (dtHojas.Rows.Count > 0)
+                        {
+                            string firstSheet = dtHojas.Rows[0]["TABLE_NAME"].ToString().Trim();
+
+                            string selectCmd = "select * from [" + firstSheet + "]";
+                            oDa = new System.Data.OleDb.OleDbDataAdapter(selectCmd, oCnn);
+                            oDa.Fill(dtArchManual);
+                        }
+                        oCnn.Close();
+
+                        dtArchManual.Columns.Add("Fecha");
+
+                        foreach (DataRow drFila in dtArchManual.Rows)
+                        {
+                            int iAño = 0;
+                            int iMes = 0;
+                            int iDia = 0;
+
+                            int.TryParse(drFila[0].ToString(), out iAño);
+                            int.TryParse(drFila[1].ToString(), out iMes);
+                            int.TryParse(drFila[2].ToString(), out iDia);
+
+                            if (iAño > 0 && iMes > 0 && iDia > 0)
+                            {
+                                DateTime tFecha = new DateTime(iAño, iMes, iDia);
+                                drFila["Fecha"] = tFecha.Date.ToShortDateString();
+                            }
+
+                            if (drFila["Fecha"].ToString() == objRelevamiento.FechaFinal.ToShortDateString())
+                            {
+                                foreach (DataColumn dcColumna in dtArchManual.Columns)
+                                {
+                                    if (dcColumna.Ordinal > 2)
+                                    {
+                                        //CORREGIR SELECCION DE INSECTO
+                                        Insectos objInsecto = (from obj in db.Insectos where obj.NombreCientifico == dcColumna.ColumnName select obj).FirstOrDefault();
+                                        if (objInsecto != null)
+                                        {
+                                            int Cantidad = 0;
+                                            int.TryParse(drFila[dcColumna.Ordinal].ToString(), out Cantidad);
+                                            if (Cantidad > 0)
+                                            {
+                                                LecturasManuales objLecturasManuales = new LecturasManuales();
+                                                objLecturasManuales.IdRelevamiento = objRelevamiento.IdRelevamiento;
+                                                objLecturasManuales.IdInsecto = objInsecto.IdInsecto;
+                                                objLecturasManuales.Cantidad = Cantidad;
+                                                objLecturasManuales.IdEstado = 1;
+
+                                                db.LecturasManuales.Add(objLecturasManuales);
+                                            }
+                                        }
+                                    }
+                                }
+                                //db.SaveChanges();
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        if (oCnn.State == ConnectionState.Open) oCnn.Close();
+                    }
+
+                    if (oDa != null) { oDa.Dispose(); }
+                    if (oCnn != null) { oCnn.Dispose(); }
+
+
+
 
 
                     Lecturas objLecturas = new Lecturas();
 
                     Monitoreos objMonitoreos = new Monitoreos();
                     var objRelevamiento2 = (from obj in db.Relevamientos select obj).OrderByDescending(i => i.IdRelevamiento).First();
-                    foreach (string Linea in arrLineas)
+                    foreach (string Linea in lineasArchAuto)
                     {
                         string[] arrDatos = Linea.Split(';');
                         if (arrDatos.Length > 1 && arrDatos[1].ToString() == "LECTURA")
@@ -75,9 +189,9 @@ namespace Manager.Controllers
                             objMonitoreos.FechaMonitoreo = DateTime.Parse(arrDatos[0]);
                             db.Monitoreos.Add(objMonitoreos);
                         }
-                        db.SaveChanges();
+                        //db.SaveChanges();
                     }
-
+                    db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
@@ -85,7 +199,7 @@ namespace Manager.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }

@@ -16,6 +16,16 @@ namespace Manager.Controllers
             return View(db.Trampas.ToList());
         }
 
+        public ActionResult IndexByCampo(long idCampo)
+        {
+            var objTrampas = (from obj in db.Trampas where obj.IdCampo == idCampo select obj).ToList<Trampas>();
+            if (objTrampas == null)
+            {
+                return HttpNotFound();
+            }
+            return View(objTrampas);
+        }
+
         // GET: Trampas/Details/5
         public ActionResult Details(int id)
         {

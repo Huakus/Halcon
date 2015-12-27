@@ -38,12 +38,20 @@
         <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Relevamientos" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Provincias_Paises" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Trampas" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HalconDBModel.Umbrales" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="HalconDBModel.Umbrales" Width="1.5" PointX="5.75" PointY="7" />
         <AssociationConnector Association="HalconDBModel.FK_Umbrales_Insectos" />
         <EntityTypeShape EntityType="HalconDBModel.Mantenimientos" Width="1.5" PointX="9.75" PointY="17.75" />
         <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Trampas" />
         <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Usuarios" />
-      </Diagram>
+        <AssociationConnector Association="HalconDBModel.FK_Umbrales_Provincias" />
+        <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="15" PointY="9.625" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Relevamientos" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Umbrales" />
+        <EntityTypeShape EntityType="HalconDBModel.LecturasManuales" Width="1.5" PointX="12" PointY="5.5" />
+        <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Estados" />
+        <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Insectos" />
+        <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Relevamientos" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

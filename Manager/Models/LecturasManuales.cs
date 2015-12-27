@@ -12,24 +12,17 @@ namespace Manager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Umbrales
+    public partial class LecturasManuales
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Umbrales()
-        {
-            this.Alarmas = new HashSet<Alarmas>();
-        }
-    
-        public int IdUmbral { get; set; }
+        public int IdLecturaManual { get; set; }
+        public int IdRelevamiento { get; set; }
         public int IdInsecto { get; set; }
-        public long ValorMaximo { get; set; }
-        public Nullable<int> IdProvincia { get; set; }
-        public Nullable<int> IdMes { get; set; }
+        public long Cantidad { get; set; }
         public string Observaciones { get; set; }
+        public int IdEstado { get; set; }
     
+        public virtual Estados Estados { get; set; }
         public virtual Insectos Insectos { get; set; }
-        public virtual Provincias Provincias { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Alarmas> Alarmas { get; set; }
+        public virtual Relevamientos Relevamientos { get; set; }
     }
 }

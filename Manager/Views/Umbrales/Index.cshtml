@@ -13,10 +13,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ValorMaximo)
+            @Html.Label("Cantidad máxima")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Insectos.NombreCientifico)
+            @Html.Label("Nombre científico")
+        </th>
+        <th>
+            @Html.Label("Nombre vulgar")
+        </th>
+        <th>
+            @Html.Label("Género")
+        </th>
+        <th>
+            @Html.Label("Mes")
+        </th>
+        <th>
+            @Html.Label("Provincia")
         </th>
         <th></th>
     </tr>
@@ -30,9 +42,22 @@
             @Html.DisplayFor(modelItem => item.Insectos.NombreCientifico)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Insectos.NombreVulgar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Insectos.Generos.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdMes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provincias.Nombre)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdUmbral }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdUmbral }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.IdUmbral })
+            @Html.ActionLink("Alarmas", "IndexByUmbral", "Alarmas", new { id = item.IdUmbral }, null)
         </td>
     </tr>
 }

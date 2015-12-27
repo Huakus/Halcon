@@ -181,6 +181,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AlarmasController.cs" />
     <Compile Include="Controllers\MantenimientosController.cs" />
     <Compile Include="Controllers\UmbralesController.cs" />
     <Compile Include="DataLayer.cs" />
@@ -199,6 +200,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Alarmas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BaseHalcon.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -223,6 +227,7 @@
     <Compile Include="Models\Estados.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extras.cs" />
     <Compile Include="Models\Generos.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
@@ -231,6 +236,9 @@
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Lecturas.cs">
+      <DependentUpon>BaseHalcon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LecturasManuales.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Localidades.cs">
@@ -387,8 +395,44 @@
     <Content Include="Views\Trampas\Details.cshtml" />
     <Content Include="Views\Trampas\Edit.cshtml" />
     <Content Include="Views\Mantenimientos\IndexById.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Trampas\IndexByCampo.cshtml" />
+    <Content Include="Views\Alarmas\Create.cshtml" />
+    <Content Include="Views\Alarmas\Delete.cshtml" />
+    <Content Include="Views\Alarmas\Details.cshtml" />
+    <Content Include="Views\Alarmas\Edit.cshtml" />
+    <Content Include="Views\Alarmas\Index.cshtml" />
+    <Content Include="Views\Alarmas\IndexByUmbral.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

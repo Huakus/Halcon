@@ -56,7 +56,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdCampo }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdCampo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdCampo })
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCampo }) |
+            @Html.ActionLink("Trampa", "IndexByCampo", "Trampas", new { id = item.IdCampo }, null)
         </td>
     </tr>
 }

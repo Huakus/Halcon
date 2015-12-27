@@ -21,9 +21,9 @@ namespace Manager.Controllers
             return View(mantenimientos.ToList());
         }
 
-        public ActionResult IndexById(long id)
+        public ActionResult IndexByTrampa(long idTrampa)
         {
-            var objMantenimientos = (from obj in db.Mantenimientos where obj.IdTrampa == id select obj).ToList<Mantenimientos>();
+            var objMantenimientos = (from obj in db.Mantenimientos where obj.IdTrampa == idTrampa select obj).ToList<Mantenimientos>();
             if(objMantenimientos == null)
             {
                 return HttpNotFound();
