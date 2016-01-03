@@ -43,8 +43,8 @@ namespace Manager.Controllers
                 objInsecto.IdEstado = int.Parse(collection["IdEstado"]);
                 objInsecto.IdGenero = int.Parse(collection["IdGenero"]);
                 objInsecto.Largo = int.Parse(collection["Largo"]);
-                objInsecto.FrecuenciaMax = double.Parse(collection["FrecuenciaMax"]);
-                objInsecto.FrecuenciaMin = double.Parse(collection["FrecuenciaMin"]);
+                objInsecto.FrecuenciaMax = double.Parse(collection["FrecuenciaMax"], System.Globalization.CultureInfo.InvariantCulture);
+                objInsecto.FrecuenciaMin = double.Parse(collection["FrecuenciaMin"], System.Globalization.CultureInfo.InvariantCulture);
                 objInsecto.NombreCientifico = collection["NombreCientifico"];
                 objInsecto.NombreVulgar = collection["NombreVulgar"];
                 objInsecto.Observaciones = collection["Observaciones"];
@@ -81,8 +81,8 @@ namespace Manager.Controllers
                 objInsecto.IdEstado = int.Parse(collection["IdEstado"]);
                 objInsecto.IdGenero = int.Parse(collection["IdGenero"]);
                 objInsecto.Largo = int.Parse(collection["Largo"]);
-                objInsecto.FrecuenciaMax = double.Parse(collection["FrecuenciaMax"]);
-                objInsecto.FrecuenciaMin = double.Parse(collection["FrecuenciaMin"]);
+                objInsecto.FrecuenciaMax = double.Parse(collection["FrecuenciaMax"], System.Globalization.CultureInfo.InvariantCulture);
+                objInsecto.FrecuenciaMin = double.Parse(collection["FrecuenciaMin"], System.Globalization.CultureInfo.InvariantCulture);
                 objInsecto.NombreCientifico = collection["NombreCientifico"];
                 objInsecto.NombreVulgar = collection["NombreVulgar"];
                 objInsecto.Observaciones = collection["Observaciones"];

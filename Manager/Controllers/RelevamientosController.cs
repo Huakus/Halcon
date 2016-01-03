@@ -175,7 +175,7 @@ namespace Manager.Controllers
                             Lecturas objLecturas = new Lecturas();
                             objLecturas.IdEstado = 1;
                             objLecturas.IdRelevamiento = objRelevamiento.IdRelevamiento;
-                            objLecturas.Frecuencia = double.Parse(arrDatos[2]);
+                            objLecturas.Frecuencia = double.Parse(arrDatos[2], System.Globalization.CultureInfo.InvariantCulture);
                             objLecturas.Aleteos = int.Parse(arrDatos[3]);
                             objLecturas.FechaLectura = DateTime.Parse(arrDatos[0]);
                             db.Lecturas.Add(objLecturas);
@@ -185,9 +185,9 @@ namespace Manager.Controllers
                             Monitoreos objMonitoreos = new Monitoreos();
                             objMonitoreos.IdEstado = 1;
                             objMonitoreos.IdRelevamiento = objRelevamiento.IdRelevamiento;
-                            objMonitoreos.Humedad = double.Parse(arrDatos[3]);
-                            objMonitoreos.Temperatura = double.Parse(arrDatos[2]);
-                            objMonitoreos.Bateria = double.Parse(arrDatos[4]);
+                            objMonitoreos.Humedad = double.Parse(arrDatos[3], System.Globalization.CultureInfo.InvariantCulture);
+                            objMonitoreos.Temperatura = double.Parse(arrDatos[2], System.Globalization.CultureInfo.InvariantCulture);
+                            objMonitoreos.Bateria = double.Parse(arrDatos[4], System.Globalization.CultureInfo.InvariantCulture);
                             objMonitoreos.FechaMonitoreo = DateTime.Parse(arrDatos[0]);
                             db.Monitoreos.Add(objMonitoreos);
                         }
@@ -243,15 +243,46 @@ namespace Manager.Controllers
             try
             {
                 Relevamientos objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
-                var objTablaTotales = (from objLecturas in db.Lecturas
+                var objCantAuto = (from objLecturas in db.Lecturas
                                        from objInsectos in db.Insectos
                                        where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin
+                                       group objInsectos by objInsectos.IdInsecto into objGrupo
+                                       select new
+                                       {
+                                           IdInsecto = objGrupo.Key,
+                                           CantAuto = objGrupo.Count()
+                                       }).ToList();
+
+                var objCantMan = (from objLecturasManuales in db.LecturasManuales
+                                             from objInsectos in db.Insectos
+                                             where objLecturasManuales.IdInsecto == objInsectos.IdInsecto
+                                             select new
+                                             {
+                                                 objInsectos.IdInsecto,
+                                                 objLecturasManuales.Cantidad
+                                             }).ToList();
+
+                var objTablaTotales = (//from objCA in objCantAuto
+                                       from objCM in objCantMan.DefaultIfEmpty()
                                        select new TablaTotales()
                                        {
-                                           Insecto = objInsectos.NombreVulgar,
-                                           CantidadAutomatica = objLecturas.Frecuencia,
-                                           CantidadManual = objLecturas.Frecuencia
-                                       }).ToList<TablaTotales>();
+                                           Insecto = objCM.IdInsecto.ToString(),
+                                           CantidadAutomatica = 0, // objCA.CantAuto,
+                                           CantidadManual = objCM.Cantidad
+                                       }
+                                       ).ToList<TablaTotales>();
+
+
+                //var objTablaTotales = (from objLecturas in db.Lecturas
+                //                       from objInsectos in db.Insectos
+                //                       where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin
+                //                       group objInsectos by objInsectos.IdInsecto into objGrupo
+                //                       select new TablaTotales()
+                //                       {
+                //                           Insecto = objGrupo.Key.ToString(),
+                //                           CantidadAutomatica = objGrupo.Count(),
+                //                           CantidadManual = objGrupo.Count()
+                //                       }).ToList<TablaTotales>();
                 DatosParaValidar objDatosParaValidar = new DatosParaValidar();
                 objDatosParaValidar.Relevamiento = objRelevamiento;
                 objDatosParaValidar.Totales = objTablaTotales;
