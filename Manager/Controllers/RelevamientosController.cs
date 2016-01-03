@@ -163,17 +163,18 @@ namespace Manager.Controllers
 
 
 
-                    Lecturas objLecturas = new Lecturas();
+                    
 
-                    Monitoreos objMonitoreos = new Monitoreos();
-                    var objRelevamiento2 = (from obj in db.Relevamientos select obj).OrderByDescending(i => i.IdRelevamiento).First();
+                    
+                    //var objRelevamiento2 = (from obj in db.Relevamientos select obj).OrderByDescending(i => i.IdRelevamiento).First();
                     foreach (string Linea in lineasArchAuto)
                     {
                         string[] arrDatos = Linea.Split(';');
                         if (arrDatos.Length > 1 && arrDatos[1].ToString() == "LECTURA")
                         {
+                            Lecturas objLecturas = new Lecturas();
                             objLecturas.IdEstado = 1;
-                            objLecturas.IdRelevamiento = objRelevamiento2.IdRelevamiento;
+                            objLecturas.IdRelevamiento = objRelevamiento.IdRelevamiento;
                             objLecturas.Frecuencia = double.Parse(arrDatos[2]);
                             objLecturas.Aleteos = int.Parse(arrDatos[3]);
                             objLecturas.FechaLectura = DateTime.Parse(arrDatos[0]);
@@ -181,8 +182,9 @@ namespace Manager.Controllers
                         }
                         else if (arrDatos.Length > 1 && arrDatos[1].ToString() == "ESTADO")
                         {
+                            Monitoreos objMonitoreos = new Monitoreos();
                             objMonitoreos.IdEstado = 1;
-                            objMonitoreos.IdRelevamiento = objRelevamiento2.IdRelevamiento;
+                            objMonitoreos.IdRelevamiento = objRelevamiento.IdRelevamiento;
                             objMonitoreos.Humedad = double.Parse(arrDatos[3]);
                             objMonitoreos.Temperatura = double.Parse(arrDatos[2]);
                             objMonitoreos.Bateria = double.Parse(arrDatos[4]);
