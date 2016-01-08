@@ -194,50 +194,7 @@ namespace Manager.Controllers
                 }
                 sData[iFilas + 1] = sCeldas;
             }
-
             return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-            /*
-            int NumeroMes = DateTime.ParseExact(Mes, "MMMM", objCultura).Month;
-            using (HalconDBEntities dc = new HalconDBEntities())
-            {
-                var v = from a in dc.Lecturas
-                        where a.FechaLectura.Year.Equals(Año) && a.FechaLectura.Month.Equals(NumeroMes) && a.FechaLectura.Day.Equals(Dia)
-                        group a by a.FechaLectura.Hour into g
-                        select new
-                        {
-                            Hora = g.Key,
-                            Cantidad = g.Count()
-                        };
-                if (v != null)
-                {
-                    var chartData = new object[24 + 1];
-                    chartData[0] = new object[]
-                    {
-                        "Dia",
-                        "Cantidad"
-                    };
-                    var HoraData = v.ToList();
-                    for (int i = 1; i <= 24; i++)
-                    {
-                        foreach (var objFila in HoraData)
-                        {
-                            if (objFila.Hora == i)
-                            {
-                                chartData[i] = new object[] { i, objFila.Cantidad };
-                            }
-                            else
-                            {
-                                chartData[i] = new object[] { i, 0 };
-                            }
-                        }
-                    }
-                    return new JsonResult { Data = chartData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                
-            }
-            return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            */
         }
 
         public ActionResult ExportarGrafico()
