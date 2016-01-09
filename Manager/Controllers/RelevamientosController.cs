@@ -259,90 +259,22 @@ namespace Manager.Controllers
                                  select new
                                  {
                                      objInsectos.IdInsecto,
-                                      CantMan = objLecturasManuales.Cantidad
+                                     CantMan = objLecturasManuales.Cantidad
                                  };
 
                 var objTablaTotales = (from objIN in db.Insectos
-                                        join objCA in objCantAuto on objIN.IdInsecto equals objCA.IdInsecto into temporalCA
-                                        join objCM in objCantMan on objIN.IdInsecto equals objCM.IdInsecto into temporalCM
-                                        from tmpCA in temporalCA.DefaultIfEmpty()
-                                        from tmpCM in temporalCM.DefaultIfEmpty()
+                                       join objCA in objCantAuto on objIN.IdInsecto equals objCA.IdInsecto into temporalCA
+                                       join objCM in objCantMan on objIN.IdInsecto equals objCM.IdInsecto into temporalCM
+                                       from tmpCA in temporalCA.DefaultIfEmpty()
+                                       from tmpCM in temporalCM.DefaultIfEmpty()
                                        where tmpCA.CantAuto > 0 || tmpCM.CantMan > 0
-                                        select new TablaTotales()
-                                        {
-                                            Insecto = objIN.NombreCientifico,
-                                            CantidadAutomatica = (tmpCA == null ? 0 : tmpCA.CantAuto),
-                                            CantidadManual = (tmpCM == null ? 0 : tmpCM.CantMan)
-                                        }).ToList<TablaTotales>();
+                                       select new TablaTotales()
+                                       {
+                                           Insecto = objIN.NombreCientifico,
+                                           CantidadAutomatica = (tmpCA == null ? 0 : tmpCA.CantAuto),
+                                           CantidadManual = (tmpCM == null ? 0 : tmpCM.CantMan)
+                                       }).ToList<TablaTotales>();
 
-
-
-                //var objTablaTotales = (from objCA in objCantAuto
-                //                       join objCM in objCantMan on objCA.IdInsecto equals objCM.IdInsecto into temporal
-
-                //                       join objCM2 in objCantMan on tmp.IdInsecto equals objCM2.IdInsecto into temporal2
-                //                       from tmp in temporal.DefaultIfEmpty()
-                //                       select new TablaTotales()
-                //                       {
-                //                           Insecto = objCA.IdInsecto.ToString(),
-                //                           CantidadAutomatica = objCA.CantAuto,
-                //                           CantidadManual = (tmp == null ? 0 : tmp.Cantidad)
-                //                       }).ToList<TablaTotales>();
-
-                //select new { person.FirstName, PetName = (subpet == null ? String.Empty : subpet.Name) };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //var objTablaTotales = objCantAuto.Union(objCantMan);
-
-                //IEnumerable<TablaTotales> objTablaTotales = objCantAuto.Union(objCantMan);
-
-                //var objTablaTotales = (from objCA in objCantAuto.DefaultIfEmpty()
-                //                       from objCM in objCantMan.DefaultIfEmpty()
-                //                       where objCA.IdInsecto == objCM.IdInsecto
-                //                       select new TablaTotales()
-                //                       {
-                //                           Insecto = objCM.IdInsecto.ToString(),
-                //                           CantidadAutomatica = objCA.CantAuto,
-                //                           CantidadManual = objCM.Cantidad
-                //                       }
-                //                       ).ToList<TablaTotales>();
-
-                //var objeto = objTablaTotales
-
-                //var objT1 = (from objA in objCantAuto
-                //             where objeto.Contains(objA.IdInsecto.ToString()) == false
-                //            //.Contains(new TablaTotales() { Insecto = objA.IdInsecto.ToString() }) == false //el contains tiene que manejar una lista de insectos
-                //             select new TablaTotales()
-                //             {
-                //                 Insecto = objA.IdInsecto.ToString(),
-                //                 CantidadAutomatica = objA.CantAuto,
-                //                 CantidadManual = 0
-                //             }).ToList<TablaTotales>();
-
-
-                //var objTablaTotales = (from objLecturas in db.Lecturas
-                //                       from objInsectos in db.Insectos
-                //                       where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin
-                //                       group objInsectos by objInsectos.IdInsecto into objGrupo
-                //                       select new TablaTotales()
-                //                       {
-                //                           Insecto = objGrupo.Key.ToString(),
-                //                           CantidadAutomatica = objGrupo.Count(),
-                //                           CantidadManual = objGrupo.Count()
-                //                       }).ToList<TablaTotales>();
                 DatosParaValidar objDatosParaValidar = new DatosParaValidar();
                 objDatosParaValidar.Relevamiento = objRelevamiento;
                 objDatosParaValidar.Totales = objTablaTotales;

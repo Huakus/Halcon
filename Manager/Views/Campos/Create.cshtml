@@ -7,31 +7,55 @@
 
 
 <head>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="https://raw.github.com/HPNeo/gmaps/master/gmaps.js"></script>
-
-
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             map = new GMaps({
                 div: '#mapa',
-                lat: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
-                lng: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
-                click: function(e) {
-                    map.addMarker({
-                        lat: e.latLng.lat(),
-                        lng: e.latLng.lng()
-                    }),
-                    @Model.LatLong.Latitude = e.latLng.lat(),
-                    @Model.LatLong.Longitude = e.latLng.lng(),
-                    alert(@Model.LatLong)
-                }
+                lat: -31.420427,
+                lng: -64.188847,
+            });
+
+            GMaps.on('click', map.map, function (event) {
+                var index = map.markers.length;
+                var lat = event.latLng.lat();
+                var lng = event.latLng.lng();
+
+                map.removeMarkers(map.markers);
+
+                map.addMarker({
+                    lat: lat,
+                    lng: lng,
+                    title: 'Marker #' + index
+                });
+
+                $("#LatLong_Latitude").val(lat);
+                $("#LatLong_Longitude").val(lng);
             });
         });
 
 
     </script>
+
+    @*<script type="text/javascript">
+            $(document).ready(function(){
+                map = new GMaps({
+                    div: '#mapa',
+                    lat: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
+                    lng: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
+                    click: function(e) {
+                        map.addMarker({
+                            lat: e.latLng.lat(),
+                            lng: e.latLng.lng()
+                        }),
+                        @Model.LatLong.Latitude = e.latLng.lat(),
+                        @Model.LatLong.Longitude = e.latLng.lng(),
+                        alert(@Model.LatLong)
+                    }
+                });
+            });
+
+
+        </script>*@
 
 </head>
 
@@ -39,10 +63,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Campos</h4>
         <hr />
@@ -112,9 +136,8 @@
         </div>
 
         <div class="form-group">
-            Mapa
-            <div class="col-md-10">
-                <div id="mapa" style="height:500px;width:500px"></div>
+            @Html.Label("Mapa", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div id="mapa" style="height:500px;width:100%" class="col-md-10">
             </div>
         </div>
 
