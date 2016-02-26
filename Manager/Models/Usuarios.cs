@@ -27,9 +27,9 @@ namespace Manager.Models
         public string Email { get; set; }
         public string NombreUsuario { get; set; }
         public string Password { get; set; }
-        public int IdPerfil { get; set; }
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
+        public int IdRol { get; set; }
     
         public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

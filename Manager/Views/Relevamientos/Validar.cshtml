@@ -6,10 +6,10 @@
 }
 
 <h2>Validar</h2>
-
 <div>
     <h4>Relevamientos</h4>
     <hr />
+
     <dl class="dl-horizontal">
         <dt>
             @Html.Label("Validar")
@@ -31,7 +31,7 @@
         <dt>
             @Html.DisplayNameFor(model => model.Relevamiento.FechaFinal)
         </dt>
-        
+
         <dd>
             @Html.DisplayFor(model => model.Relevamiento.FechaFinal)
         </dd>
@@ -45,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.Label("","Estado")
+            @Html.Label("", "Estado")
         </dt>
 
         <dd>
@@ -65,11 +65,56 @@
         </dt>
 
         <dd>
-            <div id="chart" style="width:80%; height:300px"/>
+            <div id="chart" style="width:80%; height:300px" />
         </dd>
 
     </dl>
 </div>
+@if (Model.Alarmas.Count > 0)
+{
+    <div>
+        <table class="table">
+            <tr><th>@Html.Label("Alarmas") @Html.ActionLink("Regenerar", "GenerarAlarmas", new { IdRelevamiento = Model.Relevamiento.IdRelevamiento })</th></tr>
+            <tr>
+                <th>
+                    @Html.Label("Insecto")
+                    @*@Html.DisplayNameFor(model => Model.Totales.*@
+                </th>
+                <th>
+                    @Html.Label("Cantidad maxima")
+                </th>
+                <th>
+                    @Html.Label("Cantidad real")
+                </th>
+                <th>
+                    @Html.Label("Tipo")
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Alarmas)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Insecto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CantidadMaxima)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CantidadReal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                </tr>
+                @Html.ActionLink("Confirmar", "Confirmar") |
+                @Html.ActionLink("Desestimar", "Desestimar") |
+                @Html.ActionLink("Listado", "List", "Alarmas");
+            }
+
+        </table>
+    </div>
+}
 <div>
     <table class="table">
         <tr>

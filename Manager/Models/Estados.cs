@@ -27,6 +27,7 @@ namespace Manager.Models
             this.Trampas = new HashSet<Trampas>();
             this.Usuarios = new HashSet<Usuarios>();
             this.LecturasManuales = new HashSet<LecturasManuales>();
+            this.Alarmas = new HashSet<Alarmas>();
         }
     
         public int IdEstado { get; set; }
@@ -53,5 +54,7 @@ namespace Manager.Models
         public virtual ICollection<Usuarios> Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LecturasManuales> LecturasManuales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alarmas> Alarmas { get; set; }
     }
 }

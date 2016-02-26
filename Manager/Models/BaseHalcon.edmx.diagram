@@ -44,13 +44,19 @@
         <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Trampas" />
         <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Usuarios" />
         <AssociationConnector Association="HalconDBModel.FK_Umbrales_Provincias" />
-        <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="15" PointY="9.625" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Relevamientos" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Umbrales" />
         <EntityTypeShape EntityType="HalconDBModel.LecturasManuales" Width="1.5" PointX="12" PointY="5.5" />
         <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Estados" />
         <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Insectos" />
         <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Relevamientos" />
+        <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="15" PointY="9.75" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Relevamientos" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Umbrales" />
+        <EntityTypeShape EntityType="HalconDBModel.AreaRol" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HalconDBModel.Areas" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HalconDBModel.Roles" Width="1.5" PointX="2.75" PointY="3.75" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Insectos" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Provincias" />
+        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Estados" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

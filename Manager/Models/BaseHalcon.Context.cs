@@ -41,7 +41,10 @@ namespace Manager.Models
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Umbrales> Umbrales { get; set; }
         public virtual DbSet<Mantenimientos> Mantenimientos { get; set; }
-        public virtual DbSet<Alarmas> Alarmas { get; set; }
         public virtual DbSet<LecturasManuales> LecturasManuales { get; set; }
+        public virtual DbSet<Alarmas> Alarmas { get; set; }
+        public virtual DbSet<AreaRol> AreaRol { get; set; }
+        public virtual DbSet<Areas> Areas { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
     }
 }

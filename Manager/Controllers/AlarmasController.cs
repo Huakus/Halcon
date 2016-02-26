@@ -21,16 +21,6 @@ namespace Manager.Controllers
             return View(alarmas.ToList());
         }
 
-        public ActionResult IndexByUmbral(int IdUmbral)
-        {
-            var objAlarma = (from obj in db.Alarmas where obj.IdUmbral == IdUmbral select obj).ToList<Alarmas>();
-            if (objAlarma == null)
-            {
-                return HttpNotFound();
-            }
-            return View(objAlarma);
-        }
-
         // GET: Alarmas/Details/5
         public ActionResult Details(int? id)
         {
@@ -59,7 +49,7 @@ namespace Manager.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAlarma,IdRelevamiento,IdUmbral,ValorMaximo,Observaciones")] Alarmas alarmas)
+        public ActionResult Create([Bind(Include = "IdAlarma,IdRelevamiento,IdUmbral,Tipo,Observaciones,Cantidad,IdInsecto,ValorMaximo,IdProvincia,IdMes")] Alarmas alarmas)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +85,7 @@ namespace Manager.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAlarma,IdRelevamiento,IdUmbral,ValorMaximo,Observaciones")] Alarmas alarmas)
+        public ActionResult Edit([Bind(Include = "IdAlarma,IdRelevamiento,IdUmbral,Tipo,Observaciones,Cantidad,IdInsecto,ValorMaximo,IdProvincia,IdMes")] Alarmas alarmas)
         {
             if (ModelState.IsValid)
             {
@@ -130,6 +120,22 @@ namespace Manager.Controllers
         {
             Alarmas alarmas = db.Alarmas.Find(id);
             db.Alarmas.Remove(alarmas);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Confirmar(int? id)
+        {
+            Alarmas alarmas = db.Alarmas.Find(id);
+            alarmas.IdEstado = 1;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Desestimar(int? id)
+        {
+            Alarmas alarmas = db.Alarmas.Find(id);
+            alarmas.IdEstado = 2;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

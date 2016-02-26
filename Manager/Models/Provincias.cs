@@ -19,6 +19,7 @@ namespace Manager.Models
         {
             this.Localidades = new HashSet<Localidades>();
             this.Umbrales = new HashSet<Umbrales>();
+            this.Alarmas = new HashSet<Alarmas>();
         }
     
         public int IdProvincia { get; set; }
@@ -30,5 +31,7 @@ namespace Manager.Models
         public virtual Paises Paises { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Umbrales> Umbrales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alarmas> Alarmas { get; set; }
     }
 }

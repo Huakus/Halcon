@@ -13,16 +13,40 @@
 <table class="table">
     <tr>
         <th>
+            @Html.Label("Relevamiento")
+            @*@Html.DisplayNameFor(model => model.IdRelevamiento)*@
+        </th>
+        <th>
+            @Html.Label("FechaRelevamiento")
+            @*@Html.DisplayNameFor(model => model.Relevamientos.FechaInicio)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th>
+            @Html.Label("Insecto")
+            @*@Html.DisplayNameFor(model => model.IdInsecto)*@
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ValorMaximo)
         </th>
         <th>
+            @Html.Label("Provincia")
+            @*@Html.DisplayNameFor(model => model.IdProvincia)*@
+        </th>
+        <th>
+            @Html.Label("Mes")
+            @*@Html.DisplayNameFor(model => model.IdMes)*@
+        </th>
+        <th>
+            @Html.Label("Estado")
+            @*@Html.DisplayNameFor(model => model.IdEstado)*@
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Observaciones)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Relevamientos.Observaciones)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Umbrales.Observaciones)
         </th>
         <th></th>
     </tr>
@@ -30,21 +54,39 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.IdRelevamiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Relevamientos.FechaInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Insectos.NombreCientifico)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ValorMaximo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provincias.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdMes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estados.Nombre)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Observaciones)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Relevamientos.Observaciones)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Umbrales.Observaciones)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdAlarma }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdAlarma }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdAlarma })
+            @Html.ActionLink("Confirmar", "Confirmar", new { id = item.IdAlarma }) |
+            @Html.ActionLink("Desestimar", "Desestimar", new { id = item.IdAlarma }) |
+            @Html.ActionLink("Relevamiento", "Validar", "Relevamientos", new { id = item.IdRelevamiento }, null)
         </td>
     </tr>
 }

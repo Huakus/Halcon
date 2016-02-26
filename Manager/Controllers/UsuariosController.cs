@@ -41,7 +41,6 @@ namespace Manager.Controllers
                 objUsuario.DNI = long.Parse(collection["DNI"]);
                 objUsuario.Email = collection["Email"];
                 objUsuario.IdEstado = int.Parse(collection["IdEstado"]);
-                objUsuario.IdPerfil = int.Parse(collection["IdPerfil"]);
                 objUsuario.Nombre = collection["Nombre"];
                 objUsuario.NombreUsuario = collection["NombreUsuario"];
                 objUsuario.Observaciones = collection["Observaciones"];
@@ -76,7 +75,6 @@ namespace Manager.Controllers
                 objUsuario.DNI = int.Parse(collection["DNI"]);
                 objUsuario.Email = collection["Email"];
                 objUsuario.IdEstado = int.Parse(collection["IDEstado"]);
-                objUsuario.IdPerfil = int.Parse(collection["IdPerfil"]);
                 objUsuario.Nombre = collection["Nombre"];
                 objUsuario.NombreUsuario = collection["NombreUsuario"];
                 objUsuario.Observaciones = collection["Observaciones"];

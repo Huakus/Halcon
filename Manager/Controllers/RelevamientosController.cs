@@ -194,6 +194,9 @@ namespace Manager.Controllers
                         //db.SaveChanges();
                     }
                     db.SaveChanges();
+
+                    //GenerarAlarmas(id);
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -275,9 +278,24 @@ namespace Manager.Controllers
                                            CantidadManual = (tmpCM == null ? 0 : tmpCM.CantMan)
                                        }).ToList<TablaTotales>();
 
+                var objAlarmasTotales = (from objAlarmas in db.Alarmas
+                                         from objInsectos in db.Insectos
+                                         where objAlarmas.IdRelevamiento == id
+                                         && objAlarmas.IdInsecto == objInsectos.IdInsecto
+                                         select new TablaAlarmas()
+                                         {
+                                             Insecto = objInsectos.NombreCientifico,
+                                             CantidadMaxima = objAlarmas.ValorMaximo,
+                                             CantidadReal = objAlarmas.Cantidad,
+                                             Tipo = objAlarmas.Tipo
+                                         }).ToList<TablaAlarmas>();
+
                 DatosParaValidar objDatosParaValidar = new DatosParaValidar();
                 objDatosParaValidar.Relevamiento = objRelevamiento;
                 objDatosParaValidar.Totales = objTablaTotales;
+                objDatosParaValidar.Alarmas = objAlarmasTotales;
+
+
 
                 return View(objDatosParaValidar);
             }
@@ -341,12 +359,53 @@ namespace Manager.Controllers
 
             return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        public ActionResult GenerarAlarmas(int IdRelevamiento)
+        {
+            var objAlarmasViejas = (from objAlarmas in db.Alarmas where objAlarmas.IdRelevamiento == IdRelevamiento select objAlarmas);
+
+            foreach (Alarmas objAlarma in objAlarmasViejas)
+            {
+                db.Alarmas.Remove(objAlarma);
+            }
+
+
+            var objAlarmasManuales =
+                (from objLecturasManuales in db.LecturasManuales
+                 from objUmbrales in db.Umbrales
+                 where objLecturasManuales.IdInsecto == objUmbrales.IdInsecto
+                 && objLecturasManuales.Cantidad > objUmbrales.ValorMaximo && objLecturasManuales.IdRelevamiento == IdRelevamiento
+                 select new Alarmas
+                 {
+                     IdInsecto = objLecturasManuales.IdInsecto,
+                     IdRelevamiento = objLecturasManuales.IdRelevamiento,
+                     IdUmbral = objUmbrales.IdUmbral,
+                     Observaciones = ""
+                 });
+
+            foreach (object obj in objAlarmasManuales)
+            {
+                Alarmas objAlarma = new Alarmas();
+                //objAlarma.IdInsecto = obj.IdInecto;
+            }
+
+
+
+            //foreach (Alarmas objAlarma in objAlarmasManuales)
+            //{
+            //    db.Alarmas.Add(objAlarma);
+            //}
+            db.SaveChanges();
+
+            return RedirectToAction("Validar", new { id = IdRelevamiento });
+        }
     }
 
     public class DatosParaValidar : System.Collections.IEnumerable
     {
         public Relevamientos Relevamiento { get; set; }
         public List<TablaTotales> Totales { get; set; }
+        public List<TablaAlarmas> Alarmas { get; set; }
 
         public System.Collections.IEnumerator GetEnumerator()
         {
@@ -359,5 +418,21 @@ namespace Manager.Controllers
         public string Insecto { get; set; }
         public double CantidadAutomatica { get; set; }
         public double CantidadManual { get; set; }
+    }
+
+    public class TablaAlarmas
+    {
+        public string Insecto { get; set; }
+        public string Tipo { get; set; }
+        public long CantidadMaxima { get; set; }
+        public long CantidadReal { get; set; }
+    }
+
+    public class AlarmasMemoria
+    {
+        public string IdInsecto { get; set; }
+        public string IdRelevamiento { get; set; }
+        public long IdUmbral { get; set; }
+        public long Observaciones { get; set; }
     }
 }
