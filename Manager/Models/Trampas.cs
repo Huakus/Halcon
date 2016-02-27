@@ -17,8 +17,8 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Trampas()
         {
-            this.Relevamientos = new HashSet<Relevamientos>();
             this.Mantenimientos = new HashSet<Mantenimientos>();
+            this.Relevamientos = new HashSet<Relevamientos>();
         }
     
         public int IdTrampa { get; set; }
@@ -31,8 +31,8 @@ namespace Manager.Models
         public virtual Campos Campos { get; set; }
         public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mantenimientos> Mantenimientos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Relevamientos> Relevamientos { get; set; }
     }
 }

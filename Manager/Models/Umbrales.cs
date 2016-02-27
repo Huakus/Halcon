@@ -23,13 +23,13 @@ namespace Manager.Models
         public int IdUmbral { get; set; }
         public int IdInsecto { get; set; }
         public long ValorMaximo { get; set; }
-        public Nullable<int> IdProvincia { get; set; }
-        public Nullable<int> IdMes { get; set; }
+        public int IdProvincia { get; set; }
+        public int IdMes { get; set; }
         public string Observaciones { get; set; }
     
-        public virtual Insectos Insectos { get; set; }
-        public virtual Provincias Provincias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alarmas> Alarmas { get; set; }
+        public virtual Insectos Insectos { get; set; }
+        public virtual Provincias Provincias { get; set; }
     }
 }

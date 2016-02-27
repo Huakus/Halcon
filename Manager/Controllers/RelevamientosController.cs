@@ -375,13 +375,19 @@ namespace Manager.Controllers
                  from objUmbrales in db.Umbrales
                  where objLecturasManuales.IdInsecto == objUmbrales.IdInsecto
                  && objLecturasManuales.Cantidad > objUmbrales.ValorMaximo && objLecturasManuales.IdRelevamiento == IdRelevamiento
-                 select new Alarmas
+                 select new AlarmasMemoria()
                  {
-                     IdInsecto = objLecturasManuales.IdInsecto,
                      IdRelevamiento = objLecturasManuales.IdRelevamiento,
                      IdUmbral = objUmbrales.IdUmbral,
+                     IdInsecto = objLecturasManuales.IdInsecto,
+                     ValorMaximo = objUmbrales.ValorMaximo,
+                     IdProvincia = objUmbrales.IdProvincia,
+                     IdMes = objUmbrales.IdMes,
+                     Cantidad = objLecturasManuales.Cantidad,
+                     Tipo = "MANUAL",
+                     IdEstado = 2,
                      Observaciones = ""
-                 });
+                 }).ToList<AlarmasMemoria>();
 
             foreach (object obj in objAlarmasManuales)
             {
@@ -430,9 +436,15 @@ namespace Manager.Controllers
 
     public class AlarmasMemoria
     {
-        public string IdInsecto { get; set; }
-        public string IdRelevamiento { get; set; }
-        public long IdUmbral { get; set; }
-        public long Observaciones { get; set; }
+        public int IdRelevamiento { get; set; }
+        public int IdUmbral { get; set; }
+        public int IdInsecto { get; set; }
+        public long ValorMaximo { get; set; }
+        public int IdProvincia { get; set; }
+        public int IdMes { get; set; }
+        public long Cantidad { get; set; }
+        public string Tipo { get; set; }
+        public int IdEstado { get; set; }
+        public string Observaciones { get; set; }
     }
 }

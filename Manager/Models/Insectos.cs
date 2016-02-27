@@ -17,10 +17,10 @@ namespace Manager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Insectos()
         {
-            this.Lecturas = new HashSet<Lecturas>();
-            this.Umbrales = new HashSet<Umbrales>();
-            this.LecturasManuales = new HashSet<LecturasManuales>();
             this.Alarmas = new HashSet<Alarmas>();
+            this.Lecturas = new HashSet<Lecturas>();
+            this.LecturasManuales = new HashSet<LecturasManuales>();
+            this.Umbrales = new HashSet<Umbrales>();
         }
     
         public int IdInsecto { get; set; }
@@ -34,15 +34,15 @@ namespace Manager.Models
         public int IdEstado { get; set; }
         public string Observaciones { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alarmas> Alarmas { get; set; }
         public virtual Estados Estados { get; set; }
         public virtual Generos Generos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lecturas> Lecturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Umbrales> Umbrales { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LecturasManuales> LecturasManuales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Alarmas> Alarmas { get; set; }
+        public virtual ICollection<Umbrales> Umbrales { get; set; }
     }
 }

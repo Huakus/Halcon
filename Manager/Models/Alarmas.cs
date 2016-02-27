@@ -17,19 +17,19 @@ namespace Manager.Models
         public int IdAlarma { get; set; }
         public int IdRelevamiento { get; set; }
         public int IdUmbral { get; set; }
-        public string Tipo { get; set; }
-        public string Observaciones { get; set; }
-        public long Cantidad { get; set; }
         public int IdInsecto { get; set; }
         public long ValorMaximo { get; set; }
         public int IdProvincia { get; set; }
         public int IdMes { get; set; }
+        public long Cantidad { get; set; }
+        public string Tipo { get; set; }
         public int IdEstado { get; set; }
+        public string Observaciones { get; set; }
     
-        public virtual Relevamientos Relevamientos { get; set; }
-        public virtual Umbrales Umbrales { get; set; }
+        public virtual Estados Estados { get; set; }
         public virtual Insectos Insectos { get; set; }
         public virtual Provincias Provincias { get; set; }
-        public virtual Estados Estados { get; set; }
+        public virtual Relevamientos Relevamientos { get; set; }
+        public virtual Umbrales Umbrales { get; set; }
     }
 }
