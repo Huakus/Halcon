@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Manager.Models;
-using System.Globalization;
 
 namespace Manager.Controllers
 {
@@ -41,7 +40,6 @@ namespace Manager.Controllers
         public ActionResult Create()
         {
             ViewBag.IdInsecto = new SelectList(db.Insectos, "IdInsecto", "NombreCientifico");
-            ViewBag.IdProvincia = new SelectList(db.Provincias, "IdProvincia", "Nombre");
             return View();
         }
 
@@ -50,7 +48,7 @@ namespace Manager.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdUmbral,IdInsecto,ValorMaximo,IdProvincia,IdMes")] Umbrales umbrales)
+        public ActionResult Create([Bind(Include = "IdUmbral,IdInsecto,ValorMaximo")] Umbrales umbrales)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +58,6 @@ namespace Manager.Controllers
             }
 
             ViewBag.IdInsecto = new SelectList(db.Insectos, "IdInsecto", "NombreCientifico", umbrales.IdInsecto);
-            ViewBag.IdProvincia = new SelectList(db.Provincias, "IdProvincia", "Nombre", umbrales.IdProvincia);
             return View(umbrales);
         }
 
@@ -77,7 +74,6 @@ namespace Manager.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdInsecto = new SelectList(db.Insectos, "IdInsecto", "NombreCientifico", umbrales.IdInsecto);
-            ViewBag.IdProvincia = new SelectList(db.Provincias, "IdProvincia", "Nombre", umbrales.IdProvincia);
             return View(umbrales);
         }
 
@@ -86,7 +82,7 @@ namespace Manager.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdUmbral,IdInsecto,ValorMaximo,IdProvincia,IdMes")] Umbrales umbrales)
+        public ActionResult Edit([Bind(Include = "IdUmbral,IdInsecto,ValorMaximo")] Umbrales umbrales)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +91,6 @@ namespace Manager.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IdInsecto = new SelectList(db.Insectos, "IdInsecto", "NombreCientifico", umbrales.IdInsecto);
-            ViewBag.IdProvincia = new SelectList(db.Provincias, "IdProvincia", "Nombre", umbrales.IdProvincia);
             return View(umbrales);
         }
 

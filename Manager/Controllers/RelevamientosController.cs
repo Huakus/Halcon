@@ -287,7 +287,8 @@ namespace Manager.Controllers
                                              Insecto = objInsectos.NombreCientifico,
                                              CantidadMaxima = objAlarmas.ValorMaximo,
                                              CantidadReal = objAlarmas.Cantidad,
-                                             Tipo = objAlarmas.Tipo
+                                             Tipo = objAlarmas.Tipo,
+                                             Estado = objAlarmas.Estados.Nombre
                                          }).ToList<TablaAlarmas>();
 
                 DatosParaValidar objDatosParaValidar = new DatosParaValidar();
@@ -359,52 +360,6 @@ namespace Manager.Controllers
 
             return new JsonResult { Data = sData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
-        public ActionResult GenerarAlarmas(int IdRelevamiento)
-        {
-            var objAlarmasViejas = (from objAlarmas in db.Alarmas where objAlarmas.IdRelevamiento == IdRelevamiento select objAlarmas);
-
-            foreach (Alarmas objAlarma in objAlarmasViejas)
-            {
-                db.Alarmas.Remove(objAlarma);
-            }
-
-
-            var objAlarmasManuales =
-                (from objLecturasManuales in db.LecturasManuales
-                 from objUmbrales in db.Umbrales
-                 where objLecturasManuales.IdInsecto == objUmbrales.IdInsecto
-                 && objLecturasManuales.Cantidad > objUmbrales.ValorMaximo && objLecturasManuales.IdRelevamiento == IdRelevamiento
-                 select new AlarmasMemoria()
-                 {
-                     IdRelevamiento = objLecturasManuales.IdRelevamiento,
-                     IdUmbral = objUmbrales.IdUmbral,
-                     IdInsecto = objLecturasManuales.IdInsecto,
-                     ValorMaximo = objUmbrales.ValorMaximo,
-                     IdProvincia = objUmbrales.IdProvincia,
-                     IdMes = objUmbrales.IdMes,
-                     Cantidad = objLecturasManuales.Cantidad,
-                     Tipo = "MANUAL",
-                     IdEstado = 2,
-                     Observaciones = ""
-                 }).ToList<AlarmasMemoria>();
-
-            foreach (object obj in objAlarmasManuales)
-            {
-                Alarmas objAlarma = new Alarmas();
-                //objAlarma.IdInsecto = obj.IdInecto;
-            }
-
-
-
-            //foreach (Alarmas objAlarma in objAlarmasManuales)
-            //{
-            //    db.Alarmas.Add(objAlarma);
-            //}
-            db.SaveChanges();
-
-            return RedirectToAction("Validar", new { id = IdRelevamiento });
-        }
     }
 
     public class DatosParaValidar : System.Collections.IEnumerable
@@ -432,19 +387,6 @@ namespace Manager.Controllers
         public string Tipo { get; set; }
         public long CantidadMaxima { get; set; }
         public long CantidadReal { get; set; }
-    }
-
-    public class AlarmasMemoria
-    {
-        public int IdRelevamiento { get; set; }
-        public int IdUmbral { get; set; }
-        public int IdInsecto { get; set; }
-        public long ValorMaximo { get; set; }
-        public int IdProvincia { get; set; }
-        public int IdMes { get; set; }
-        public long Cantidad { get; set; }
-        public string Tipo { get; set; }
-        public int IdEstado { get; set; }
-        public string Observaciones { get; set; }
+        public string Estado { get; set; }
     }
 }

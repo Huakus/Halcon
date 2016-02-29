@@ -414,6 +414,7 @@
     <Content Include="Views\Alarmas\Details.cshtml" />
     <Content Include="Views\Alarmas\Edit.cshtml" />
     <Content Include="Views\Alarmas\Index.cshtml" />
+    <Content Include="Views\Alarmas\IndexByUmbral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

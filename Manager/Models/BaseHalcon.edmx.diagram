@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="78c0b7492f5d4c02a708b89bfa01a130" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="HalconDBModel.Campos" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Clientes" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Generos" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Insectos" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Lecturas" Width="1.5" PointX="12" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Localidades" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Monitoreos" Width="1.5" PointX="12" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Paises" Width="1.5" PointX="1.5" PointY="27.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Provincias" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Relevamientos" Width="1.5" PointX="9.75" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Telefonos" Width="1.5" PointX="3" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Trampas" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HalconDBModel.Usuarios" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
+      <Diagram DiagramId="78c0b7492f5d4c02a708b89bfa01a130" Name="Diagram1" ZoomLevel="71" DisplayType="false">
+        <EntityTypeShape EntityType="HalconDBModel.Campos" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Clientes" Width="1.5" PointX="3" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Generos" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Insectos" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Lecturas" Width="1.5" PointX="15" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Localidades" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Monitoreos" Width="1.5" PointX="12" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Paises" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Provincias" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Relevamientos" Width="1.5" PointX="9.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Telefonos" Width="1.5" PointX="3" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Trampas" Width="1.5" PointX="7.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HalconDBModel.Usuarios" Width="1.5" PointX="3" PointY="30.25" IsExpanded="true" />
         <AssociationConnector Association="HalconDBModel.FK_Campos_Clientes" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Campos_Estados" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Campos_Localidades" ManuallyRouted="false" />
@@ -38,17 +38,17 @@
         <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Relevamientos" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Provincias_Paises" ManuallyRouted="false" />
         <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Trampas" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HalconDBModel.Umbrales" Width="1.5" PointX="5.75" PointY="7" />
+        <EntityTypeShape EntityType="HalconDBModel.Umbrales" Width="1.5" PointX="5.25" PointY="16.25" />
         <AssociationConnector Association="HalconDBModel.FK_Umbrales_Insectos" />
-        <EntityTypeShape EntityType="HalconDBModel.Mantenimientos" Width="1.5" PointX="9.75" PointY="17.75" />
+        <EntityTypeShape EntityType="HalconDBModel.Mantenimientos" Width="1.5" PointX="9.75" PointY="25.125" />
         <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Trampas" />
         <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Usuarios" />
         <AssociationConnector Association="HalconDBModel.FK_Umbrales_Provincias" />
-        <EntityTypeShape EntityType="HalconDBModel.LecturasManuales" Width="1.5" PointX="12" PointY="5.5" />
+        <EntityTypeShape EntityType="HalconDBModel.LecturasManuales" Width="1.5" PointX="12" PointY="18.25" />
         <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Estados" />
         <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Insectos" />
         <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Relevamientos" />
-        <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="15" PointY="9.75" />
+        <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="12" PointY="13" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Relevamientos" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Umbrales" />
         <EntityTypeShape EntityType="HalconDBModel.AreaRol" Width="1.5" PointX="0.75" PointY="0.75" />
@@ -57,58 +57,6 @@
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Insectos" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Provincias" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Estados" />
-        <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="3" PointY="19.625" />
-        <EntityTypeShape EntityType="HalconDBModel.AreaRol" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Areas" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Campos" Width="1.5" PointX="5.25" PointY="22.875" />
-        <EntityTypeShape EntityType="HalconDBModel.Clientes" Width="1.5" PointX="3" PointY="28.375" />
-        <EntityTypeShape EntityType="HalconDBModel.Estados" Width="1.5" PointX="0.75" PointY="17.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Generos" Width="1.5" PointX="3.75" PointY="11.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Insectos" Width="1.5" PointX="6" PointY="17.625" />
-        <EntityTypeShape EntityType="HalconDBModel.Lecturas" Width="1.5" PointX="13" PointY="16.375" />
-        <EntityTypeShape EntityType="HalconDBModel.LecturasManuales" Width="1.5" PointX="12" PointY="24.625" />
-        <EntityTypeShape EntityType="HalconDBModel.Localidades" Width="1.5" PointX="3" PointY="24.5" />
-        <EntityTypeShape EntityType="HalconDBModel.Mantenimientos" Width="1.5" PointX="10.75" PointY="18.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Monitoreos" Width="1.5" PointX="13" PointY="20.5" />
-        <EntityTypeShape EntityType="HalconDBModel.Paises" Width="1.5" PointX="3.75" PointY="8.875" />
-        <EntityTypeShape EntityType="HalconDBModel.Provincias" Width="1.5" PointX="6" PointY="8.5" />
-        <EntityTypeShape EntityType="HalconDBModel.Relevamientos" Width="1.5" PointX="9.75" PointY="22.875" />
-        <EntityTypeShape EntityType="HalconDBModel.Roles" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Telefonos" Width="1.5" PointX="3" PointY="36" />
-        <EntityTypeShape EntityType="HalconDBModel.Trampas" Width="1.5" PointX="7.5" PointY="22.5" />
-        <EntityTypeShape EntityType="HalconDBModel.Umbrales" Width="1.5" PointX="8.25" PointY="18.25" />
-        <EntityTypeShape EntityType="HalconDBModel.Usuarios" Width="1.5" PointX="3" PointY="14.625" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Insectos" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Provincias" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Relevamientos" />
-        <AssociationConnector Association="HalconDBModel.FK_Alarmas_Umbrales" />
-        <AssociationConnector Association="HalconDBModel.FK_Campos_Clientes" />
-        <AssociationConnector Association="HalconDBModel.FK_Campos_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Campos_Localidades" />
-        <AssociationConnector Association="HalconDBModel.FK_Trampas_Campos" />
-        <AssociationConnector Association="HalconDBModel.FK_Clientes_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Insectos_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Telefonos_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Trampas_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Usuarios_Estados" />
-        <AssociationConnector Association="HalconDBModel.FK_Insectos_Generos" />
-        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Insectos" />
-        <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Insectos" />
-        <AssociationConnector Association="HalconDBModel.FK_Umbrales_Insectos" />
-        <AssociationConnector Association="HalconDBModel.FK_Lecturas_Relevamientos" />
-        <AssociationConnector Association="HalconDBModel.FK_LecturasManuales_Relevamientos" />
-        <AssociationConnector Association="HalconDBModel.FK_Localidades_Provincias" />
-        <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Trampas" />
-        <AssociationConnector Association="HalconDBModel.FK_Mantenimientos_Usuarios" />
-        <AssociationConnector Association="HalconDBModel.FK_Monitoreos_Relevamientos" />
-        <AssociationConnector Association="HalconDBModel.FK_Provincias_Paises" />
-        <AssociationConnector Association="HalconDBModel.FK_Umbrales_Provincias" />
-        <AssociationConnector Association="HalconDBModel.FK_Relevamientos_Trampas" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
