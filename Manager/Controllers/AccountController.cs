@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Manager.Models;
+using System.Web.Security;
+using System.Web.Script.Serialization;
 
 namespace Manager.Controllers
 {
@@ -22,7 +24,7 @@ namespace Manager.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace Manager.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -66,28 +68,58 @@ namespace Manager.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(FormCollection collection, string returnUrl)
         {
+            HalconDBEntities db = new HalconDBEntities();
+
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View();
             }
 
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+            //        return View(model);
+            //}
+
+            Usuarios objUsuario = new Usuarios();
+            Manager.Models.Roles objRol = new Manager.Models.Roles();
+            UsuarioAutenticado objUsuarioAutenticado = new UsuarioAutenticado();
+
+            string sNombreUsuario = collection["NombreUsuario"];
+            string sPassword = collection["Password"];
+
+            objUsuario = (from obj in db.Usuarios where obj.NombreUsuario == sNombreUsuario && obj.Password == sPassword /*&& objUsuario.IdEstado == 1*/ select obj).First();
+            objRol = (from obj in db.Roles where obj.IdRol == objUsuario.IdRol select obj).First();
+
+            objUsuarioAutenticado.Apellido = objUsuario.Apellido;
+            objUsuarioAutenticado.IdUsuario = objUsuario.IdUsuario;
+            objUsuarioAutenticado.Nombre = objUsuario.Nombre;
+            objUsuarioAutenticado.NombreUsuario = objUsuario.NombreUsuario;
+            objUsuarioAutenticado.Rol = objRol.Nombre;
+
+
+            if (objUsuario == null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
+                ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+                return View();
+            }
+            else
+            {
+                this.SetAuthCookie(objUsuario.Nombre + " " + objUsuario.Apellido, false, objUsuarioAutenticado);
+                return RedirectToLocal(returnUrl);
             }
         }
 
@@ -120,7 +152,7 @@ namespace Manager.Controllers
             // Si un usuario introduce códigos incorrectos durante un intervalo especificado de tiempo, la cuenta del usuario 
             // se bloqueará durante un período de tiempo especificado. 
             // Puede configurar el bloqueo de la cuenta en IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,8 +187,8 @@ namespace Manager.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -481,5 +513,26 @@ namespace Manager.Controllers
             }
         }
         #endregion
+
+        public void SetAuthCookie(string userName, bool createPersistentCookie, UsuarioAutenticado userData)
+        {
+            HttpCookie cookie = FormsAuthentication.GetAuthCookie(userName, createPersistentCookie);
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value);
+
+            var json = new JavaScriptSerializer().Serialize(userData);
+
+            UsuarioAutenticado objUsuario = new JavaScriptSerializer().Deserialize<UsuarioAutenticado>(json);
+
+            FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(
+                 ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration
+                , ticket.IsPersistent, json, ticket.CookiePath
+            );
+
+            string encTicket = FormsAuthentication.Encrypt(newTicket);
+            cookie.Value = encTicket;
+            System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+        } // End Sub SetAuthCookie
+
+
     }
 }

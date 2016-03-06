@@ -8,6 +8,7 @@ using System.Data.Entity.Spatial;
 
 namespace Manager.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class CamposController : Controller
     {
         HalconDBEntities db = new HalconDBEntities();
