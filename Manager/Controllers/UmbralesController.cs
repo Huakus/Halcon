@@ -10,6 +10,7 @@ using Manager.Models;
 
 namespace Manager.Controllers
 {
+    [Authorize(Roles = "Resp. Relevamiento")]
     public class UmbralesController : Controller
     {
         private HalconDBEntities db = new HalconDBEntities();

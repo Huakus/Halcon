@@ -11,6 +11,7 @@ using System.Web.Routing;
 
 namespace Manager.Controllers
 {
+    [Authorize(Roles = "Resp. Relevamiento")]
     public class AlarmasController : Controller
     {
         private HalconDBEntities db = new HalconDBEntities();

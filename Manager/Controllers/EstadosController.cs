@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Manager.Controllers
 {
+    [Authorize(Roles = "Resp. Relevamiento")]
     public class EstadosController : Controller
     {
         HalconDBEntities db = new HalconDBEntities();

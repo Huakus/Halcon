@@ -9,6 +9,7 @@ using System.Data;
 
 namespace Manager.Controllers
 {
+    [Authorize(Roles = "Resp. Relevamiento, Direccion")]
     public class ReportesController : Controller
     {
         CultureInfo objCultura = new CultureInfo("es-AR");

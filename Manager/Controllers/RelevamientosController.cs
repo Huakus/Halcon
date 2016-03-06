@@ -11,17 +11,21 @@ using System.Data;
 
 namespace Manager.Controllers
 {
+    
+    //[Authorize(Roles = "Resp. Relevamiento")]
     public class RelevamientosController : Controller
     {
         HalconDBEntities db = new HalconDBEntities();
 
         // GET: Relevamientos
+        [Authorize(Roles = "Resp. Relevamiento, Resp. Conteo")]
         public ActionResult Index()
         {
             return View(db.Relevamientos);
         }
 
         // GET: Relevamientos/Create
+        [Authorize(Roles = "Resp. Relevamiento, Resp. Conteo")]
         public ActionResult Create()
         {
             ViewData["Trampas"] = new SelectList(db.Trampas.ToList(), "IdTrampa", "IdTrampa");
@@ -31,6 +35,7 @@ namespace Manager.Controllers
 
         // POST: Relevamientos/Create
         [HttpPost]
+        [Authorize(Roles = "Resp. Relevamiento, Resp. Conteo")]
         public ActionResult Create(FormCollection collection, HttpPostedFileBase ArchAuto, HttpPostedFileBase ArchManual)
         {
             try
@@ -211,6 +216,7 @@ namespace Manager.Controllers
         }
 
         // GET: Relevamientos/Edit/5
+        [Authorize(Roles = "Resp. Relevamiento")]
         public ActionResult Editar(int id)
         {
             ViewData["Trampas"] = new SelectList(db.Trampas.ToList(), "IdTrampa", "IdTrampa");
@@ -221,6 +227,7 @@ namespace Manager.Controllers
 
         // POST: Relevamientos/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Resp. Relevamiento")]
         public ActionResult Editar(int id, FormCollection collection)
         {
             try
@@ -241,6 +248,7 @@ namespace Manager.Controllers
             }
         }
 
+        [Authorize(Roles = "Resp. Relevamiento")]
         public ActionResult Validar(int id)
         {
             try
@@ -306,6 +314,7 @@ namespace Manager.Controllers
             }
         }
 
+        [Authorize(Roles = "Resp. Relevamiento")]
         public ActionResult Validar1(int id)
         {
             var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
@@ -314,6 +323,7 @@ namespace Manager.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Resp. Relevamiento")]
         public ActionResult Validar2(int id)
         {
             var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
@@ -322,6 +332,7 @@ namespace Manager.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Resp. Relevamiento, Resp. Conteo")]
         public JsonResult InsectosDataHora(int idRelevamiento)
         {
             var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == idRelevamiento select obj).First();
