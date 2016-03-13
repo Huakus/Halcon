@@ -53,7 +53,7 @@ namespace Manager.Controllers
                 objTrampa.IdCampo = int.Parse(collection["IdCampo"]);
                 objTrampa.IdEstado = int.Parse(collection["IdEstado"]);
                 objTrampa.BateriaFElab = DateTime.Parse(collection["BateriaFElab"]);
-                objTrampa.BateriaFElab = DateTime.Parse(collection["BateriaFVenc"]);
+                objTrampa.BateriaFVenc = DateTime.Parse(collection["BateriaFVenc"]);
                 db.Trampas.Add(objTrampa);
                 db.SaveChanges();
                 return RedirectToAction("Index");

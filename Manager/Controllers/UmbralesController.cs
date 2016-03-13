@@ -75,6 +75,7 @@ namespace Manager.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdInsecto = new SelectList(db.Insectos, "IdInsecto", "NombreCientifico", umbrales.IdInsecto);
+            ViewBag.IdProvincia = new SelectList(db.Provincias, "IdProvincia", "Nombre", umbrales.IdProvincia);
             return View(umbrales);
         }
 
@@ -83,7 +84,7 @@ namespace Manager.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdUmbral,IdInsecto,ValorMaximo")] Umbrales umbrales)
+        public ActionResult Edit([Bind(Include = "IdProvincia, IdMes,IdUmbral,IdInsecto,ValorMaximo")] Umbrales umbrales)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +93,7 @@ namespace Manager.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IdInsecto = new SelectList(db.Insectos, "IdInsecto", "NombreCientifico", umbrales.IdInsecto);
+            ViewBag.IdInsecto = new SelectList(db.Insectos, "IdProvincia", "Nombre", umbrales.IdInsecto);
             return View(umbrales);
         }
 

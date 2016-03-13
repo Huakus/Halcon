@@ -1,0 +1,91 @@
+﻿@model Manager.Models.Insectos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Insectos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCientifico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCientifico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreVulgar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreVulgar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ancho)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ancho)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Largo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Largo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrecuenciaMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrecuenciaMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrecuenciaMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrecuenciaMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estados.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estados.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Generos.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Generos.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdInsecto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

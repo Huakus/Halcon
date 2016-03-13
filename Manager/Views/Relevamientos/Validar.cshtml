@@ -31,7 +31,7 @@
         <dt>
             @Html.DisplayNameFor(model => model.Relevamiento.FechaFinal)
         </dt>
-        
+
         <dd>
             @Html.DisplayFor(model => model.Relevamiento.FechaFinal)
         </dd>
@@ -45,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.Label("","Estado")
+            @Html.Label("", "Estado")
         </dt>
 
         <dd>
@@ -65,7 +65,7 @@
         </dt>
 
         <dd>
-            <div id="chart" style="width:80%; height:300px"/>
+            <div id="chart" style="width:80%; height:300px" />
         </dd>
 
     </dl>
@@ -75,7 +75,8 @@
 {
     <div>
         <table class="table">
-            <tr><th>@Html.Label("Alarmas") @Html.ActionLink("Regenerar", "GenerarAlarmas", "Alarmas", new { IdRelevamiento = Model.Relevamiento.IdRelevamiento }, null)</th></tr>
+            @*  <tr><th>@Html.Label("Alarmas") @Html.ActionLink("Regenerar", "GenerarAlarmas", "Alarmas", new { IdRelevamiento = Model.Relevamiento.IdRelevamiento }, null)</th></tr>*@
+
             <tr>
                 <th>
                     @Html.Label("Insecto")
@@ -90,12 +91,13 @@
                 <th>
                     @Html.Label("Tipo")
                 </th>
-                <th>
-                    @Html.Label("Estado")
-                </th>
-                <th>
-                    @Html.Label("Acciones")
-                </th>
+                @*<th>
+                        @Html.Label("Estado")
+                    </th>
+
+                    <th>
+                        @Html.Label("Acciones")
+                    </th>*@
             </tr>
 
             @foreach (var item in Model.Alarmas)
@@ -113,14 +115,15 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Tipo)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Confirmar", "Confirmar", "Alarmas") |
-                        @Html.ActionLink("Desestimar", "Desestimar", "Alarmas") |
-                        @Html.ActionLink("Listado", "Index", "Alarmas")
-                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+
+                        <td>
+                                @Html.ActionLink("Confirmar", "Confirmar", "Alarmas") |
+                                @Html.ActionLink("Desestimar", "Desestimar", "Alarmas") |
+                                @Html.ActionLink("Listado", "Index", "Alarmas")
+                            </td>*@
                 </tr>
             }
 
@@ -168,7 +171,8 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to List", "Index")*@
+    <a href="~/Relevamientos/Index">Back to List</a>
 </p>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

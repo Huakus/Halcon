@@ -145,9 +145,11 @@ namespace Manager.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult GenerarAlarmas(int IdRelevamiento)
+        public ActionResult GenerarAlarmas()
         {
-            var objAlarmasViejas = (from objAlarmas in db.Alarmas where objAlarmas.IdRelevamiento == IdRelevamiento select objAlarmas);
+            var objRelevamiento = (from objRelevamientos in db.Relevamientos orderby objRelevamientos.IdRelevamiento descending select objRelevamientos).First();
+
+            var objAlarmasViejas = (from objAlarmas in db.Alarmas where objAlarmas.IdRelevamiento == objRelevamiento.IdRelevamiento select objAlarmas);
 
             foreach (Alarmas objAlarma in objAlarmasViejas)
             {
@@ -159,7 +161,7 @@ namespace Manager.Controllers
                 (from objLecturasManuales in db.LecturasManuales
                  from objUmbrales in db.Umbrales
                  where objLecturasManuales.IdInsecto == objUmbrales.IdInsecto
-                 && objLecturasManuales.Cantidad > objUmbrales.ValorMaximo && objLecturasManuales.IdRelevamiento == IdRelevamiento
+                 && objLecturasManuales.Cantidad > objUmbrales.ValorMaximo && objLecturasManuales.IdRelevamiento == objRelevamiento.IdRelevamiento
                  select new AlarmasMemoria()
                  {
                      IdRelevamiento = objLecturasManuales.IdRelevamiento,
@@ -173,6 +175,36 @@ namespace Manager.Controllers
                      IdEstado = 2,
                      Observaciones = ""
                  }).ToList<AlarmasMemoria>();
+
+            var objCantAuto = from objLecturas in db.Lecturas
+                              from objInsectos in db.Insectos
+                              where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin && objLecturas.IdRelevamiento == objRelevamiento.IdRelevamiento
+                              group objInsectos by objInsectos.IdInsecto into objGrupo
+                              select new
+                              {
+                                  IdInsecto = objGrupo.Key,
+                                  CantAuto = objGrupo.Count()
+                              };
+
+            var objAlarmasAutomaticas =
+    (from objLecturasAutomaticas in objCantAuto
+     from objUmbrales in db.Umbrales
+     where objLecturasAutomaticas.IdInsecto == objUmbrales.IdInsecto
+     && objLecturasAutomaticas.CantAuto > objUmbrales.ValorMaximo
+     select new AlarmasMemoria()
+     {
+         IdRelevamiento = objRelevamiento.IdRelevamiento,
+         IdUmbral = objUmbrales.IdUmbral,
+         IdInsecto = objLecturasAutomaticas.IdInsecto,
+         ValorMaximo = objUmbrales.ValorMaximo,
+         IdProvincia = objUmbrales.IdProvincia,
+         IdMes = objUmbrales.IdMes,
+         Cantidad = objLecturasAutomaticas.CantAuto,
+         Tipo = "AUTOMATICO",
+         IdEstado = 2,
+         Observaciones = ""
+     }).ToList<AlarmasMemoria>();
+
 
             foreach (AlarmasMemoria obj in objAlarmasManuales)
             {
@@ -190,9 +222,32 @@ namespace Manager.Controllers
 
                 db.Alarmas.Add(objAlarma);
             }
+
+            foreach (AlarmasMemoria obj in objAlarmasAutomaticas)
+            {
+                Alarmas objAlarma = new Alarmas();
+                objAlarma.IdRelevamiento = obj.IdRelevamiento;
+                objAlarma.IdUmbral = obj.IdUmbral;
+                objAlarma.IdInsecto = obj.IdInsecto;
+                objAlarma.ValorMaximo = obj.ValorMaximo;
+                objAlarma.IdProvincia = obj.IdProvincia;
+                objAlarma.IdMes = obj.IdMes;
+                objAlarma.Cantidad = obj.Cantidad;
+                objAlarma.Tipo = obj.Tipo;
+                objAlarma.IdEstado = obj.IdEstado;
+                objAlarma.Observaciones = obj.Observaciones;
+
+                db.Alarmas.Add(objAlarma);
+            }
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+
+            //return RedirectToAction("Validar", "Relevamientos");
+
+            return Redirect("~/Relevamientos/Index");
+
+            //return RedirectToAction("Index");
+
 
             //Redirect("https://localhost:44300/Relevamientos/Validar/" + IdRelevamiento.ToString());
             //return RedirectToAction("Validar", new RouteValueDictionary(new { controller = "Relevamientos", action = "Validar", IdRelevamiento = IdRelevamiento }));

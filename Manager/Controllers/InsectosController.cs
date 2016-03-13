@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,9 +20,18 @@ namespace Manager.Controllers
         }
 
         // GET: Insectos/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Insectos insectos = db.Insectos.Find(id);
+            if (insectos == null)
+            {
+                return HttpNotFound();
+            }
+            return View(insectos);
         }
 
         // GET: Insectos/Create

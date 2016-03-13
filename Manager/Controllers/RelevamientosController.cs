@@ -197,24 +197,18 @@ namespace Manager.Controllers
                             objMonitoreos.FechaMonitoreo = DateTime.Parse(arrDatos[0]);
                             db.Monitoreos.Add(objMonitoreos);
                         }
-                        //db.SaveChanges();
                     }
                     db.SaveChanges();
-
-                    //GenerarAlarmas(id);
-
-                    //return Redirect("~/Relevamientos/Index");
-                    //Response.Redirect("~/Relevamientos/Index");
-                    return Redirect("~/Relevamientos/Index");
+                    return Redirect("~/Alarmas/GenerarAlarmas");
                 }
                 else
                 {
-                    return Redirect("~/Relevamientos/Index");
+                    return View();
                 }
             }
             catch (Exception ex)
             {
-                return View();
+                throw ex;
             }
         }
 

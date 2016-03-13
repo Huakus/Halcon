@@ -411,6 +411,8 @@
     <Content Include="Views\Alarmas\Index.cshtml" />
     <Content Include="Views\Alarmas\IndexByUmbral.cshtml" />
     <Content Include="Views\Campos\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Insectos\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

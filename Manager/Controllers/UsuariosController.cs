@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,9 +19,18 @@ namespace Manager.Controllers
         }
 
         // GET: Usuarios/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Umbrales umbrales = db.Umbrales.Find(id);
+            if (umbrales == null)
+            {
+                return HttpNotFound();
+            }
+            return View(umbrales);
         }
 
         // GET: Usuarios/Create
