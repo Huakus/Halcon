@@ -10,7 +10,7 @@ using Manager.Models;
 
 namespace Manager.Controllers
 {
-    [Authorize(Roles = "Resp. Relevamiento, Resp. Relevamiento")]
+    [Authorize(Roles = "Resp. Relevamiento, Resp. Trampas")]
     public class MantenimientosController : Controller
     {
         private HalconDBEntities db = new HalconDBEntities();

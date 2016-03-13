@@ -204,12 +204,6 @@
     <Compile Include="Models\Alarmas.cs">
       <DependentUpon>BaseHalcon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AreaRol.cs">
-      <DependentUpon>BaseHalcon.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Areas.cs">
-      <DependentUpon>BaseHalcon.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BaseHalcon.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -416,6 +410,7 @@
     <Content Include="Views\Alarmas\Edit.cshtml" />
     <Content Include="Views\Alarmas\Index.cshtml" />
     <Content Include="Views\Alarmas\IndexByUmbral.cshtml" />
+    <Content Include="Views\Campos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

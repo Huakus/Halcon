@@ -21,27 +21,6 @@
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="Observaciones" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="AreaRol">
-          <Key>
-            <PropertyRef Name="IdAreaRol" />
-          </Key>
-          <Property Name="IdAreaRol" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdArea" Type="bigint" Nullable="false" />
-          <Property Name="IdRol" Type="bigint" Nullable="false" />
-          <Property Name="Leer" Type="bit" Nullable="false" />
-          <Property Name="Crear" Type="bit" Nullable="false" />
-          <Property Name="Modificar" Type="bit" Nullable="false" />
-          <Property Name="Eliminar" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Areas">
-          <Key>
-            <PropertyRef Name="IdArea" />
-          </Key>
-          <Property Name="IdArea" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="IdEstado" Type="bigint" Nullable="false" />
-        </EntityType>
         <EntityType Name="Campos">
           <Key>
             <PropertyRef Name="IdCampo" />
@@ -613,8 +592,6 @@
         </Association>
         <EntityContainer Name="HalconDBModelStoreContainer">
           <EntitySet Name="Alarmas" EntityType="Self.Alarmas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AreaRol" EntityType="Self.AreaRol" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
@@ -764,8 +741,6 @@
       <Schema Namespace="HalconDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="HalconDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Alarmas" EntityType="HalconDBModel.Alarmas" />
-          <EntitySet Name="AreaRol" EntityType="HalconDBModel.AreaRol" />
-          <EntitySet Name="Areas" EntityType="HalconDBModel.Areas" />
           <EntitySet Name="Campos" EntityType="HalconDBModel.Campos" />
           <EntitySet Name="Clientes" EntityType="HalconDBModel.Clientes" />
           <EntitySet Name="Estados" EntityType="HalconDBModel.Estados" />
@@ -929,27 +904,6 @@
           <NavigationProperty Name="Provincias" Relationship="HalconDBModel.FK_Alarmas_Provincias" FromRole="Alarmas" ToRole="Provincias" />
           <NavigationProperty Name="Relevamientos" Relationship="HalconDBModel.FK_Alarmas_Relevamientos" FromRole="Alarmas" ToRole="Relevamientos" />
           <NavigationProperty Name="Umbrales" Relationship="HalconDBModel.FK_Alarmas_Umbrales" FromRole="Alarmas" ToRole="Umbrales" />
-        </EntityType>
-        <EntityType Name="AreaRol">
-          <Key>
-            <PropertyRef Name="IdAreaRol" />
-          </Key>
-          <Property Name="IdAreaRol" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdArea" Type="Int64" Nullable="false" />
-          <Property Name="IdRol" Type="Int64" Nullable="false" />
-          <Property Name="Leer" Type="Boolean" Nullable="false" />
-          <Property Name="Crear" Type="Boolean" Nullable="false" />
-          <Property Name="Modificar" Type="Boolean" Nullable="false" />
-          <Property Name="Eliminar" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Areas">
-          <Key>
-            <PropertyRef Name="IdArea" />
-          </Key>
-          <Property Name="IdArea" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IdEstado" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Campos">
           <Key>
@@ -1597,29 +1551,6 @@
                 <ScalarProperty Name="IdUmbral" ColumnName="IdUmbral" />
                 <ScalarProperty Name="IdRelevamiento" ColumnName="IdRelevamiento" />
                 <ScalarProperty Name="IdAlarma" ColumnName="IdAlarma" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AreaRol">
-            <EntityTypeMapping TypeName="HalconDBModel.AreaRol">
-              <MappingFragment StoreEntitySet="AreaRol">
-                <ScalarProperty Name="Eliminar" ColumnName="Eliminar" />
-                <ScalarProperty Name="Modificar" ColumnName="Modificar" />
-                <ScalarProperty Name="Crear" ColumnName="Crear" />
-                <ScalarProperty Name="Leer" ColumnName="Leer" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
-                <ScalarProperty Name="IdAreaRol" ColumnName="IdAreaRol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Areas">
-            <EntityTypeMapping TypeName="HalconDBModel.Areas">
-              <MappingFragment StoreEntitySet="Areas">
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

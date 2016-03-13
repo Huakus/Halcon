@@ -11,16 +11,25 @@ namespace Manager
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapRoute(
+            /*routes.MapRoute(
                 name: "Default2",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = 0 }
-            );
+            );*/
 
+            /*
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+            */
+
+            // Default MVC route (fallback)
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

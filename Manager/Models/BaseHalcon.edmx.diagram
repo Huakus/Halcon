@@ -51,8 +51,6 @@
         <EntityTypeShape EntityType="HalconDBModel.Alarmas" Width="1.5" PointX="12" PointY="13" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Relevamientos" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Umbrales" />
-        <EntityTypeShape EntityType="HalconDBModel.AreaRol" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HalconDBModel.Areas" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="HalconDBModel.Roles" Width="1.5" PointX="2.75" PointY="3.75" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Insectos" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Provincias" />

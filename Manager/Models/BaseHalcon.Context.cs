@@ -26,8 +26,6 @@ namespace Manager.Models
         }
     
         public virtual DbSet<Alarmas> Alarmas { get; set; }
-        public virtual DbSet<AreaRol> AreaRol { get; set; }
-        public virtual DbSet<Areas> Areas { get; set; }
         public virtual DbSet<Campos> Campos { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Estados> Estados { get; set; }

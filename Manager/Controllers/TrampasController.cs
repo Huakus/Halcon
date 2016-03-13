@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Manager.Controllers
 {
-    [Authorize(Roles = "Resp. Relevamiento, Resp. Relevamiento")]
+    [Authorize(Roles = "Resp. Relevamiento, Resp. Trampas")]
     public class TrampasController : Controller
     {
         HalconDBEntities db = new HalconDBEntities();
@@ -17,7 +17,7 @@ namespace Manager.Controllers
             return View(db.Trampas.ToList());
         }
 
-        public ActionResult IndexByCampo(long idCampo)
+        public ActionResult IndexByCampo(int idCampo)
         {
             var objTrampas = (from obj in db.Trampas where obj.IdCampo == idCampo select obj).ToList<Trampas>();
             if (objTrampas == null)

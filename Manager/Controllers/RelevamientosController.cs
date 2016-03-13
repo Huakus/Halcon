@@ -58,6 +58,7 @@ namespace Manager.Controllers
 
                     Relevamientos objRelevamiento = new Relevamientos();
                     objRelevamiento.Observaciones = collection["Observaciones"];
+                    objRelevamiento.FechaCarga = DateTime.Now;
                     objRelevamiento.FechaInicio = DateTime.Parse(lineasArchAuto[0].Split(';')[0].ToString());
                     objRelevamiento.FechaFinal = DateTime.Parse(lineasArchAuto[lineasArchAuto.Length - 1].Split(';')[0].ToString());
                     objRelevamiento.IdEstado = 1;
@@ -202,11 +203,13 @@ namespace Manager.Controllers
 
                     //GenerarAlarmas(id);
 
-                    return RedirectToAction("Index");
+                    //return Redirect("~/Relevamientos/Index");
+                    //Response.Redirect("~/Relevamientos/Index");
+                    return Redirect("~/Relevamientos/Index");
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    return Redirect("~/Relevamientos/Index");
                 }
             }
             catch (Exception ex)
@@ -240,7 +243,7 @@ namespace Manager.Controllers
                 objRelevamiento.IdTrampa = int.Parse(collection["IdTrampa"]);
                 objRelevamiento.Observaciones = collection["Observaciones"];
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("~/Relevamientos/Index");
             }
             catch
             {
@@ -320,7 +323,7 @@ namespace Manager.Controllers
             var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
             objRelevamiento.IdEstado = 1;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("~/Relevamientos/Index");
         }
 
         [Authorize(Roles = "Resp. Relevamiento")]
@@ -329,7 +332,7 @@ namespace Manager.Controllers
             var objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
             objRelevamiento.IdEstado = 2;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Redirect("~/Relevamientos/Index");
         }
 
         [Authorize(Roles = "Resp. Relevamiento, Resp. Conteo")]

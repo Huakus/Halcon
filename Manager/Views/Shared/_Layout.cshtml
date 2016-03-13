@@ -36,7 +36,6 @@
                             <li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>
                             <li>@Html.ActionLink("Campos", "Index", "Campos")</li>
                             <li>@Html.ActionLink("Trampas", "Index", "Trampas")</li>
-                            <li>@Html.ActionLink("Agenda (actualizar)", "Index", "Clientes")</li>
                         </ul>
                     </li>
                     <li>
@@ -48,9 +47,9 @@
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relevamientos<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Relevamientos", "Index", "Relevamientos")</li>
-                            <li>@Html.ActionLink("Alarmas (actualizar)", "Index", "Alarmas")</li>
-                            <li>@Html.ActionLink("Umbrales de alarmas (actualizar)", "Index", "Umbrales")</li>
+                            @*<li>@Html.ActionLink("Relevamientos", "Index", "Relevamientos")</li>*@
+                            <li><a href="~/Relevamientos/Index">Relevamientos</a></li>
+                            <li>@Html.ActionLink("Umbrales de alarmas", "Index", "Umbrales")</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
