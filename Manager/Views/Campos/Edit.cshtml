@@ -8,12 +8,11 @@
 
 <head>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             map = new GMaps({
                 div: '#mapa',
                 lat: @Model.LatLong.Latitude.ToString().Replace(',', '.'),
                 lng: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
-
             });
 
             map.addMarker({
@@ -21,7 +20,7 @@
                 lng: @Model.LatLong.Longitude.ToString().Replace(',', '.'),
             });
 
-            GMaps.on('click', map.map, function(event) {
+            GMaps.on('click', map.map, function (event) {
                 var index = map.markers.length;
                 var lat = event.latLng.lat();
                 var lng = event.latLng.lng();
@@ -41,7 +40,6 @@
 
 
     </script>
-
 </head>
 
 
@@ -75,7 +73,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdLocalidad, "IdLocalidad", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdLocalidad, "Localidad", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdLocalidad", (SelectList)ViewData["Localidades"], htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdLocalidad, "", new { @class = "text-danger" })
@@ -99,7 +97,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdEstado, "IdEstado", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdEstado, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdEstado", (SelectList)ViewData["Estados"], htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdEstado, "", new { @class = "text-danger" })
@@ -107,7 +105,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdCliente, "IdCliente", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdCliente, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdCliente", (SelectList)ViewData["Clientes"], htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })

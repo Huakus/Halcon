@@ -71,6 +71,7 @@ namespace Manager.Controllers
         public ActionResult Edit(int id)
         {
             ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
+            ViewData["Roles"] = new SelectList(db.Roles.ToList(), "IdRol", "Nombre");
             var objUsuario = (from obj in db.Usuarios where obj.IdUsuario == id select obj).First();
             return View(objUsuario);
         }

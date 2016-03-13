@@ -45,19 +45,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FrecuenciaMax)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FrecuenciaMax)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.FrecuenciaMin)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.FrecuenciaMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrecuenciaMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrecuenciaMax)
         </dd>
 
         <dt>
@@ -69,7 +69,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Estados.Nombre)
+            @*@Html.DisplayNameFor(model => model.Estados.Nombre)*@
+            @Html.Label("Estado")
         </dt>
 
         <dd>
@@ -77,7 +78,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Generos.Nombre)
+            @*@Html.DisplayNameFor(model => model.Generos.Nombre)*@
+            @Html.Label("Genero")
         </dt>
 
         <dd>

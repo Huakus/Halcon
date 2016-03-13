@@ -84,6 +84,9 @@ namespace Manager.Controllers
                 var objTrampa = (from obj in db.Trampas where obj.IdTrampa == id select obj).First();
                 objTrampa.IdCampo = int.Parse(collection["IdCampo"]);
                 objTrampa.IdEstado = int.Parse(collection["IdEstado"]);
+                objTrampa.IdUsuario = int.Parse(collection["IdUsuario"]);
+                objTrampa.BateriaFElab = DateTime.Parse(collection["BateriaFElab"]);
+                objTrampa.BateriaFVenc = DateTime.Parse(collection["BateriaFVenc"]);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

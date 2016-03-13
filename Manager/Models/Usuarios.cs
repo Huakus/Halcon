@@ -34,5 +34,6 @@ namespace Manager.Models
         public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mantenimientos> Mantenimientos { get; set; }
+        public virtual Roles Roles { get; set; }
     }
 }

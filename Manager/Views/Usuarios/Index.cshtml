@@ -31,13 +31,15 @@
             @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdRol)
+            @*@Html.DisplayNameFor(model => model.IdRol)*@
+            @Html.Label("Rol")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Observaciones)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estados.Nombre)
+            @*@Html.DisplayNameFor(model => model.Estados.Nombre)*@
+            @Html.Label("Estado")
         </th>
         <th></th>
     </tr>
@@ -63,7 +65,7 @@
             @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdRol)
+            @Html.DisplayFor(modelItem => item.Roles.Nombre)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Observaciones)

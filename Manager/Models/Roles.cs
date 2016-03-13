@@ -14,9 +14,18 @@ namespace Manager.Models
     
     public partial class Roles
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Roles()
+        {
+            this.Usuarios = new HashSet<Usuarios>();
+        }
+    
         public int IdRol { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public long IdEstado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }

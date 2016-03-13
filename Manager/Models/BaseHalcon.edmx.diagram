@@ -55,6 +55,7 @@
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Insectos" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Provincias" />
         <AssociationConnector Association="HalconDBModel.FK_Alarmas_Estados" />
+        <AssociationConnector Association="HalconDBModel.FK_Usuarios_Roles" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

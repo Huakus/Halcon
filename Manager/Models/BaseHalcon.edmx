@@ -590,6 +590,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HalconDBModelStoreContainer">
           <EntitySet Name="Alarmas" EntityType="Self.Alarmas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
@@ -732,6 +744,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Usuarios_Estados" Association="Self.FK_Usuarios_Estados">
             <End Role="Estados" EntitySet="Estados" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
@@ -882,6 +898,10 @@
           <AssociationSet Name="FK_Relevamientos_Trampas" Association="HalconDBModel.FK_Relevamientos_Trampas">
             <End Role="Trampas" EntitySet="Trampas" />
             <End Role="Relevamientos" EntitySet="Relevamientos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="HalconDBModel.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Alarmas">
@@ -1100,6 +1120,7 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IdEstado" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="HalconDBModel.FK_Usuarios_Roles" FromRole="Roles" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Telefonos">
           <Key>
@@ -1158,6 +1179,7 @@
           <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Estados" Relationship="HalconDBModel.FK_Usuarios_Estados" FromRole="Usuarios" ToRole="Estados" />
           <NavigationProperty Name="Mantenimientos" Relationship="HalconDBModel.FK_Mantenimientos_Usuarios" FromRole="Usuarios" ToRole="Mantenimientos" />
+          <NavigationProperty Name="Roles" Relationship="HalconDBModel.FK_Usuarios_Roles" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
         <Association Name="FK_Alarmas_Estados">
           <End Type="HalconDBModel.Estados" Role="Estados" Multiplicity="1" />
@@ -1528,6 +1550,18 @@
             </Principal>
             <Dependent Role="Relevamientos">
               <PropertyRef Name="IdTrampa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Type="HalconDBModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="HalconDBModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="IdRol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

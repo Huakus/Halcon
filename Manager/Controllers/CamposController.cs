@@ -33,7 +33,7 @@ namespace Manager.Controllers
         // GET: Campos/Create
         public ActionResult Create()
         {
-            ViewData["Clientes"] = new SelectList(db.Clientes.ToList(), "IdCliente", "Nombre");
+            ViewData["Clientes"] = new SelectList(db.Clientes.ToList(), "IdCliente", "Apellido");
             ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
             ViewData["Localidades"] = new SelectList(db.Localidades.ToList(), "IdLocalidad", "Nombre");
             return View();
@@ -52,7 +52,7 @@ namespace Manager.Controllers
                 objCampo.IdCliente = int.Parse(collection["IdCliente"]);
                 objCampo.IdEstado = int.Parse(collection["IdEstado"]);
                 objCampo.IdLocalidad = int.Parse(collection["IdLocalidad"]);
-                objCampo.LatLong = DbGeography.FromText(string.Format("POINT({0} {1})", collection["LatLong.Latitude"], collection["LatLong.Longitude"]));
+                objCampo.LatLong = DbGeography.FromText(string.Format("POINT({0} {1})", collection["LatLong.Longitude"], collection["LatLong.Latitude"]));
                 objCampo.Numero = int.Parse(collection["Numero"]);
                 objCampo.Observaciones = collection["Observaciones"];
                 db.Campos.Add(objCampo);
@@ -68,7 +68,7 @@ namespace Manager.Controllers
         // GET: Campos/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewData["Clientes"] = new SelectList(db.Clientes.ToList(), "IdCliente", "Nombre");
+            ViewData["Clientes"] = new SelectList(db.Clientes.ToList(), "IdCliente", "Apellido");
             ViewData["Estados"] = new SelectList(db.Estados.ToList(), "IdEstado", "Nombre");
             ViewData["Localidades"] = new SelectList(db.Localidades.ToList(), "IdLocalidad", "Nombre");
             ViewBag.Latitud = Latitud;

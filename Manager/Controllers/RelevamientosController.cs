@@ -253,7 +253,7 @@ namespace Manager.Controllers
                 Relevamientos objRelevamiento = (from obj in db.Relevamientos where obj.IdRelevamiento == id select obj).First();
                 var objCantAuto = from objLecturas in db.Lecturas
                                   from objInsectos in db.Insectos
-                                  where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin
+                                  where objLecturas.Frecuencia <= objInsectos.FrecuenciaMax && objLecturas.Frecuencia >= objInsectos.FrecuenciaMin && objLecturas.IdRelevamiento == id
                                   group objInsectos by objInsectos.IdInsecto into objGrupo
                                   select new
                                   {
@@ -263,7 +263,7 @@ namespace Manager.Controllers
 
                 var objCantMan = from objLecturasManuales in db.LecturasManuales
                                  from objInsectos in db.Insectos
-                                 where objLecturasManuales.IdInsecto == objInsectos.IdInsecto
+                                 where objLecturasManuales.IdInsecto == objInsectos.IdInsecto && objLecturasManuales.IdRelevamiento == id
                                  select new
                                  {
                                      objInsectos.IdInsecto,

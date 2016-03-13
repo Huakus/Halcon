@@ -19,16 +19,19 @@
             @Html.DisplayNameFor(model => model.Numero)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdCliente)
+            @*@Html.DisplayNameFor(model => model.IdCliente)*@
+            @Html.Label("Cliente")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Observaciones)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estados.Nombre)
+            @*@Html.DisplayNameFor(model => model.Estados.Nombre)*@
+            @Html.Label("Estado")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Localidades.Nombre)
+            @*@Html.DisplayNameFor(model => model.Localidades.Nombre)*@
+            @Html.Label("Localidad")
         </th>
         <th></th>
     </tr>
@@ -42,7 +45,7 @@
             @Html.DisplayFor(modelItem => item.Numero)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdCliente)
+            @Html.DisplayFor(modelItem => item.Clientes.Apellido)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Observaciones)
